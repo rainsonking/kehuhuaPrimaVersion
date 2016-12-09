@@ -74,29 +74,14 @@ public class StuInfoActivity extends AppCompatActivity {
 
         CommonToolbar mToolbar = (CommonToolbar) findViewById(R.id.common_toolbar);
         mToolbar.setTitle("个人资料");
-        mToolbar.showRightTextView();
-        mToolbar.setRightTextView("修改");
         mToolbar.setLeftButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        mToolbar.setRightTextViewOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (operaButtonSet != null && operaButtonSet.size() > 0) {
-                    Intent intent = new Intent(StuInfoActivity.this, OperateDataActivity.class);
-                    intent.putExtra("itemSet", operaButtonSet.toString());
-                    Log.e(TAG, operaButtonSet.toString());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(StuInfoActivity.this, "暂时不能修改！", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         //下拉刷新设置
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         //设置下拉刷新监听
@@ -107,6 +92,7 @@ public class StuInfoActivity extends AppCompatActivity {
                 new LoadDataThread().start();
             }
         });
+
 
     }
 
@@ -136,7 +122,6 @@ public class StuInfoActivity extends AppCompatActivity {
 
     @SuppressWarnings("unchecked")
     public void requestSet() {
-
         final String volleyUrl = Constant.sysUrl + Constant.requestListSet;
         Log.e("TAG", "学员端请求个人信息地址：" + volleyUrl);
 //参数
@@ -153,18 +138,14 @@ public class StuInfoActivity extends AppCompatActivity {
                 .execute(new EdusStringCallback(StuInfoActivity.this) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ErrorToast.errorToast(mContext, e);
-                        Log.e(TAG, "onError: Call  " + call + "  id  " + id);
+                        ErrorToast.errorToast(mContext,e);
+                        Log.e(TAG, "onError: Call  "+call+"  id  "+id);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(TAG, "onResponse: " + "  id  " + id);
-                        if (response != null && response.length() > 0) {
-                            setStore(response);
-                        } else {
-                            Toast.makeText(StuInfoActivity.this, "暂时没有个人信息", Toast.LENGTH_SHORT).show();
-                        }
+                        Log.e(TAG, "onResponse: "+"  id  "+id);
+                        setStore(response);
                     }
                 });
     }
@@ -173,7 +154,7 @@ public class StuInfoActivity extends AppCompatActivity {
 
     @SuppressWarnings("unchecked")
     private void setStore(String jsonData) {
-        String jsonData1 = jsonData.replaceAll("00:00:00", "");
+        String jsonData1=jsonData.replaceAll("00:00:00","");
         Map<String, Object> stuInfoMap = null;
         try {
             stuInfoMap = Utils.str2map(jsonData1);
@@ -183,23 +164,10 @@ public class StuInfoActivity extends AppCompatActivity {
         List<Map<String, Object>> dataList = new ArrayList<>();
         Map<String, Object> pageSet;
         try {
-            if (stuInfoMap != null && stuInfoMap.size() > 0) {
-                dataList = (List<Map<String, Object>>) stuInfoMap.get("dataList");
-                pageSet = (Map<String, Object>) stuInfoMap.get("pageSet");
-                fieldSet = (List<Map<String, Object>>) pageSet.get("fieldSet");
-                if (pageSet.containsKey("operaButtonSet")) {
-                    List<Map<String, Object>> operaButtonSetList = (List<Map<String, Object>>) pageSet.get("operaButtonSet");
-                    if (operaButtonSetList != null && operaButtonSetList.size() > 0) {
-                        operaButtonSet.clear();
-                        operaButtonSet = operaButtonSetList.get(0);
-                        operaButtonSet.put("tableIdList", Constant.teachPerTABLEID);
-                        operaButtonSet.put("pageIdList", Constant.teachPerPAGEID);
-                    }
-                }
-                Log.e("fieldSet", fieldSet.toString());
-            }else {
-                Toast.makeText(StuInfoActivity.this, "暂时没有个人信息", Toast.LENGTH_SHORT).show();
-            }
+            dataList = (List<Map<String, Object>>) stuInfoMap.get("dataList");
+            pageSet= (Map<String, Object>) stuInfoMap.get("pageSet");
+            fieldSet = (List<Map<String, Object>>) pageSet.get("fieldSet");
+            Log.e("fieldSet",fieldSet.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,15 +175,15 @@ public class StuInfoActivity extends AppCompatActivity {
         if (dataList.size() > 0) {
 //            dataList.remove(dataList.size()-1);
 //            dataList.remove(dataList.size()-1);
-            if (stuInfo == null) {
+            if (stuInfo==null) {
                 stuInfo = unionAnalysis(dataList);
 //                stuInfo.remove(stuInfo.size()-1);
 //                stuInfo.remove(stuInfo.size()-1);
                 Log.e("TAG", "=================" + stuInfo.toString());
                 //设置适配器
-                adapter = new StuInfoAdapter(stuInfo, StuInfoActivity.this);
+                adapter = new StuInfoAdapter(stuInfo,StuInfoActivity.this);
                 stuInfoLv.setAdapter(adapter);
-            } else {
+            }else{
                 stuInfo.removeAll(stuInfo);
                 stuInfo.addAll(unionAnalysis(dataList));
 //                stuInfo.remove(stuInfo.size()-1);

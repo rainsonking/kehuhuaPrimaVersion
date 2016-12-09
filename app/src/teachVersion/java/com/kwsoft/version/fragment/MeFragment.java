@@ -166,16 +166,16 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                     }
                 }
                 requestSet();
-            } else {
-                Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
             }
+//            else {
+//                Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
+//            }
             Log.e("TAG", "获得学员端菜单数据：" + meStr);
 
         }
     }
 
     private void getMeTableId(String meStr, List<Map<String, Object>> meListMap) {
-        Log.e(TAG, "getMeTableId: meListMap " + meListMap.toString());
         if (meStr != null) {
             try {
                 meListMap = JSON.parseObject(meStr,
@@ -199,19 +199,14 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 //                        Constant.teachBackTABLEID = map.get("tableId").toString();
 //                    }
                 }
-
-
-            } else {
-                Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
+                // requestSet();
             }
+//            else {
+//                Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
+//            }
             Log.e("TAG", "获得学员端菜单数据：" + meStr);
 
         }
-//        if (!Constant.teachPerTABLEID.equals("")&&!Constant.teachPerPAGEID.equals("")) {
-        getData();
-//        }else{
-//            Toast.makeText(getActivity(), "缺少参数", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     //    private Map<String, String> paramsMap=;
@@ -273,7 +268,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
      * 获取个人信息、主要校区
      */
     public void requestSet() {
-
         final String volleyUrl = Constant.sysUrl + Constant.requestListSet;
         Log.e("TAG", "学员端请求个人信息地址：" + volleyUrl);
 //参数

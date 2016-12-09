@@ -68,8 +68,8 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
     private TextView stuName;
     private StudyGridView homeGridView;
     private List<Map<String, Object>> parentList = new ArrayList<>();
-    private int[] image = {R.mipmap.edus_see_set_tody, R.mipmap.edus_see_form_tomorrow,
-            R.mipmap.edus_see_scan, R.mipmap.edus_see_news};
+    private int[] image = {R.mipmap.edus_see_scan, R.mipmap.edus_see_form,
+            R.mipmap.edus_see_news, R.mipmap.edus_see_set};
     private int[] imgs2 = {R.mipmap.k1, R.mipmap.k2,
             R.mipmap.k3, R.mipmap.k4, R.mipmap.k5,
             R.mipmap.k6, R.mipmap.k7, R.mipmap.k8,
@@ -181,36 +181,27 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 
     private void setMenuModel() {
         //菜单列表中的gridview数据
-        if ((homePageListstr != null) && (homePageListstr.length() > 0)) {
-            homePagelistMap = JSON.parseObject(homePageListstr,
-                    new TypeReference<List<Map<String, Object>>>() {
-                    });
-            if ((homePagelistMap != null) && (homePagelistMap.size() > 0)) {
-                menuListAll.clear();
-                String menuName;
-                for (int i = 0; i < homePagelistMap.size(); i++) {
-                    Map<String, Object> map = homePagelistMap.get(i);
-                    menuName = map.get("menuName").toString();
-                    map.put("menuName", map.get("menuName").toString().replace("手机端", ""));
-                    map.put("image", image[i]);
-                    menuListAll.add(map);
-                    if (menuName.contains("Today")) {
-                        todayPageId = map.get("pageId").toString();
-                        todayTableid = map.get("tableId").toString();
-                        continue;
-                    } else if (menuName.contains("Tomorrow")) {
-                        tomorrowPageId = map.get("pageId").toString();
-                        tomorrowTableId = map.get("tableId").toString();
-                        continue;
-                    }
-                }
-            } else {
-                initModel();
-            }
-        } else {
-            initModel();
+//        if ((homePageListstr != null) && (homePageListstr.length() > 0)) {
+//            List<Map<String, Object>> listMap = JSON.parseObject(homePageListstr,
+//                    new TypeReference<List<Map<String, Object>>>() {
+//                    });
+//            if ((listMap != null) && (listMap.size() > 0)) {
+//                int leg;
+//                menuListAll.clear();
+//                for (int i = 0; i < listMap.size(); i++) {
+//                    Map<String, Object> map = listMap.get(i);
+//                    leg = (map.get("menuName").toString()).length();
+//                    map.put("menuName", map.get("menuName").toString().substring(0,leg-5));
+//                    map.put("image", image[i]);
+//                    menuListAll.add(map);
+//                }
+//            } else {
+//                initModel();
+//            }
+//        } else {
+        initModel();
 
-        }
+        //   }
         setMenuAdapter(menuListAll);
     }
 
@@ -291,10 +282,10 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 
     private void initModel() {
         Map<String, Object> map = new HashMap<>();
-        map.put("menuName", "扫码考勤");
-        map.put("image", image[0]);
-        menuListAll.add(map);
-        map = new HashMap<>();
+//        map.put("menuName", "扫码考勤");
+//        map.put("image", image[0]);
+//        menuListAll.add(map);
+//        map = new HashMap<>();
         map.put("menuName", "报表管理");
         map.put("image", image[1]);
         menuListAll.add(map);
@@ -317,60 +308,35 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setMenuAdapter(final List<Map<String, Object>> menuListMaps) {
-        final SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), menuListMaps,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), menuListMaps,
                 R.layout.fragment_study_gridview_item, new String[]{"image", "menuName"},
                 new int[]{R.id.itemImage, R.id.itemName});
         gridView.setAdapter(simpleAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                if (homePagelistMap != null && homePagelistMap.size() > 0) {
-                                                    Map<String, Object> map = menuListMaps.get(i);
-                                                    String menuName = map.get("menuName") + "";
-                                                    if ("Today".equals(menuName)) {
-                                                        //今日课表
-                                                        Intent intent = new Intent(getActivity(), TodayCourseTableActivity.class);
-                                                        intent.putExtra("todayPageId", todayPageId);
-                                                        intent.putExtra("todayTableid", todayTableid);
-                                                        intent.putExtra("isToday", "1");
-                                                        intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
-                                                        startActivity(intent);
-                                                    } else if ("Tomorrow".equals(menuName)) {
-                                                        //明日课表
-                                                        Intent intent = new Intent(getActivity(), TodayCourseTableActivity.class);
-                                                        intent.putExtra("tomorrowPageId", tomorrowPageId);
-                                                        intent.putExtra("tomorrowTableId", tomorrowTableId);
-                                                        intent.putExtra("isToday", "2");
-                                                        intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
-                                                        startActivity(intent);
-                                                    } else {
-                                                        DataProcess.toList(getActivity(), menuListMaps.get(i));
-                                                    }
-                                                } else {
-                                                    if (i == 0) {
-                                                        PermissionGen.needPermission(StudyFragment.this, 106,
-                                                                new String[]{
-                                                                        Manifest.permission.CAMERA,
-                                                                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                                                }
-                                                        );
-                                                    } else if (i == 1) {
-                                                        Intent intent = new Intent(getActivity(), ChartActivity.class);
-                                                        intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
-                                                        startActivity(intent);
-                                                    } else if (i == 2) {
-                                                        Intent intent = new Intent(getActivity(), MessagAlertActivity.class);
-                                                        startActivity(intent);
-                                                    } else if (i == 3) {
-                                                        Intent intent = new Intent(getActivity(), BlankActivity.class);
-                                                        intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
-                                                        startActivity(intent);
-                                                    }
-                                                }
-                                            }
-                                        }
-
-        );
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i == 0) {
+//                    PermissionGen.needPermission(StudyFragment.this, 106,
+//                            new String[]{
+//                                    Manifest.permission.CAMERA,
+//                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                            }
+//                    );
+//                } else
+                if (i == 0) {
+                    Intent intent = new Intent(getActivity(), ChartActivity.class);
+                    intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
+                    startActivity(intent);
+                } else if (i == 1) {
+                    Intent intent = new Intent(getActivity(), MessagAlertActivity.class);
+                    startActivity(intent);
+                } else if (i == 2) {
+                    Intent intent = new Intent(getActivity(), BlankActivity.class);
+                    intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private static final String TAG = "StudyFragment";
@@ -419,8 +385,8 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
                 cnName = String.valueOf(listMap.get(i).get("cnName"));
                 map.put("ctType", "3");
                 map.put("cnName", cnName);
-                // int j = i % 4;
-                map.put("image", imgs2[i]);
+                int j = i % 4;
+                map.put("image", imgs2[j]);
                 map.put("SourceDataId", listMap.get(i).get("homeSetId") + "_" + listMap.get(i).get("index"));
                 map.put("penetratePageId", listMap.get(i).get("phonePageId"));
                 map.put("tableId", listMap.get(i).get("tableId"));
@@ -641,12 +607,12 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
             //在更新UI后，无需其它Refresh操作，系统会自己加载新的listView
             pull_refresh_scrollview.onRefreshComplete();
             pull_refresh_scrollview.onRefreshComplete();
-            if (isResume == 0) {
+            if (isResume==0) {
                 Toast.makeText(getActivity(), "数据已刷新", Toast.LENGTH_SHORT).show();
             }
 
 
-            isResume = 0;
+            isResume=0;
         } catch (Exception e) {
             e.printStackTrace();
         }

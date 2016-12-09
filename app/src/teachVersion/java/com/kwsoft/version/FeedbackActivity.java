@@ -190,8 +190,6 @@ public class FeedbackActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

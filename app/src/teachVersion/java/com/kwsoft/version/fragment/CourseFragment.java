@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import noman.weekcalendar.WeekCalendar;
 import noman.weekcalendar.WeekCalendarTeach;
 import noman.weekcalendar.WeekDateChaListener;
 import noman.weekcalendar.listener.OnDateClickListener;
@@ -54,7 +55,7 @@ import static android.content.ContentValues.TAG;
 public class CourseFragment extends Fragment implements OnDataListener, WeekDateChaListener {
     private TextView tvTitle;
 
-    private WeekCalendarTeach weekCalendar;
+    private WeekCalendar weekCalendar;
     private List<Map<String, Object>> list = new ArrayList<>();
     private List<Map<String, Object>> listQingjia;
     //    private CourseGridView courseGridView;
@@ -200,7 +201,7 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
                 datePickerDialog.show(getFragmentManager(), "datepicker");
             }
         });
-        weekCalendar = (WeekCalendarTeach) view.findViewById(R.id.weekCalendar);
+        weekCalendar = (WeekCalendar) view.findViewById(R.id.weekCalendar);
         weekCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(DateTime dateTime) {

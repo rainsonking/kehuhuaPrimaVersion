@@ -75,7 +75,7 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <noman.weekcalendar.WeekCalendarTeach
+        <noman.weekcalendar.WeekCalendar
             android:id="@+id/weekCalendar"
             android:layout_width="match_parent"
             android:layout_height="66dp"
