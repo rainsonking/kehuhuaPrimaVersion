@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    },
+    {
+        "merged": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    }
+]
