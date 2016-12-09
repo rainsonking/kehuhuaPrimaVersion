@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
+        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
+    },
+    {
         "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
         "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
     },
@@ -22,5 +26,13 @@
     {
         "merged": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
         "source": "D:\\kehuhua\\kehuhuanew\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
+        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
     }
 ]
