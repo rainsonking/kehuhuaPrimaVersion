@@ -71,11 +71,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     public static boolean isForeground = false;
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,14 +78,14 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //        getSupportActionBar().hide();
         CloseActivityClass.activityList.add(this);
         sPreferences = getSharedPreferences(Constant.proId, MODE_PRIVATE);
-        useridOld = sPreferences.getString("useridOld", "");
+        //useridOld = sPreferences.getString("useridOld", "");
 
         initView();
         initFragment();
-        if (!Constant.USERID.equals(useridOld)) {
-            initDialog();
-            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
-        }
+//        if (!Constant.USERID.equals(useridOld)) {
+//            initDialog();
+//            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
+//        }
         PgyUpdateManager.register(this);
         Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
@@ -200,13 +195,8 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 
         Intent intent = getIntent();
         arrStr = intent.getStringExtra("jsonArray");
-//        menuList = intent.getStringExtra("menuList");
-        menuList = "";
-        hideMenuList = intent.getStringExtra("hideMenuList");
+        menuList = intent.getStringExtra("menuList");
         menuDataMap = intent.getStringExtra("menuDataMap");
-        feedbackInfoList = intent.getStringExtra("feedbackInfoList");
-        Log.e("hidemel", JSON.toJSONString(hideMenuList));
-        Log.e("feedb", JSON.toJSONString(feedbackInfoList));
 
         mToolbar = (CnToolbar) findViewById(R.id.stu_toolbar);
 //        Resources resources = mContext.getResources().getDrawable(R.drawable.nav_news);
@@ -257,11 +247,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         menuBundle.putString("menuDataMap", menuDataMap);
         menuFragment.setArguments(menuBundle);
 
-        Bundle meBundle = new Bundle();
-        meBundle.putString("hideMenuList", hideMenuList);
-        meBundle.putString("feedbackInfoList", feedbackInfoList);
-        meFragment.setArguments(meBundle);
-
         List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(studyFragment);
         mFragments.add(menuFragment);
@@ -293,6 +278,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
             }
         });
     }
+
     @Override
     protected void onResume() {
         isForeground = true;
@@ -305,7 +291,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         isForeground = false;
         super.onPause();
     }
-
 
 
     public void fragmentClick() {
@@ -445,8 +430,8 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private void setCostomMsg(String msg){
-        Log.e(TAG, "setCostomMsg: msg "+msg);
+    private void setCostomMsg(String msg) {
+        Log.e(TAG, "setCostomMsg: msg " + msg);
     }
 }
 

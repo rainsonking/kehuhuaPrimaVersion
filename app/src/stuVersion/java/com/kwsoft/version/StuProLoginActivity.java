@@ -36,12 +36,11 @@ public class StuProLoginActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_pro_login);
-       initJudgeSave();
+        initJudgeSave();
     }
 
     @Override
@@ -69,12 +68,13 @@ public class StuProLoginActivity extends BaseActivity {
                 Toast.makeText(this, "当前项目链接可能出错", Toast.LENGTH_LONG).show();
                 toLoginPage();
             }
-        }else{
+        } else {
             toLoginPage();
         }
     }
 
     private static final String TAG = "StuProLoginActivity";
+
     /**
      * 根据用户输入的用户名和密码，
      * 通过网络地址获取JSON数据，
@@ -83,7 +83,7 @@ public class StuProLoginActivity extends BaseActivity {
     public void postLogin() {
         if (!hasInternetConnected()) {
             Toast.makeText(this, "当前网络不可用，请检查网络！", Toast.LENGTH_SHORT).show();
-           toLoginPage();
+            toLoginPage();
         } else {
             if (!nameValue.equals("") && !pwdValue.equals("")) {//判断用户名密码非空
                 final String volleyUrl = Constant.sysUrl + Constant.projectLoginUrl;
@@ -106,14 +106,14 @@ public class StuProLoginActivity extends BaseActivity {
                         .execute(new EdusStringCallback(StuProLoginActivity.this) {
                             @Override
                             public void onError(Call call, Exception e, int id) {
-                                ErrorToast.errorToast(mContext,e);
+                                ErrorToast.errorToast(mContext, e);
                                 dialog.dismiss();
                                 toLoginPage();
                             }
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Log.e(TAG, "onResponse: "+response+"  id  "+id);
+                                Log.e(TAG, "onResponse: " + response + "  id  " + id);
                                 check(response);
                             }
                         });
@@ -165,62 +165,14 @@ public class StuProLoginActivity extends BaseActivity {
             String userid = String.valueOf(loginfo.get("USERID"));
             Constant.USERID = String.valueOf(loginfo.get("USERID"));
             sPreferences.edit().putString("userid", userid).apply();
-
-            List<Map<String, Object>> menuListMap1 =null;
-            if (menuMap.containsKey("roleFollowList")){
-                menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
-                Log.e("menuListMap1",JSON.toJSONString(menuListMap1));
-            }
-
-            List<Map<String, Object>> menuListMap2 =null;
-            if (menuMap.containsKey("menuList")){
-                menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
-                Log.e("menuListMap2",JSON.toJSONString(menuListMap2));
-            }
-            List<Map<String, Object>> menuListMap3 =null;//个人资料
-            if (menuMap.containsKey("personInfoList")){
-                menuListMap3 = (List<Map<String, Object>>) menuMap.get("personInfoList");
-                Log.e("menuListMap3",JSON.toJSONString(menuListMap3));
-            }
-            List<Map<String, Object>> menuListMap5 =null;//反馈信息
-            if (menuMap.containsKey("feedbackInfoList")){
-                menuListMap5 = (List<Map<String, Object>>) menuMap.get("feedbackInfoList");
-                Log.e("menuListMap5",JSON.toJSONString(menuListMap5));
-            }
-
-//            List<Map<String, Object>> menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
-//            List<Map<String, Object>> menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
-//            List<Map<String, Object>> menuListMap3 = (List<Map<String, Object>>) menuMap.get("personInfoList");//个人资料
-//            List<Map<String, Object>> menuListMap5 = (List<Map<String, Object>>) menuMap.get("feedbackInfoList");//反馈信息
+            List<Map<String, Object>> menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
+            List<Map<String, Object>> menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
 
             Intent intent = new Intent();
             intent.setClass(StuProLoginActivity.this, StuMainActivity.class);
-            if (menuListMap1!=null&&menuListMap1.size()>0){
-                intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
-            }else {
-                intent.putExtra("jsonArray", "");
-            }
-            if (menuListMap2!=null&&menuListMap2.size()>0){
-                intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
-            }else {
-                intent.putExtra("menuDataMap", "");
-            }
-            if (menuListMap3!=null&&menuListMap3.size()>0){
-                intent.putExtra("hideMenuList", JSON.toJSONString(menuListMap3));
-            }else {
-                intent.putExtra("hideMenuList", "");
-            }
-            if (menuListMap5!=null&&menuListMap5.size()>0){
-                intent.putExtra("feedbackInfoList",JSON.toJSONString(menuListMap5));
-            }else {
-                intent.putExtra("feedbackInfoList","");
-            }
-//            intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
-//            intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
-//            intent.putExtra("hideMenuList", JSON.toJSONString(menuListMap3));
-//            intent.putExtra("feedbackInfoList",JSON.toJSONString(menuListMap5));
-            Log.e("hidemel", JSON.toJSONString(menuListMap3));
-            Log.e("feedb",JSON.toJSONString(menuListMap5));
+            intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
+            intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
+
             startActivity(intent);
             finish();
 

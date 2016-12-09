@@ -55,11 +55,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 finish();
             }
         });
-        if (!Constant.stuBackTABLEID.equals("") && !Constant.stuBackPAGEID.equals("")) {
-            requestData();
-        } else {
-            Toast.makeText(FeedbackActivity.this, "暂未开通反馈信息", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void requestData() {
@@ -207,15 +202,8 @@ public class FeedbackActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void summit(View view) {
-        if (tableIdbtn!=null&&startTurnPagebtn!=null&&tableIdbtn.toString().length() > 0 && startTurnPagebtn.toString().length() > 0) {
-
-            requestAdd();
-        } else {
-            Toast.makeText(FeedbackActivity.this, "暂未开通反馈信息", Toast.LENGTH_SHORT).show();
-        }
-
-
+    public void summit(View view){
+        requestAdd();
     }
 
     @Override
@@ -263,18 +251,14 @@ public class FeedbackActivity extends AppCompatActivity {
     //请求
     public void requestAdd() {
         String volleyUrl = Constant.sysUrl + Constant.commitAdd;
-        final String text = edt_feedback.getText().toString();
+        final String text=edt_feedback.getText().toString();
 
         //参数
-        Map<String, String> paramsMap = new HashMap<>();
-//        paramsMap.put(tableId, "280");
-//        paramsMap.put(pageId, "2575");
-//        paramsMap.put("t0_au_280_2575_3573", text);
-//        paramsMap.put("t0_au_280_2575_3571", Constant.USERID);
-        paramsMap.put(tableId, tableIdbtn);
-        paramsMap.put(pageId, startTurnPagebtn);
-        paramsMap.put(contentLeft, text);
-        paramsMap.put(userLeft, Constant.USERID);
+        Map<String, String> paramsMap=new HashMap<>();
+        paramsMap.put(tableId, "280");
+        paramsMap.put(pageId, "2575");
+        paramsMap.put("t0_au_280_2575_3573", text);
+        paramsMap.put("t0_au_280_2575_3571", Constant.USERID);
         //请求
         OkHttpUtils
                 .post()
@@ -284,24 +268,24 @@ public class FeedbackActivity extends AppCompatActivity {
                 .execute(new EdusStringCallback(FeedbackActivity.this) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ErrorToast.errorToast(mContext, e);
+                        ErrorToast.errorToast(mContext,e);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(TAG, "onResponse: " + "  id  " + response);
+                        Log.e(TAG, "onResponse: "+"  id  "+id);
                         setStore(response);
                     }
                 });
     }
 
     private void setStore(String jsonData) {
-        if (jsonData.length() > 0) {
+        if (jsonData.length()>0) {
 
             finish();
             Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
 
-        } else {
+        }else{
             Toast.makeText(this, "提交失败", Toast.LENGTH_SHORT).show();
         }
     }

@@ -326,67 +326,17 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
                     new TypeReference<Map<String, Object>>() {
                     });
             Map<String, Object> loginfo = (Map<String, Object>) menuMap.get("loginInfo");
-            Log.e("loginf-", loginfo.toString());
+            Log.e("loginf-",loginfo.toString());
             String userid = String.valueOf(loginfo.get("USERID"));
             Constant.USERID = String.valueOf(loginfo.get("USERID"));
             sPreferences.edit().putString("userid", userid).apply();
-
-            List<Map<String, Object>> menuListMap1 = null;
-            if (menuMap.containsKey("roleFollowList")) {
-                menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
-                Log.e("menuListMap1", JSON.toJSONString(menuListMap1));
-            }
-
-            List<Map<String, Object>> menuListMap2 = null;
-            if (menuMap.containsKey("menuList")) {
-                menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
-                Log.e("menuListMap2", JSON.toJSONString(menuListMap2));
-            }
-            List<Map<String, Object>> menuListMap3 = null;//个人资料
-            if (menuMap.containsKey("personInfoList")) {
-                menuListMap3 = (List<Map<String, Object>>) menuMap.get("personInfoList");
-                Log.e("menuListMap3", JSON.toJSONString(menuListMap3));
-            }
-            List<Map<String, Object>> menuListMap5 = null;//反馈信息
-            if (menuMap.containsKey("feedbackInfoList")) {
-                menuListMap5 = (List<Map<String, Object>>) menuMap.get("feedbackInfoList");
-                Log.e("menuListMap5", JSON.toJSONString(menuListMap5));
-            }
-
-//            List<Map<String, Object>> menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
-//            List<Map<String, Object>> menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
-//            List<Map<String, Object>> menuListMap3 = (List<Map<String, Object>>) menuMap.get("personInfoList");//个人资料
-//            List<Map<String, Object>> menuListMap5 = (List<Map<String, Object>>) menuMap.get("feedbackInfoList");//反馈信息
-
+            List<Map<String, Object>> menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
+            List<Map<String, Object>> menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
 
             Intent intent = new Intent();
             intent.setClass(StuLoginActivity.this, StuMainActivity.class);
-            if (menuListMap1 != null && menuListMap1.size() > 0) {
-                intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
-            } else {
-                intent.putExtra("jsonArray", "");
-            }
-            if (menuListMap2 != null && menuListMap2.size() > 0) {
-                intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
-            } else {
-                intent.putExtra("menuDataMap", "");
-            }
-            if (menuListMap3 != null && menuListMap3.size() > 0) {
-                intent.putExtra("hideMenuList", JSON.toJSONString(menuListMap3));
-            } else {
-                intent.putExtra("hideMenuList", "");
-            }
-            if (menuListMap5 != null && menuListMap5.size() > 0) {
-                intent.putExtra("feedbackInfoList", JSON.toJSONString(menuListMap5));
-            } else {
-                intent.putExtra("feedbackInfoList", "");
-            }
-//            intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
-//            intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
-//            intent.putExtra("hideMenuList", JSON.toJSONString(menuListMap3));
-//            intent.putExtra("feedbackInfoList",JSON.toJSONString(menuListMap5));
-            Log.e("hidemel", JSON.toJSONString(menuListMap3));
-            Log.e("feedb", JSON.toJSONString(menuListMap5));
+            intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
+            intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
             startActivity(intent);
             finish();
             dialog.dismiss();

@@ -116,46 +116,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
-        Bundle meBundle = getArguments();
-        String meStr = meBundle.getString("hideMenuList");//个人资料
-        String feedbackInfoListstr = meBundle.getString("feedbackInfoList");//反馈信息
-
-        List<Map<String, Object>> meListMap = new ArrayList<>();
-        Log.e(TAG, "initData: " + meStr);
-        getMeTableId(meStr, meListMap);
-
-        List<Map<String, Object>> feedbackListMap = new ArrayList<>();
-        Log.e(TAG, "feedbackInfoListstr: " + feedbackInfoListstr);
-        if (feedbackInfoListstr != null&&feedbackInfoListstr.length()>0) {
-            try {
-                feedbackListMap = JSON.parseObject(feedbackInfoListstr,
-                        new TypeReference<List<Map<String, Object>>>() {
-                        });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (feedbackListMap != null && feedbackListMap.size() > 0) {
-                for (int i = 0; i < feedbackListMap.size(); i++) {
-                    Map<String, Object> map = feedbackListMap.get(i);
-                    String menuName = map.get("menuName").toString();
-                    if (menuName.contains("反馈")) {
-                        Constant.stuBackPAGEID = map.get("pageId").toString();
-                        Constant.stuBackTABLEID = map.get("tableId").toString();
-                        Log.e("backtableid", Constant.stuBackPAGEID + "/" + Constant.stuBackTABLEID);
-                        break;
-                    }
-                }
-
-            } else {
-                Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
-            }
-            Log.e("TAG", "获得学员端菜单数据：" + meStr);
-
-        }else {
-            Toast.makeText(getActivity(),"暂无个人数据",Toast.LENGTH_SHORT).show();
-        }
 //获取校区
-      //  requestSet();
+        requestSet();
     }
 
     private void getMeTableId(String meStr, List<Map<String, Object>> meListMap) {
@@ -243,7 +205,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
             for (int i = 0; i < pageSet.size(); i++) {
                 Map<String, Object> map = pageSet.get(i);
                 fieldCnName = map.get("fieldCnName") + "";
-                if (fieldCnName.contains("校区")) {
+                if (fieldCnName.equals("校区")) {
                     fieldAliasName = map.get("fieldAliasName") + "";
                     break;
                 }
@@ -284,14 +246,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.stu_info_data:
-                if (!Constant.stuPerTABLEID.equals("") && !Constant.stuPerPAGEID.equals("")) {
-                    Intent intentStuInfo = new Intent(getActivity(), StuInfoActivity.class);
-                    startActivity(intentStuInfo);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "无个人资料信息", Toast.LENGTH_SHORT).show();
-                }
-//                Intent intentStuInfo = new Intent(getActivity(), StuInfoActivity.class);
-//                startActivity(intentStuInfo);
+                Intent intentStuInfo = new Intent(getActivity(), StuInfoActivity.class);
+                startActivity(intentStuInfo);
                 break;
             case R.id.ll_stu_clear_cache:
                // dialog1();

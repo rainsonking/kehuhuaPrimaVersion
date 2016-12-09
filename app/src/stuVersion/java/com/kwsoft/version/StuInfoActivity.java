@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.kwsoft.kehuhua.adcustom.OperateDataActivity;
@@ -37,7 +38,7 @@ public class StuInfoActivity extends BaseActivity {
 
     @Bind(R.id.stu_info_lv)
     ListView stuInfoLv;
-    //private SimpleAdapter adapter;
+    private SimpleAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Map<String, String>> stuInfo;
     //下拉刷新handler
@@ -144,9 +145,8 @@ public class StuInfoActivity extends BaseActivity {
             Log.e("TAG", "学员端请求个人信息地址：" + volleyUrl);
             //参数
             Map<String, String> paramsMap = new HashMap<>();
-            paramsMap.put(tableId, Constant.stuPerTABLEID);
-            paramsMap.put(Constant.pageId, Constant.stuPerPAGEID);
-
+            paramsMap.put(tableId, StuPra.stuInfoTableId);
+            paramsMap.put(Constant.pageId, StuPra.stuInfoPageId);
             //请求
             OkHttpUtils
                     .post()
@@ -156,16 +156,16 @@ public class StuInfoActivity extends BaseActivity {
                     .execute(new EdusStringCallback(StuInfoActivity.this) {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            ErrorToast.errorToast(mContext, e);
+                            ErrorToast.errorToast(mContext,e);
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
-                            Log.e(TAG, "onResponse: " + "  id  " + id);
+                            Log.e(TAG, "onResponse: "+"  id  "+id);
                             setStore(response);
                         }
                     });
-        } else {
+        }else{
             try {
                 Looper.prepare();
                 Toast.makeText(getApplicationContext(), "无网络！", Toast.LENGTH_SHORT).show();
@@ -244,7 +244,6 @@ public class StuInfoActivity extends BaseActivity {
     }
 
     List<Map<String, Object>> fieldSet = new ArrayList<>();
-    private StuInfoAdapter adapter;
 
     @SuppressWarnings("unchecked")
     private void setStore(String jsonData) {
@@ -265,26 +264,23 @@ public class StuInfoActivity extends BaseActivity {
 //            dataList.remove(dataList.size()-1);
             if (stuInfo == null) {
                 stuInfo = unionAnalysis(dataList);
-//                stuInfo.remove(stuInfo.size() - 1);
-//
-//                stuInfo.remove(stuInfo.size() - 1);
+                stuInfo.remove(stuInfo.size() - 1);
+
+                stuInfo.remove(stuInfo.size() - 1);
                 Log.e("TAG", "=================" + stuInfo.toString());
                 //设置适配器
-//                adapter = new SimpleAdapter(StuInfoActivity.this, stuInfo, R.layout.activity_info_item,
-//                        new String[]{"fieldCnName", "fieldCnName2"}, new int[]{R.id.tv_name,
-//                        R.id.tv_entity_name});
-//                stuInfoLv.setAdapter(adapter);
-                adapter = new StuInfoAdapter(stuInfo, StuInfoActivity.this);
+                adapter = new SimpleAdapter(StuInfoActivity.this, stuInfo, R.layout.activity_info_item,
+                        new String[]{"fieldCnName", "fieldCnName2"}, new int[]{R.id.tv_name,
+                        R.id.tv_entity_name});
                 stuInfoLv.setAdapter(adapter);
             } else {
                 stuInfo.removeAll(stuInfo);
                 stuInfo.addAll(unionAnalysis(dataList));
-//                stuInfo.remove(stuInfo.size() - 1);
-//                stuInfo.remove(stuInfo.size() - 1);
+                stuInfo.remove(stuInfo.size() - 1);
+                stuInfo.remove(stuInfo.size() - 1);
             }
         }
     }
-
 
     public List<Map<String, String>> unionAnalysis(List<Map<String, Object>> dataListMap) {
         List<Map<String, String>> itemNum = new ArrayList<>();
