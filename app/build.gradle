@@ -104,7 +104,10 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
 //    dexOptions { preDexLibraries = false}
-
+    dexOptions {
+        //incremental true
+        javaMaxHeapSize "2048M"
+    }
 }
 
 //assets.srcDirs = ['src/main/assets']
@@ -181,4 +184,6 @@ dependencies {
     //cookie支持
     compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
+    compile 'com.google.android.gms:play-services-maps:10.0.1'//解决大图加载问题
+    compile 'com.google.android.gms:play-services-location:10.0.1'//解决大图加载问题
 }
