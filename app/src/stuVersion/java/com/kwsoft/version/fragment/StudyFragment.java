@@ -2,10 +2,6 @@ package com.kwsoft.version.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,12 +32,9 @@ import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.DataProcess;
-import com.kwsoft.kehuhua.zxing.CaptureActivity;
-import com.kwsoft.version.ResetPwdActivity;
+import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.StuInfoActivity;
-import com.kwsoft.version.StuLoginActivity;
 import com.kwsoft.version.StuMainActivity;
-import com.kwsoft.version.StuPra;
 import com.kwsoft.version.androidRomType.AndtoidRomUtil;
 import com.kwsoft.version.view.StudyGridView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -207,7 +200,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
             menuListAll = JSON.parseObject(menuStr,
                     new TypeReference<List<Map<String, Object>>>() {
                     });
-            if (menuListAll.size() > 0) {
+            if (menuListAll!=null&&menuListAll.size() > 0) {//解决菜单无数据崩溃问题
                 //展示菜单
                 menuListMap = getMenuListData(menuListAll);
                 setMenuAdapter(menuListMap);
@@ -235,8 +228,14 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
     private void getData() {
         //设置看板数据
         arrBundle = getArguments();
-        arrStr = arrBundle.getString("arrStr");
-        menuStr = arrBundle.getString("menuDataMap");
+        if (arrBundle.getString("arrStr")!=null) {
+            arrStr = arrBundle.getString("arrStr");
+        }
+
+        if (arrBundle.getString("menuDataMap")!=null) {
+            menuStr = arrBundle.getString("menuDataMap");
+        }
+
     }
 
     public void setMenuAdapter(List<Map<String, Object>> menuListMaps) {
@@ -332,23 +331,23 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 //                    boolean permission = (PackageManager.PERMISSION_GRANTED ==
 //                            pm.checkPermission("MediaStore.ACTION_IMAGE_CAPTURE", "packageName"));
 //                    if (permission) {
-//                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+//                        Intent intent = new Intent(getActivity(), TestScanActivity.class);
 //                        startActivityForResult(intent, 1);
 //                    } else {
 //                        Constant.goHuaWeiSetting(getActivity());
 //                    }
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else if (miui) {
                     //小米
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else if (flyme) {
                     //魅族rom
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 }
                 break;

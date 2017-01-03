@@ -1,50 +1,18 @@
 [
     {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_pressed.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_pressed.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_pressed.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_pressed.xml"
     },
     {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\anim_play_audio.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\anim_play_audio.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_audiorecord.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_audiorecord.xml"
     },
     {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_normal.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_normal.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_normal.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_normal.xml"
     },
     {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_audiorecord.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_audiorecord.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\anim_play_audio.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\anim_play_audio.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_audiorecord.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_audiorecord.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_audiorecord.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_audiorecord.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_normal.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_normal.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_pressed.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_pressed.xml"
-    },
-    {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_pressed.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_pressed.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_item_audiorecord_normal.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\bg_item_audiorecord_normal.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\anim_play_audio.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\anim_play_audio.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\anim_play_audio.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\drawable\\anim_play_audio.xml"
     }
 ]

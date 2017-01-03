@@ -35,7 +35,7 @@ import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
 import com.kwsoft.kehuhua.utils.DataProcess;
-import com.kwsoft.kehuhua.zxing.CaptureActivity;
+import com.kwsoft.kehuhua.zxing.TestScanActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -394,7 +394,7 @@ public class NavActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_er_code://二维码扫描
-                Intent intent = new Intent(this, CaptureActivity.class);
+                Intent intent = new Intent(this, TestScanActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.imageView:

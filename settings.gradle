@@ -1,2 +1,2 @@
-include ':app', ':datetimepicker-library', ':weekcalendar', ':mp3Recorder'
+include ':app', ':datetimepicker-library', ':weekcalendar', ':mp3Recorder', ':zxingdemo', ':baiduMap', ':chatInterface'
 include ':library'

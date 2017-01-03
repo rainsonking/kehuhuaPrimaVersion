@@ -1,26 +1,10 @@
 [
     {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_audio_record.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_audio_record.xml"
     },
     {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_audio_record.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_audio_record.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_audio_record.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_audio_record.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
-    },
-    {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_audio_record.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_audio_record.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
     }
 ]

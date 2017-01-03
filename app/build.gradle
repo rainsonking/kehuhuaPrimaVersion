@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.kwsoft.kehuhua.adcustom"
@@ -44,23 +44,23 @@ android {
 //    defaultConfig为所有的flavor提供基本的配置，每一个flavor都可以重设这些配置的值
     productFlavors {
         teachVersion {
-            applicationId "com.kwsoft.version.teachVersion"
+            applicationId "com.kwsoft.version.teachShangyuan"
             resValue "string", "app_name", "教师端"
             versionName "1.3.0"
             manifestPlaceholders = [
                     JPUSH_PKGNAME: applicationId,
-                    JPUSH_APPKEY : "a9261e7573e4c9483e86a3c9", //JPush上注册的包名对应的appkey.
+                    JPUSH_APPKEY : "10d0e950833e08da01947129", //JPush上注册的包名对应的appkey.
                     JPUSH_CHANNEL: "developer-default1", //暂时填写默认值即可.
             ]
         }
 
         stuVersion {
-            applicationId "com.kwsoft.version.stuVersion"
+            applicationId "com.kwsoft.version.stuShangyuan"
             resValue "string", "app_name", "学员端"
             versionName "1.1.0"
             manifestPlaceholders = [
                     JPUSH_PKGNAME: applicationId,
-                    JPUSH_APPKEY : "d53fc58cec6bf826a2a38603", //JPush上注册的包名对应的appkey.
+                    JPUSH_APPKEY : "0cef8a6fe69d164736271bb0", //JPush上注册的包名对应的appkey.
                     JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             ]
         }
@@ -119,8 +119,6 @@ dependencies {
     //volley网络请求框架
     compile files('libs/fastjson-1.2.7.jar')
     //阿里巴巴类型转换工具
-    compile files('libs/core-3.1.0.jar')
-    //    compile 'com.google.android.gms:play-services:8.4.0'
     compile files('libs/gson-2.3.1-sources.jar')
     //谷歌类型转换工具
     compile files('libs/gson-2.3.1.jar')
@@ -130,13 +128,13 @@ dependencies {
     compile project(path: ':mp3Recorder')
     //日历控件，课程表工具
     compile files('libs/badgeview.jar')
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
+    //    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.1.0'
+    //    compile 'com.android.support:recyclerview-v7:25.1.0'
     //recyclerView，取代ListView
-    compile 'com.android.support:cardview-v7:25.0.1'
+    compile 'com.android.support:cardview-v7:25.1.0'
     //cardView，暂时没用
     compile 'com.jakewharton:butterknife:7.0.1'
     //注解控件工具
@@ -178,12 +176,20 @@ dependencies {
     //Google官方出的分包方案
     compile files('libs/flame.jar')
     //mp3转码
-    compile('org.kymjs.kjframe:kjframe:2.6')
+    compile 'org.kymjs.kjframe:kjframe:2.6'
     //清理缓存
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
     //cookie支持
-    compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
-    compile 'com.google.android.gms:play-services-maps:10.0.1'//解决大图加载问题
-    compile 'com.google.android.gms:play-services-location:10.0.1'//解决大图加载问题
+    compile 'cn.jiguang.sdk:jpush:3.0.0'
+    // 此处以JPush 3.0.0 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.0.0'
+    // 此处以JCore 1.0.0 版本为例。
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    //解决大图加载问题
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    //解决大图加载问题
+    compile 'me.relex:photodraweeview:1.1.2'
+    compile project(path: ':zxingdemo')
+    compile project(path: ':baiduMap')
+    compile project(path: ':chatInterface')
 }

@@ -165,6 +165,10 @@ public class Constant {
     public final static String pictureUrl = "servlet/OmFileUploadServlet";
     public static String infoTitle = "";
     public static int topBarColor;
+    //经纬度记录
+    public static String latStr = "39.9895630000";//初始地址为中关村soho
+    public static String longStr = "116.3168970000";
+
 
 
     public static List<Map<String, Object>> buttonSet = null;//按钮列表数据
@@ -175,7 +179,8 @@ public class Constant {
 
     public static String stu_index = "";// 副key
     public static String stu_homeSetId = "";// 副key
-
+    public final static String start = "start";
+    public final static String limit = "limit";
     public final static String sdPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/";//+ "/HampsonFile"+"/"
     public final static String sdPathProject = "HampsonFile"+"/";
     public static void threadToast(Activity activity, String str) {

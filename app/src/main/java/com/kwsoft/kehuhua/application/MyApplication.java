@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.kwsoft.kehuhua.urlCnn.EdusLoggerInterceptor;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -42,7 +43,7 @@ MyApplication extends Application {
         Log.e(TAG, "onCreate: "+getApplicationInfo());
         initOkHttp();
         Fresco.initialize(this);
-
+        SDKInitializer.initialize(this);//初始化百度地图
         initIpPort();
 
     }

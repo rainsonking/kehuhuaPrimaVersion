@@ -41,7 +41,6 @@ import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.DataProcess;
 import com.kwsoft.kehuhua.zxing.CaptureActivity;
 import com.kwsoft.version.StuInfoActivity;
-import com.kwsoft.version.TodayCourseTableActivity;
 import com.kwsoft.version.androidRomType.AndtoidRomUtil;
 import com.kwsoft.version.view.StudyGridView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -282,10 +281,10 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 
     private void initModel() {
         Map<String, Object> map = new HashMap<>();
-//        map.put("menuName", "扫码考勤");
-//        map.put("image", image[0]);
-//        menuListAll.add(map);
-//        map = new HashMap<>();
+        map.put("menuName", "扫码考勤");
+        map.put("image", image[0]);
+        menuListAll.add(map);
+        map = new HashMap<>();
         map.put("menuName", "报表管理");
         map.put("image", image[1]);
         menuListAll.add(map);
@@ -315,22 +314,22 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (i == 0) {
-//                    PermissionGen.needPermission(StudyFragment.this, 106,
-//                            new String[]{
-//                                    Manifest.permission.CAMERA,
-//                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                            }
-//                    );
-//                } else
                 if (i == 0) {
+                    PermissionGen.needPermission(StudyFragment.this, 106,
+                            new String[]{
+                                    Manifest.permission.CAMERA,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            }
+                    );
+                } else
+                if (i == 1) {
                     Intent intent = new Intent(getActivity(), ChartActivity.class);
                     intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
                     startActivity(intent);
-                } else if (i == 1) {
+                } else if (i == 2) {
                     Intent intent = new Intent(getActivity(), MessagAlertActivity.class);
                     startActivity(intent);
-                } else if (i == 2) {
+                } else if (i == 3) {
                     Intent intent = new Intent(getActivity(), BlankActivity.class);
                     intent.putExtra("titleName", String.valueOf(menuListMaps.get(i).get("menuName")));
                     startActivity(intent);

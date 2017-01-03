@@ -81,7 +81,8 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
                         Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.INTERNET
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
                 )
                 .request();
     }
@@ -258,6 +259,7 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
                 map.put(Constant.proIdName, Constant.proId);
                 map.put(Constant.timeName, Constant.menuAlterTime);
                 map.put(Constant.sourceName, Constant.sourceInt);
+                Log.e(TAG, "postLogin1: 学员端登陆参数："+map.toString() );
                 //请求
                 OkHttpUtils
                         .post()
@@ -290,7 +292,7 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
     // 新密码，为0则跳转，sp存储新密码
 
     private void check(String menuData) {
-        if (menuData != null) {
+        if (menuData != null&&!menuData.equals("")) {
             //获取error的值，判断
             LoginError loginError = JSON.parseObject(menuData, LoginError.class);
             if (loginError.getError() != 0) {
@@ -314,7 +316,7 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
             }
         } else {
             dialog.dismiss();
-            Toast.makeText(StuLoginActivity.this, "服务器超时", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StuLoginActivity.this, "服务器无数据", Toast.LENGTH_SHORT).show();
         }
     }
 

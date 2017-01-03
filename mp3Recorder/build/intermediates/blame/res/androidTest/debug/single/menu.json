@@ -1,14 +1,6 @@
 [
     {
-        "merged": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\main.xml",
-        "source": "D:\\kehuhua\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\menu\\main.xml"
-    },
-    {
-        "merged": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\main.xml",
-        "source": "D:\\kehuhuahampson1\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\menu\\main.xml"
-    },
-    {
-        "merged": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\main.xml",
-        "source": "E:\\D\\kehuhuaPrima-githubNewEdusAd\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\menu\\main.xml"
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\main.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\mp3Recorder\\build\\intermediates\\bundles\\debug\\res\\menu\\main.xml"
     }
 ]

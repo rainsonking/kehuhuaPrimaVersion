@@ -24,14 +24,13 @@ import com.kwsoft.kehuhua.adcustom.ExampleUtil;
 import com.kwsoft.kehuhua.adcustom.MessagAlertActivity;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
+import com.kwsoft.kehuhua.bailiChat.SessionFragment;
 import com.kwsoft.kehuhua.config.Constant;
-import com.kwsoft.kehuhua.sessionService.SessionService;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
-import com.kwsoft.kehuhua.utils.Utils;
 import com.kwsoft.kehuhua.widget.CnToolbar;
-import com.kwsoft.kehuhua.zxing.CaptureActivity;
+import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.fragment.AssortFragment;
 import com.kwsoft.version.fragment.CourseFragment;
 import com.kwsoft.version.fragment.MeFragment;
@@ -50,12 +49,14 @@ import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 import okhttp3.Call;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * 学员端看板界面
  * wyl
  */
-public class StuMainActivity extends BaseActivity implements View.OnClickListener {
+public class StuMainActivity extends BaseActivity implements View.OnClickListener,EasyPermissions.PermissionCallbacks {
     private static final String TAG = "StuMainActivity";
     StuFragmentTabAdapter stutabAdapter;
     private RadioGroup radioGroup;
@@ -69,7 +70,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     private String feedbackInfoList;//反馈信息
     String admissInfoContent;//入学通知内容
     public static boolean isForeground = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
 //        }
         PgyUpdateManager.register(this);
-        Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
+//        Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
 
     }
@@ -224,10 +224,14 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
+        //GPS请求初始化
+//        OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
+//        OkHttpFinal.getInstance().init(builder.build());
     }
 
 
     public void initFragment() {
+        Fragment sessionFragment = new SessionFragment();
         Fragment studyFragment = new StudyFragment();
         Fragment courseFragment = new CourseFragment();
         AssortFragment menuFragment = new AssortFragment();
@@ -250,7 +254,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(studyFragment);
         mFragments.add(menuFragment);
-        mFragments.add(courseFragment);
+        mFragments.add(sessionFragment);
         mFragments.add(meFragment);
         stutabAdapter = new StuFragmentTabAdapter(this, mFragments, R.id.content, radioGroup);
 
@@ -293,15 +297,16 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
     public void fragmentClick() {
         radio3.setChecked(true);
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-    }
+
 
     @PermissionSuccess(requestCode = 105)
     public void doCapture() {
@@ -315,40 +320,8 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 
     public void toCamera() {
 
-        Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
+        Intent intent = new Intent(StuMainActivity.this, TestScanActivity.class);
         startActivityForResult(intent, 1);
-
-//        boolean emui = AndtoidRomUtil.isEMUI();
-//        boolean miui = AndtoidRomUtil.isMIUI();
-//        boolean flyme = AndtoidRomUtil.isFlyme();
-//
-//        if (emui) {
-//            //华为
-////                    PackageManager pm = getActivity().getPackageManager();
-////                    //MediaStore.ACTION_IMAGE_CAPTURE android.permission.RECORD_AUDIO
-////                    boolean permission = (PackageManager.PERMISSION_GRANTED ==
-////                            pm.checkPermission("MediaStore.ACTION_IMAGE_CAPTURE", "packageName"));
-////                    if (permission) {
-////                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-////                        startActivityForResult(intent, 1);
-////                    } else {
-////                        Constant.goHuaWeiSetting(getActivity());
-////                    }
-//            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
-//            startActivityForResult(intent, 1);
-//        } else if (miui) {
-//            //小米
-
-//            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
-//            startActivityForResult(intent, 1);
-//        } else if (flyme) {
-//            //魅族rom
-//            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
-//            startActivityForResult(intent, 1);
-//        }else {
-//            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
-//            startActivityForResult(intent, 1);
-//        }
     }
 
     private static long exitTime = 0;// 退出时间
@@ -394,7 +367,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     public void onDestroy() {
         unregisterReceiver(mMessageReceiver);
         super.onDestroy();
-        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
+//        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
     }
 
 
@@ -433,5 +406,37 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     private void setCostomMsg(String msg) {
         Log.e(TAG, "setCostomMsg: msg " + msg);
     }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+//    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+    }
+    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void requestCodeQRCodePermissions() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(this, perms)) {
+            EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
+        }
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestCodeQRCodePermissions();}
 }
 

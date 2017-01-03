@@ -3,11 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baiduMap/baiduMap.iml" filepath="$PROJECT_DIR$/baiduMap/baiduMap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chatInterface/chatInterface.iml" filepath="$PROJECT_DIR$/chatInterface/chatInterface.iml" />
       <module fileurl="file://$PROJECT_DIR$/datetimepicker-library/datetimepicker-library.iml" filepath="$PROJECT_DIR$/datetimepicker-library/datetimepicker-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/kehuhuaPrima-githubNewEdusAd.iml" filepath="$PROJECT_DIR$/kehuhuaPrima-githubNewEdusAd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kehuhuaPrimaVersion.iml" filepath="$PROJECT_DIR$/kehuhuaPrimaVersion.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mp3Recorder/mp3Recorder.iml" filepath="$PROJECT_DIR$/mp3Recorder/mp3Recorder.iml" />
       <module fileurl="file://$PROJECT_DIR$/weekcalendar/weekcalendar.iml" filepath="$PROJECT_DIR$/weekcalendar/weekcalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxingdemo/zxingdemo.iml" filepath="$PROJECT_DIR$/zxingdemo/zxingdemo.iml" />
     </modules>
   </component>
 </project>

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.kwsoft.version.StuMainActivity">
-
     <!--Toolbar-->
     <com.kwsoft.kehuhua.widget.CnToolbar
         android:id="@+id/stu_toolbar"

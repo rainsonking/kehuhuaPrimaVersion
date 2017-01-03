@@ -42,7 +42,7 @@
         <activity android:name="com.kwsoft.version.TodayCourseTableActivity"/>
         <activity android:name="com.kwsoft.kehuhua.hampson.activity.TeachAmountDetailActivity"/>
         <receiver
-            android:name="com.kwsoft.version.edusReceiver.MyReceiver"
+            android:name="com.kwsoft.kehuhua.bailiChat.MyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -52,7 +52,7 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.kwsoft.version.teachVersion" />
+                <category android:name="com.kwsoft.version.teachShangyuan" />
             </intent-filter>
         </receiver>
 
