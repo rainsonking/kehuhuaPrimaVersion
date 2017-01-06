@@ -19,11 +19,13 @@ import com.kwsoft.kehuhua.adcustom.ExampleUtil;
 import com.kwsoft.kehuhua.adcustom.MessagAlertActivity;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
+import com.kwsoft.kehuhua.bailiChat.SessionFragment;
 import com.kwsoft.kehuhua.sessionService.SessionService;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
+import com.kwsoft.kehuhua.utils.MyPreferenceManager;
 import com.kwsoft.kehuhua.utils.Utils;
 import com.kwsoft.kehuhua.widget.CommonToolbar;
-import com.kwsoft.kehuhua.zxing.CaptureActivity;
+import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.androidRomType.AndtoidRomUtil;
 import com.kwsoft.version.fragment.CourseFragment;
 import com.kwsoft.version.fragment.MeFragment;
@@ -61,6 +63,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         initView();
         initFragment();
         // initDialog();
+        MyPreferenceManager.init(mContext);
         PgyUpdateManager.register(this);
         Utils.startPollingService(mContext, 5 * 60, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
@@ -186,6 +189,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     public void initFragment() {
         Fragment studyFragment = new StudyFragment();
         Fragment courseFragment = new CourseFragment();
+        Fragment sessionFragment = new SessionFragment();
         MenuFragment menuFragment = new MenuFragment();
         Fragment meFragment = new MeFragment();
 
@@ -193,7 +197,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         studyBundle.putString("arrStr", arrStr);
         studyBundle.putString("menuDataMap", menuDataMap);
         studyBundle.putString("homePageList", homePageList);
-        Log.e("homlie", homePageList);
+//        Log.e("homlie", homePageList);
         studyBundle.putBoolean("isLogin", true);
         studyFragment.setArguments(studyBundle);
 
@@ -202,10 +206,13 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         menuBundle.putString("menuDataMap", menuDataMap);
         menuFragment.setArguments(menuBundle);
 
-
         Bundle courseBundle = new Bundle();
         courseBundle.putString("menuList", menuList);
         courseFragment.setArguments(courseBundle);
+
+//        Bundle courseBundle = new Bundle();
+//        courseBundle.putString("menuList", menuList);
+//        sessionFragment.setArguments(courseBundle);
 
         Bundle meBundle = new Bundle();
         meBundle.putString("hideMenuList", hideMenuList);
@@ -216,6 +223,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         mFragments.add(studyFragment);
         mFragments.add(menuFragment);
         mFragments.add(courseFragment);
+        mFragments.add(sessionFragment);
         mFragments.add(meFragment);
         stutabAdapter = new StuFragmentTabAdapter(this, mFragments, R.id.content, radioGroup);
 
@@ -228,12 +236,19 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
                     case R.id.radio0:
 
                         break;
+                    case R.id.radio1:
+
+                        break;
                     case R.id.radio2:
 
                         break;
                     case R.id.radio3:
 
                         break;
+                    case R.id.radio4:
+
+                        break;
+
 
                 }
             }
@@ -258,23 +273,23 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //                    boolean permission = (PackageManager.PERMISSION_GRANTED ==
 //                            pm.checkPermission("MediaStore.ACTION_IMAGE_CAPTURE", "packageName"));
 //                    if (permission) {
-//                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+//                        Intent intent = new Intent(getActivity(), TestScanActivity.class);
 //                        startActivityForResult(intent, 1);
 //                    } else {
 //                        Constant.goHuaWeiSetting(getActivity());
 //                    }
-            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
+            Intent intent = new Intent(StuMainActivity.this, TestScanActivity.class);
             startActivityForResult(intent, 1);
         } else if (miui) {
             //小米
-            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
+            Intent intent = new Intent(StuMainActivity.this, TestScanActivity.class);
             startActivityForResult(intent, 1);
         } else if (flyme) {
             //魅族rom
-            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
+            Intent intent = new Intent(StuMainActivity.this, TestScanActivity.class);
             startActivityForResult(intent, 1);
         } else {
-            Intent intent = new Intent(StuMainActivity.this, CaptureActivity.class);
+            Intent intent = new Intent(StuMainActivity.this, TestScanActivity.class);
             startActivityForResult(intent, 1);
         }
     }

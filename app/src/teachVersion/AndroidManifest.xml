@@ -66,7 +66,7 @@
         </service>
         <meta-data
             android:name="PGYER_APPID"
-            android:value="622664928098a297e2579e1bdfa22f9f" >
+            android:value="eb23f9e801885811ff27cb9aac3090ce" >
         </meta-data>
 </application>
 

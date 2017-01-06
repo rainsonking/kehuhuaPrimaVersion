@@ -59,14 +59,25 @@ public class StuPra {
     public static final String PREF_CURRENT_SERVER = "pushtalk_server";
 
 
-
+/**
+ *
+ * 会话列表
+ * tableId:370     pageId:4685
+ *
+ *
+ * 主项目聊天记录
+ tableId:373
+ mainTableId:370
+ mainPageId:4685
+ pageId:4698
+ */
 
 
     /**
      * 会话列表级别字段
      */
-    public static final String channelListTableId = "17796";//会话列表的tableId
-    public static final String channelListPageId = "7686";//会话列表的pageId
+    public static final String channelListTableId = "370";//会话列表的tableId
+    public static final String channelListPageId = "4685";//会话列表的pageId
     public static final String channelImageUrl = "CHANNELIMAGE";//会话图片
     public static final String customChannelName = "CUSTOMNAME";//自定义会话名称
     public static final String defaultChannelName = "DEFAULTNAME";//系统生成的默认会话名称，如果无自定义名称则取这个默认的

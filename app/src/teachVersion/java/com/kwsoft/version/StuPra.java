@@ -34,7 +34,7 @@ public class StuPra {
     public final static String userProId = "56cad8f89dc516b25972bacc";//项目的Id
 
     //    public static String studentProId = "56df76b60cf2beac602aaed3";//学员端项目的Id56cad8f89dc516b25972bacc
-    public final static String changePsw = "phone_resetStuPassword.do?";//修改密码
+    public final static String teachchangePsw = "phone_resetStuPassword.do?";//修改密码
     public  static String stuInfoTableId = "19";//学员个人资料tableId
     public static String stuInfoPageId = "2512";//学员个人资料pageId
 
@@ -66,8 +66,8 @@ public class StuPra {
     /**
      * 会话列表级别字段
      */
-    public static final String channelListTableId = "17796";//会话列表的tableId
-    public static final String channelListPageId = "7686";//会话列表的pageId
+    public static final String channelListTableId = "370";//会话列表的tableId
+    public static final String channelListPageId = "4685";//会话列表的pageId
     public static final String channelImageUrl = "CHANNELIMAGE";//会话图片
     public static final String customChannelName = "CUSTOMNAME";//自定义会话名称
     public static final String defaultChannelName = "DEFAULTNAME";//系统生成的默认会话名称，如果无自定义名称则取这个默认的

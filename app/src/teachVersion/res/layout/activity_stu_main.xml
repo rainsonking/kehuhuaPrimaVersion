@@ -70,13 +70,19 @@
             android:drawablePadding="2dp"
             android:drawableTop="@drawable/teach_foot_forth_selector"
             android:text="功能管理" />
-
+        <RadioButton
+            android:id="@+id/radio4"
+            style="@style/activity2_footer_radio"
+            android:checked="true"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/teach_foot_second_selector"
+            android:text="课表" />
         <RadioButton
             android:id="@+id/radio1"
             style="@style/activity2_footer_radio"
             android:drawablePadding="2dp"
-            android:drawableTop="@drawable/teach_foot_second_selector"
-            android:text="课程表" />
+            android:drawableTop="@drawable/teach_foot_fifth_selector"
+            android:text="消息" />
 
         <RadioButton
             android:id="@+id/radio2"

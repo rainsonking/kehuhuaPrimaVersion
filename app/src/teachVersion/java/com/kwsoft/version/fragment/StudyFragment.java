@@ -39,7 +39,7 @@ import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.DataProcess;
-import com.kwsoft.kehuhua.zxing.CaptureActivity;
+import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.StuInfoActivity;
 import com.kwsoft.version.androidRomType.AndtoidRomUtil;
 import com.kwsoft.version.view.StudyGridView;
@@ -348,7 +348,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 
     @PermissionSuccess(requestCode = 106)
     public void doCapture() {
-        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+        Intent intent = new Intent(getActivity(), TestScanActivity.class);
         startActivity(intent);
     }
 
@@ -442,23 +442,23 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 //                    boolean permission = (PackageManager.PERMISSION_GRANTED ==
 //                            pm.checkPermission("MediaStore.ACTION_IMAGE_CAPTURE", "packageName"));
 //                    if (permission) {
-//                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+//                        Intent intent = new Intent(getActivity(), TestScanActivity.class);
 //                        startActivityForResult(intent, 1);
 //                    } else {
 //                        Constant.goHuaWeiSetting(getActivity());
 //                    }
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else if (miui) {
                     //小米
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else if (flyme) {
                     //魅族rom
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
-                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                    Intent intent = new Intent(getActivity(), TestScanActivity.class);
                     startActivityForResult(intent, 1);
                 }
                 break;

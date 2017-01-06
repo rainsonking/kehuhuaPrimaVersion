@@ -37,7 +37,7 @@ public class MenuFragment extends Fragment {
     //    private TextView rightView;
 //    private ArrayList<String> groups = new ArrayList<String>();
     private TextAdapter earaListViewAdapter;
-    private List<Map<String, Object>> parentList;
+    private List<Map<String, Object>> parentList= new ArrayList<>();
     private List<Map<String, Object>> childList = new ArrayList<>();
     private SimpleAdapter nextAdapter;
 
@@ -80,7 +80,7 @@ public class MenuFragment extends Fragment {
             List<Map<String, Object>> menuListMap = JSON.parseObject(menuStr,
                     new TypeReference<List<Map<String, Object>>>() {
                     });
-            if (menuListMap.size() > 0) {
+            if (menuListMap!=null&&menuListMap.size() > 0) {
                 parentList = DataProcess.noPhoneList(menuListMap);
 
             } else {
@@ -119,7 +119,7 @@ public class MenuFragment extends Fragment {
 
     public int getChildMap(int position) {
         childList.clear();
-        if (parentList.get(position).get("meunColl") != null) {
+        if (parentList.size()>0&&parentList.get(position).get("meunColl") != null) {
             childList.addAll((List<Map<String, Object>>) parentList.get(position).get("meunColl"));
             if (position == 0) {
                 for (int i = 0; i < childList.size(); i++) {

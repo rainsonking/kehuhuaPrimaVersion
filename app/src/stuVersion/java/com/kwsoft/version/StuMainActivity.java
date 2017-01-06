@@ -29,6 +29,7 @@ import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
+import com.kwsoft.kehuhua.utils.MyPreferenceManager;
 import com.kwsoft.kehuhua.widget.CnToolbar;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.fragment.AssortFragment;
@@ -79,7 +80,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         CloseActivityClass.activityList.add(this);
         sPreferences = getSharedPreferences(Constant.proId, MODE_PRIVATE);
         //useridOld = sPreferences.getString("useridOld", "");
-
+        MyPreferenceManager.init(mContext);
         initView();
         initFragment();
 //        if (!Constant.USERID.equals(useridOld)) {
@@ -254,6 +255,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(studyFragment);
         mFragments.add(menuFragment);
+        mFragments.add(courseFragment);
         mFragments.add(sessionFragment);
         mFragments.add(meFragment);
         stutabAdapter = new StuFragmentTabAdapter(this, mFragments, R.id.content, radioGroup);
@@ -265,16 +267,20 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
                 super.OnRgsExtraCheckedChanged(radioGroup, checkedId, index);
                 switch (checkedId) {
                     case R.id.radio0:
-                        mToolbar.setTitle("学员端");
+                        mToolbar.setTitle("主页");
                         break;
                     case R.id.radio1:
-                        mToolbar.setTitle("课程表");
+                        mToolbar.setTitle("课表");
                         break;
                     case R.id.radio2:
-                        mToolbar.setTitle("学员端");
+                        mToolbar.setTitle("个人中心");
                         break;
                     case R.id.radio3:
-                        mToolbar.setTitle("学员端");
+                        mToolbar.setTitle("分类");
+
+                        break;
+                    case R.id.radio4:
+                        mToolbar.setTitle("消息");
 
                         break;
 

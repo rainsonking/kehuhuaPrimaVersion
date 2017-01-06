@@ -57,13 +57,18 @@
                 android:drawablePadding="2dp"
                 android:drawableTop="@drawable/stu_foot_forth_selector"
                 android:text="分类" />
-
             <RadioButton
                 android:id="@+id/radio1"
                 style="@style/activity2_stu_footer_radio"
                 android:drawablePadding="2dp"
                 android:drawableTop="@drawable/stu_foot_second_selector"
-                android:text="课程表" />
+                android:text="课表" />
+            <RadioButton
+                android:id="@+id/radio4"
+                style="@style/activity2_stu_footer_radio"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/teach_foot_fifth_selector"
+                android:text="消息" />
 
             <RadioButton
                 android:id="@+id/radio2"
