@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_image_grid.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_image_grid.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_image_bucket.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_image_bucket.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\item_popubwindows.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\item_popubwindows.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\chat_right.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\chat_right.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\show_picture_item_iv.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\show_picture_item_iv.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\item_image_bucket.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\item_image_bucket.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\voice_rcd_hint_window.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\voice_rcd_hint_window.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_main.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\item_image_grid.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\item_image_grid.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\face_relativelayout.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\face_relativelayout.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\item_face.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\item_face.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\chat.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\chat.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\select_image_from_sdcard.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\select_image_from_sdcard.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_photo.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_photo.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_camera.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_camera.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\chat_left.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\chat_left.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\activity_pictures_show.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\activity_pictures_show.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\layout\\adapter_grid_item.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\layout\\adapter_grid_item.xml"
+    }
+]

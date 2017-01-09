@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\D\kehuhuaPrimaVersion\chatInterface\src\main\assets"><file name="emoji" path="E:\D\kehuhuaPrimaVersion\chatInterface\src\main\assets\emoji"/></source><source path="E:\D\kehuhuaPrimaVersion\chatInterface\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="E:\D\kehuhuaPrimaVersion\chatInterface\src\release\assets"/></dataSet></merger>

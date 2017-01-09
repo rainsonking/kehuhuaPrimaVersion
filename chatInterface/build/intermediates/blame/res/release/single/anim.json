@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\fade_ins.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\fade_ins.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\out_to_left.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\out_to_left.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\in_from_left.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\in_from_left.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\out_to_rigth.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\out_to_rigth.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\in_from_right.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\in_from_right.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\cancel_rc.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\cancel_rc.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\cancel_rc2.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\cancel_rc2.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\release\\anim\\push_bottom_in_2.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\anim\\push_bottom_in_2.xml"
+    }
+]

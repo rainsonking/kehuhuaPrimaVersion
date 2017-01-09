@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\iv_face.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\iv_face.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_queding.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\bt_queding.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\picture_select.png",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\picture_select.png"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\title_btn_back.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\title_btn_back.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chatting_setmode_msg_btn.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chatting_setmode_msg_btn.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\text_while.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\text_while.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\goback_left.png",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\goback_left.png"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chat_arrow_up.png",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chat_arrow_up.png"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chat_arrow_down.png",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chat_arrow_down.png"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_nobgd.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\bt_nobgd.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_shanchu.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\bt_shanchu.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_click1.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\btn_click1.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\title_btn_right.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\title_btn_right.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\bgd_relatly_line.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\bgd_relatly_line.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\face_del_icon.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\face_del_icon.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_quxiao.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\bt_quxiao.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chatfrom_bg.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chatfrom_bg.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chat_send_btn.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chat_send_btn.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_click_goback.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\btn_click_goback.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chatto_bg.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chatto_bg.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chatting_setmode_voice_btn.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chatting_setmode_voice_btn.xml"
+    },
+    {
+        "merged": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\build\\intermediates\\res\\merged\\debug\\drawable\\chatting_setmode_biaoqing_btn.xml",
+        "source": "E:\\D\\kehuhuaPrimaVersion\\chatInterface\\src\\main\\res\\drawable\\chatting_setmode_biaoqing_btn.xml"
+    }
+]
