@@ -168,7 +168,7 @@ public class Constant {
     //经纬度记录
     public static String latStr = "39.9895630000";//初始地址为中关村soho
     public static String longStr = "116.3168970000";
-
+    public static String currentAdrStr = "北京中关村soho";
 
 
     public static List<Map<String, Object>> buttonSet = null;//按钮列表数据

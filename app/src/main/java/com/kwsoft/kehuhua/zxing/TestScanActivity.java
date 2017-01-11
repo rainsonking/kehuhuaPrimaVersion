@@ -2,7 +2,6 @@ package com.kwsoft.kehuhua.zxing;
 
 /**
  * Created by Administrator on 2016/12/28 0028.
- *
  */
 
 
@@ -34,22 +33,24 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
 import okhttp3.Call;
 
 import static com.kwsoft.kehuhua.config.Constant.USERID;
+import static com.kwsoft.kehuhua.config.Constant.currentAdrStr;
 import static com.kwsoft.kehuhua.config.Constant.latStr;
 import static com.kwsoft.kehuhua.config.Constant.longStr;
 
 public class TestScanActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = TestScanActivity.class.getSimpleName();
-//    private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
+    //    private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
 //    public LocationClient mLocationClient = null;
 //    public BDLocationListener myListener = new MyLocationListener();
     private QRCodeView mQRCodeView;
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_scan);
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener( myListener );    //注册监听函数
+        mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
 
@@ -57,12 +58,13 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
         mQRCodeView.setDelegate(this);
         mQRCodeView.startSpot();
     }
-    private void initLocation(){
+
+    private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=1000;
+        int span = 1000;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -74,6 +76,7 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         mLocationClient.setLocOption(option);
     }
+
     @Override
     public void initView() {
 
@@ -119,7 +122,7 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
             Toast.makeText(TestScanActivity.this, "no data",
                     Toast.LENGTH_SHORT).show();
         } else {
-                requestData("http://" + result);//默认经纬度为soho
+            requestData("http://" + result);//默认经纬度为soho
         }
     }
 
@@ -129,15 +132,15 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
             return;
         }
         dialog.show();
-        Log.e(TAG, "requestData: 扫码时请求地址1"+volleyUrl);
-        Log.e(TAG, "requestData: 学员ID"+ USERID);
-        Log.e(TAG, "requestData: latStr "+latStr);
-        Log.e(TAG, "requestData: longStr "+longStr);
-        String pinJieUrl="&stuId="+USERID+"&stuLongitude="+longStr+"&stuLatitude="+latStr;
+        Log.e(TAG, "requestData: 扫码时请求地址1" + volleyUrl);
+        Log.e(TAG, "requestData: 学员ID" + USERID);
+        Log.e(TAG, "requestData: latStr " + latStr);
+        Log.e(TAG, "requestData: longStr " + longStr);
+        String pinJieUrl = "&stuId=" + USERID + "&stuLongitude=" + longStr + "&stuLatitude=" + latStr;
         //请求
         OkHttpUtils
                 .get()
-                .url(volleyUrl+pinJieUrl)
+                .url(volleyUrl + pinJieUrl)
                 .build()
                 .execute(new EdusStringCallback(TestScanActivity.this) {
                     @Override
@@ -148,6 +151,7 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
                         dialog.dismiss();
 //                        mQRCodeView.startSpot();
                     }
+
                     @Override
                     public void onResponse(String response, int id) {
                         setStore(response);
@@ -163,18 +167,25 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
         dialog.dismiss();
         Log.e(TAG, "扫码后请求结果onResponse: " + response);
         if (response.contains("请重新登录")) {
-
             Toast.makeText(this, "请重新登录或检查ip地址", Toast.LENGTH_SHORT).show();
 //            Log.e(TAG, "打开相机出错");
             return;
         }
 
-        Map<String,Object> dataMap = JSON.parseObject(response,
-                    new TypeReference<Map<String, Object>>() {
-                    });
-            Toast.makeText(this,String.valueOf(dataMap.get("errorInfo")), Toast.LENGTH_SHORT).show();
+        Map<String, Object> dataMap = JSON.parseObject(response,
+                new TypeReference<Map<String, Object>>() {
+                });
+        String error = String.valueOf(dataMap.get("error"));
+        if ("1".equals(error)) {
+            Toast.makeText(this, "考勤成功！", Toast.LENGTH_SHORT).show();
+        } else if ("-4".equals(error)) {
+            Toast.makeText(this, "您当前位置：" + currentAdrStr + ",不在上课区域内，不能考勤！", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, String.valueOf(dataMap.get("errorInfo")), Toast.LENGTH_SHORT).show();
+        }
         finish();
     }
+
     @Override
     public void onScanQRCodeOpenCameraError() {
         Toast.makeText(this, "打开相机出错，请检查权限", Toast.LENGTH_SHORT).show();
@@ -249,10 +260,12 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
             sb.append(location.getLocType());
             sb.append("\nlatitude : ");
             sb.append(location.getLatitude());
-            latStr=String.valueOf(location.getLatitude());//在此赋值纬度
+            latStr = String.valueOf(location.getLatitude());//在此赋值纬度
             sb.append("\nlontitude : ");
             sb.append(location.getLongitude());
-            longStr=String.valueOf(location.getLongitude());//在此赋值经度
+            longStr = String.valueOf(location.getLongitude());//在此赋值经度
+            currentAdrStr = String.valueOf(location.getAddrStr());//获取地址
+            Log.e(TAG, "onReceiveLocation: currentadr" + currentAdrStr);
             sb.append("\nradius : ");
             sb.append(location.getRadius());
             if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
@@ -301,7 +314,7 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
                     sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
                 }
             }
-            Log.e(TAG,"BaiduLocationApiDem"+sb.toString());
+            Log.e(TAG, "BaiduLocationApiDem" + sb.toString());
         }
 
         private static final String TAG = "MyLocationListener";
