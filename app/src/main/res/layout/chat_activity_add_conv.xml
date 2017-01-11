@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.kwsoft.kehuhua.widget.CommonToolbar
+        android:id="@+id/common_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        app:isShowRightButton="true"
+        app:isShowTitle="true">
+
+    </com.kwsoft.kehuhua.widget.CommonToolbar>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="会话名称"
+            android:textColor="@color/text2"
+            android:textSize="@dimen/text_size_13" />
+
+        <EditText
+            android:id="@+id/et_conv_name"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="3"
+            android:textSize="14sp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/text2"
+            android:background="@drawable/chat_bg_add_conv_et"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text2"
+            android:text="会话参与人"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/et_conv_psn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textColor="@color/text2"
+            android:layout_marginLeft="5dp"
+            android:textSize="12dp"
+            android:textColorHint="@color/gray"
+            android:hint="请选择" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/text2"
+            android:layout_height="wrap_content"
+            android:text="会话发起人"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/et_conv_start_psn"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:textColor="@color/text2"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginLeft="5dp"
+            android:text="请选择" />
+        <TextView
+            android:id="@+id/et_conv_start_psn_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="@color/text2"
+            android:layout_marginLeft="5dp"
+            android:visibility="gone"
+            android:text="1702" />
+    </LinearLayout>
+</LinearLayout>

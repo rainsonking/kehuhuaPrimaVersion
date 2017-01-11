@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    tools:context="com.kwsoft.kehuhua.bailiChat.SelectPsnActivity">
+
+    <com.kwsoft.kehuhua.widget.CommonToolbar
+        android:id="@+id/common_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        app:isShowRightButton="true"
+        app:isShowTitle="true">
+
+    </com.kwsoft.kehuhua.widget.CommonToolbar>
+
+    <ListView
+        android:id="@+id/lv_listview"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:dividerHeight="1dp"
+        android:divider="@color/text5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:smoothScrollbar="true"
+        />
+
+</LinearLayout>
