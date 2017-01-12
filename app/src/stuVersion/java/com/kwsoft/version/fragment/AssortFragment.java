@@ -87,7 +87,7 @@ public class AssortFragment extends Fragment {
         homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // adapter.getItem(position.)
+
                 DataProcess.toList(getActivity(), menuListMap.get(position));
 
             }

@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lightblue"
-                android:text="http://192.168.6.94"
+                android:text="http://112.124.121.114"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray" />
         </LinearLayout>

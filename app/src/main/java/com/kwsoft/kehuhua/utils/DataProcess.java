@@ -386,6 +386,7 @@ public class DataProcess {
      */
     @SuppressWarnings("unchecked")
     public static void toList(Activity mActivity, Map<String, Object> itemData) {
+        Log.e(TAG, "toList: itemData "+itemData.toString());
         //获取子列表
         List<Map<String, Object>> childList = new ArrayList<>();
         if (itemData.get("meunColl") != null) {

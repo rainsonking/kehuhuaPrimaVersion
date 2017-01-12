@@ -97,6 +97,7 @@ public class StuProLoginActivity extends BaseActivity {
                 map.put(Constant.proIdName, Constant.proId);
                 map.put(Constant.timeName, Constant.menuAlterTime);
                 map.put(Constant.sourceName, Constant.sourceInt);
+                Log.e(TAG, "postLogin1: 学员端登陆参数："+map.toString() );
                 //请求
                 OkHttpUtils
                         .post()
