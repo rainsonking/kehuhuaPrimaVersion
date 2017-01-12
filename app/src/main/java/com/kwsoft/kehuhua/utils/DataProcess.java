@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.kwsoft.kehuhua.adcustom.ListActivity4;
+import com.kwsoft.kehuhua.adcustom.QuestionWebActivity;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.config.Constant;
 
@@ -256,7 +257,7 @@ public class DataProcess {
 
     public static String commit(Activity mActivity,
                                 List<Map<String, Object>> dataCommit) {
-        Log.e(TAG, "commit: dataCommit "+dataCommit.toString());
+        Log.e(TAG, "commit: dataCommit " + dataCommit.toString());
 //必填项判断
         String commitUrl = "";
         int numNull = 0;//判断必填项是否填写
@@ -319,13 +320,13 @@ public class DataProcess {
 
 //不会抛出异常的map遍历移除key方式
             Iterator<Map.Entry<String, Object>> it = commitMap1.entrySet().iterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Map.Entry<String, Object> entry = it.next();
                 String key = entry.getKey();
-                if(key.endsWith("_0")){
-                    Log.e(TAG, "commit: "+"To delete key " + key);
+                if (key.endsWith("_0")) {
+                    Log.e(TAG, "commit: " + "To delete key " + key);
                     it.remove();
-                    Log.e(TAG, "commit: "+"The key " +key + " was deleted");
+                    Log.e(TAG, "commit: " + "The key " + key + " was deleted");
 
                 }
             }
@@ -386,35 +387,45 @@ public class DataProcess {
      */
     @SuppressWarnings("unchecked")
     public static void toList(Activity mActivity, Map<String, Object> itemData) {
-        Log.e(TAG, "toList: itemData "+itemData.toString());
-        //获取子列表
-        List<Map<String, Object>> childList = new ArrayList<>();
-        if (itemData.get("meunColl") != null) {
-            childList.addAll((List<Map<String, Object>>) itemData.get("meunColl"));
-            for (int i = 0; i < childList.size(); i++) {
-                String newMenuName = String.valueOf(childList.get(i).get("menuName"));
-                childList.get(i).put("menuName", newMenuName.replace("手机端", ""));
+        Log.e(TAG, "toList: itemData " + itemData.toString());
+
+        String actionWayStr = String.valueOf(itemData.get("actionWay"));
+        if ("1".equals(actionWayStr)) {
+            String menuPageUrl = String.valueOf(itemData.get("menuPageUrl"));
+            Intent intent = new Intent(mActivity, QuestionWebActivity.class);
+            intent.putExtra("menuPageUrl", menuPageUrl);
+            mActivity.startActivity(intent);
+        } else {
+            //获取子列表
+            List<Map<String, Object>> childList = new ArrayList<>();
+            if (itemData.get("meunColl") != null) {
+                childList.addAll((List<Map<String, Object>>) itemData.get("meunColl"));
+                for (int i = 0; i < childList.size(); i++) {
+                    String newMenuName = String.valueOf(childList.get(i).get("menuName"));
+                    childList.get(i).put("menuName", newMenuName.replace("手机端", ""));
+                }
             }
-        }
-        //转换整项为字符串准备发送
-        String itemDataString = JSONArray.toJSONString(itemData);
-        Log.e(TAG, "toList: itemDataString " + itemDataString);
-        //转换子列表对象为字符串准备发送
-        String childString = JSONArray.toJSONString(childList);
-        Log.e(TAG, "toList: childString " + childString);
-        Intent intent = new Intent();
+            //转换整项为字符串准备发送
+            String itemDataString = JSONArray.toJSONString(itemData);
+            Log.e(TAG, "toList: itemDataString " + itemDataString);
+            //转换子列表对象为字符串准备发送
+            String childString = JSONArray.toJSONString(childList);
+            Log.e(TAG, "toList: childString " + childString);
+            Intent intent = new Intent();
 //        if ((itemData.get("menuName").toString()).contains("评价")) {
 //            intent.setClass(mActivity, AssessActivity.class);
 //        } else {
 //            if (itemData.get("menuPageUrl") == null) {
-        intent.setClass(mActivity, ListActivity4.class);
+            intent.setClass(mActivity, ListActivity4.class);
 //            } else {
 //                intent.setClass(mActivity, CourseActivity.class);
 //            }
 //        }
-        intent.putExtra("itemData", itemDataString);//父级菜单数据
-        intent.putExtra("childData", childString);
-        mActivity.startActivity(intent);
+            intent.putExtra("itemData", itemDataString);//父级菜单数据
+            intent.putExtra("childData", childString);
+            mActivity.startActivity(intent);
+        }
+
     }
 
     public static String listToString(List<String> stringList) {

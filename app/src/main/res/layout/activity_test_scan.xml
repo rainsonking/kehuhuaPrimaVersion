@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                style="@style/MatchMatch">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchMatch">
 
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView_scan_code"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-<com.baidu.mapapi.map.MapView
-    android:id="@+id/bmapView_scan_code"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone">
-
-</com.baidu.mapapi.map.MapView>
-
-
-
-
-
-
+    </com.baidu.mapapi.map.MapView>
 
     <cn.bingoogolapple.qrcode.zxing.ZXingView
         android:id="@+id/zxingview"
@@ -48,9 +41,9 @@
         app:qrcv_tipTextColor="@android:color/white"
         app:qrcv_tipTextSize="12sp"
         app:qrcv_toolbarHeight="56dp"
-        app:qrcv_topOffset="90dp"/>
+        app:qrcv_topOffset="90dp" />
 
     <!--<include layout="@layout/toolbar"/>-->
 
-    <include layout="@layout/view_control"/>
+    <include layout="@layout/view_control" />
 </RelativeLayout>

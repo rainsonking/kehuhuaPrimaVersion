@@ -116,6 +116,7 @@
         <activity android:name="com.kwsoft.kehuhua.zxing.TestScanActivity"/>
         <activity android:name="com.kwsoft.kehuhua.bailiChat.ChatGoActivity"/>
         <activity android:name="com.kwsoft.kehuhua.bailiChat.AddConvActivity" />
+        <activity android:name=".QuestionWebActivity"/>
 
     </application>
 
