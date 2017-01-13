@@ -88,7 +88,9 @@ public class ListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             final ListViewHolder holder = (ListViewHolder) thisHolder;
 
             List<Map<String, String>> item=getData(position);
-
+            if (item.size()>4) {
+                holder.iv_nextpage.setVisibility(View.VISIBLE);
+            }
             try {
                 final String title = item.get(0).get("fieldCnName2");
                 holder.studentName.setText(!title.equals("null") ? title : "");

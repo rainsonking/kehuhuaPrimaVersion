@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
-import com.kwsoft.kehuhua.adcustom.CourseActivity;
 import com.kwsoft.kehuhua.adcustom.ListActivity4;
+import com.kwsoft.kehuhua.adcustom.QuestionWebActivity;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.utils.DataProcess;
 import com.kwsoft.version.StuPra;
@@ -139,7 +139,8 @@ public class MenuFragment extends Fragment {
     }
 
     public void toItem(Map<String, Object> itemData) {
-        if (itemData.get("menuPageUrl") == null) {
+        String actionWayStr = String.valueOf(itemData.get("actionWay"));
+        if ("0".equals(actionWayStr)) {
             try {
                 String itemDataString = JSONArray.toJSONString(itemData);
                 Intent intent = new Intent();
@@ -150,13 +151,11 @@ public class MenuFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            String itemDataString = JSONArray.toJSONString(itemData);
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), CourseActivity.class);
-
-            intent.putExtra("itemData", itemDataString);
-            startActivity(intent);
+        } else  if ("1".equals(actionWayStr)) {
+            String menuPageUrl = String.valueOf(itemData.get("menuPageUrl"));
+            Intent intent = new Intent(getActivity(), QuestionWebActivity.class);
+            intent.putExtra("menuPageUrl", menuPageUrl);
+            getActivity().startActivity(intent);
         }
     }
 }

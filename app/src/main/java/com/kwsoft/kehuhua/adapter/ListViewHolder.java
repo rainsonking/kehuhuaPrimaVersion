@@ -2,6 +2,7 @@ package com.kwsoft.kehuhua.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
             click_open_btn;
     RelativeLayout click_open;
     LinearLayout dash_ll;
+    ImageView iv_nextpage;
 //    RelativeLayout list_opera_layout;
 //
 //    Button list_opera0,list_opera1,list_opera2;
@@ -29,6 +31,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
     ListViewHolder(View view) {
         super(view);
         mView = view;
+        iv_nextpage= (ImageView) view.findViewById(R.id.iv_nextpage);
         studentName = (TextView) view.findViewById(R.id.stu_name);
         left1 = (TextView) view.findViewById(R.id.left1);
         left2 = (TextView) view.findViewById(R.id.left2);

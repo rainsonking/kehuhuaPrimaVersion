@@ -55,13 +55,14 @@
                 android:textSize="20sp"
                 android:visibility="gone" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_nextpage"-->
-                <!--android:layout_width="20dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:src="@mipmap/teach_basics_into" />-->
+            <ImageView
+                android:id="@+id/iv_nextpage"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                android:src="@mipmap/teach_basics_into" />
         </RelativeLayout>
 
         <LinearLayout
