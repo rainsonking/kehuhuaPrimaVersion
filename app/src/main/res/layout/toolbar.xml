@@ -26,7 +26,51 @@
 
         android:visibility="gone"
         />
+    <LinearLayout
+        android:id="@+id/class_type_select_ll"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+       android:background="@android:color/black"
+        android:layout_width="wrap_content">
 
+        <RadioGroup
+            android:id="@+id/class_type_select_rg"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb0"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="我的课表"
+                android:checked="true"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:paddingTop="6dip"
+                android:paddingBottom="6dip"
+                android:textColor="@color/title_text_sel"
+                android:background="@drawable/rb_bg_01"/>
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="班级课表"
+                android:button="@null"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:paddingTop="6dip"
+                android:paddingBottom="6dip"
+                android:textColor="@color/title_text_sel"
+                android:background="@drawable/rb_bg_02"/>
+        </RadioGroup>
+    </LinearLayout>
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"

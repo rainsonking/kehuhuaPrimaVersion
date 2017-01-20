@@ -3,67 +3,71 @@ package com.kwsoft.version;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.kwsoft.kehuhua.adcustom.ExampleUtil;
 import com.kwsoft.kehuhua.adcustom.MessagAlertActivity;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.bailiChat.SessionFragment;
+import com.kwsoft.kehuhua.bean.MainFragmentsTab;
 import com.kwsoft.kehuhua.config.Constant;
-import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
-import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
 import com.kwsoft.kehuhua.utils.MyPreferenceManager;
 import com.kwsoft.kehuhua.widget.CnToolbar;
+import com.kwsoft.kehuhua.widget.FragmentTabHost;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.fragment.AssortFragment;
 import com.kwsoft.version.fragment.CourseFragment;
 import com.kwsoft.version.fragment.MeFragment;
 import com.kwsoft.version.fragment.StuFragmentTabAdapter;
 import com.kwsoft.version.fragment.StudyFragment;
-import com.kwsoft.version.view.CustomDialog;
 import com.pgyersdk.update.PgyUpdateManager;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
-import okhttp3.Call;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+
+
 
 /**
  * 学员端看板界面
  * wyl
  */
 public class StuMainActivity extends BaseActivity implements View.OnClickListener,EasyPermissions.PermissionCallbacks {
+    private LayoutInflater mInflater;
+    private FragmentTabHost mTabhost;
+    private List<MainFragmentsTab> mTabs = new ArrayList<>(5);
+
+
     private static final String TAG = "StuMainActivity";
     StuFragmentTabAdapter stutabAdapter;
     private RadioGroup radioGroup;
     private RadioButton radio3;
     private String arrStr, menuList, menuDataMap;//看板数据、课程表数据、主菜单数据
-    private CnToolbar mToolbar;
+    public CnToolbar mToolbar;
     SharedPreferences sPreferences;
     private String useridOld;
     AssortFragment menuFragment;
@@ -82,7 +86,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         //useridOld = sPreferences.getString("useridOld", "");
         MyPreferenceManager.init(mContext);
         initView();
-        initFragment();
+        initTab();
 //        if (!Constant.USERID.equals(useridOld)) {
 //            initDialog();
 //            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
@@ -92,113 +96,72 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         registerMessageReceiver();  // used for receive msg
 
     }
+    private void initTab() {
+        MainFragmentsTab tab_home = new MainFragmentsTab(StudyFragment.class,R.string.home,R.drawable.stu_foot_first_selector);
+        MainFragmentsTab tab_assort = new MainFragmentsTab(AssortFragment.class,R.string.assort,R.drawable.stu_foot_forth_selector);
+        MainFragmentsTab tab_course = new MainFragmentsTab(CourseFragment.class,R.string.course,R.drawable.stu_foot_second_selector);
+        MainFragmentsTab tab_session = new MainFragmentsTab(SessionFragment.class,R.string.session,R.drawable.teach_foot_fifth_selector);
+        MainFragmentsTab tab_mine = new MainFragmentsTab(MeFragment.class,R.string.mine,R.drawable.stu_foot_third_selector);
 
-    public void initDialog() {
+        mTabs.add(tab_home);
+        mTabs.add(tab_assort);
+        mTabs.add(tab_course);
+        mTabs.add(tab_session);
+        mTabs.add(tab_mine);
+        mInflater = LayoutInflater.from(this);
+        mTabhost = (FragmentTabHost) this.findViewById(android.R.id.tabhost);
+        mTabhost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
 
-        String admissionInfoUrl = Constant.sysUrl + Constant.requestListData;
+        for (MainFragmentsTab tab : mTabs){
+            TabHost.TabSpec tabSpec = mTabhost.newTabSpec(getString(tab.getTitle()));
+            tabSpec.setIndicator(buildIndicator(tab));
+            mTabhost.addTab(tabSpec,tab.getFragment(),null);
+        }
 
-        //参数
-        Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("tableId", "313");
-        paramsMap.put("pageId", "2782");
-        //请求
-        OkHttpUtils
-                .post()
-                .params(paramsMap)
-                .url(admissionInfoUrl)
-                .build()
-                .execute(new EdusStringCallback(StuMainActivity.this) {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ErrorToast.errorToast(mContext, e);
-                        Log.e(TAG, "onError: Call  " + call + "  id  " + id);
-                    }
+        mTabhost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
+        mTabhost.setCurrentTab(0);
+        mTabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                Log.e(TAG, "onTabChanged: s "+s);
+                switch (s) {
+                    case "首页":
+                        mToolbar.setTitle("主页");
+                        mToolbar.hideClassTypeSelect();
+                        break;
+                    case "课表":
+                        mToolbar.hideTitleView();
+                        mToolbar.showClassTypeSelect();
+                        break;
+                    case "我":
+                        mToolbar.setTitle("个人中心");
+                        mToolbar.hideClassTypeSelect();
+                        break;
+                    case "分类":
+                        mToolbar.setTitle("分类");
+                        mToolbar.hideClassTypeSelect();
+                        break;
+                    case "消息":
+                        mToolbar.setTitle("消息");
+                        mToolbar.hideClassTypeSelect();
+                        break;
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e(TAG, "网络获取添加数据" + response);
-                        //DLCH.put(volleyUrl + paramsStr, jsonData);
-//                        setStore(jsonData);
-                        Map<String, Object> admissionMap = JSON.parseObject(response,
-                                new TypeReference<Map<String, Object>>() {
-                                });
-                        List<Map<String, Object>> rowsMap = (List<Map<String, Object>>) admissionMap.get("rows");
-                        Map<String, Object> map = rowsMap.get(0);
-                        String AFM_1Id = map.get("AFM_1").toString();
-
-                        // String admissionInfoUrl2 = "http://192.168.6.150:8081/hps_edus_auto/phone_startSchoolInfo.do";
-                        String admissionInfoUrl2 = Constant.sysUrl + Constant.admissionUrl;
-                        Map<String, String> paramsMap2 = new HashMap<>();
-                        paramsMap2.put("id", AFM_1Id);
-                        //  paramsMap2.put("id", "794");
-
-                        OkHttpUtils
-                                .post()
-                                .params(paramsMap2)
-                                .url(admissionInfoUrl2)
-                                .build()
-                                .execute(new EdusStringCallback(StuMainActivity.this) {
-                                    @Override
-                                    public void onError(Call call, Exception e, int id) {
-                                        ErrorToast.errorToast(mContext, e);
-                                        Log.e(TAG, "onError: Call  " + call + "  id  " + id);
-                                    }
-
-                                    @Override
-                                    public void onResponse(String response, int id) {
-                                        Log.e(TAG, "网络获取添加数据" + response);
-                                        admissInfoContent = response;
-
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                CustomDialog.Builder builder = new CustomDialog.Builder(StuMainActivity.this);
-//                builder.setMessage("这个就是自定义的提示框");
-                                                builder.setTitle("入学须知");
-                                                if (admissInfoContent == null || admissInfoContent.length() <= 0) {
-                                                    admissInfoContent = "暂无数据！";
-                                                }
-                                                builder.setMessage(admissInfoContent);
-                                                builder.setPositiveButton("我知道了!", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.dismiss();
-                                                        //设置你的操作事项
-                                                    }
-                                                });
-
-                                                builder.setNegativeButton("",
-                                                        new android.content.DialogInterface.OnClickListener() {
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                dialog.dismiss();
-                                                            }
-                                                        });
-
-                                                builder.create().show();
-                                            }
-                                        });
-                                    }
-                                });
-                    }
-                });
+                }
+            }
+        });
 
 
     }
-
+    private View buildIndicator(MainFragmentsTab tab){
+        View view =mInflater.inflate(R.layout.tab_indicator,null);
+        ImageView img = (ImageView) view.findViewById(R.id.icon_tab);
+        TextView text = (TextView) view.findViewById(R.id.txt_indicator);
+        img.setBackgroundResource(tab.getIcon());
+        text.setText(tab.getTitle());
+        return  view;
+    }
     @Override
     public void initView() {
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
-        ((RadioButton) radioGroup.findViewById(R.id.radio0)).setChecked(true);// 设置radiogroup的机制
-
-        RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);
-        RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
-        RadioButton radio2 = (RadioButton) findViewById(R.id.radio2);
-        radio3 = (RadioButton) findViewById(R.id.radio3);
-
-        Intent intent = getIntent();
-        arrStr = intent.getStringExtra("jsonArray");
-        menuList = intent.getStringExtra("menuList");
-        menuDataMap = intent.getStringExtra("menuDataMap");
-
         mToolbar = (CnToolbar) findViewById(R.id.stu_toolbar);
 //        Resources resources = mContext.getResources().getDrawable(R.drawable.nav_news);
 //        Drawable drawable = resources.getDrawable(R.drawable.nav_news);
@@ -224,69 +187,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
                         .request();
             }
         });
-
-        //GPS请求初始化
-//        OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
-//        OkHttpFinal.getInstance().init(builder.build());
-    }
-
-
-    public void initFragment() {
-        Fragment sessionFragment = new SessionFragment();
-        Fragment studyFragment = new StudyFragment();
-        Fragment courseFragment = new CourseFragment();
-        AssortFragment menuFragment = new AssortFragment();
-        Fragment meFragment = new MeFragment();
-
-        Bundle studyBundle = new Bundle();
-        studyBundle.putString("arrStr", arrStr);
-        studyBundle.putString("menuDataMap", menuDataMap);
-        studyBundle.putBoolean("isLogin", true);
-        studyFragment.setArguments(studyBundle);
-
-        Bundle courseBundle = new Bundle();
-        courseBundle.putString("menuList", menuList);
-        courseFragment.setArguments(courseBundle);
-
-        Bundle menuBundle = new Bundle();
-        menuBundle.putString("menuDataMap", menuDataMap);
-        menuFragment.setArguments(menuBundle);
-
-        List<Fragment> mFragments = new ArrayList<>();
-        mFragments.add(studyFragment);
-        mFragments.add(menuFragment);
-        mFragments.add(courseFragment);
-        mFragments.add(sessionFragment);
-        mFragments.add(meFragment);
-        stutabAdapter = new StuFragmentTabAdapter(this, mFragments, R.id.content, radioGroup);
-
-        stutabAdapter.setOnRgsExtraCheckedChangedListener(new StuFragmentTabAdapter.OnRgsExtraCheckedChangedListener() {
-            @Override
-            public void OnRgsExtraCheckedChanged(RadioGroup radioGroup, int checkedId, int index) {
-                // TODO Auto-generated method stub
-                super.OnRgsExtraCheckedChanged(radioGroup, checkedId, index);
-                switch (checkedId) {
-                    case R.id.radio0:
-                        mToolbar.setTitle("主页");
-                        break;
-                    case R.id.radio1:
-                        mToolbar.setTitle("课表");
-                        break;
-                    case R.id.radio2:
-                        mToolbar.setTitle("个人中心");
-                        break;
-                    case R.id.radio3:
-                        mToolbar.setTitle("分类");
-
-                        break;
-                    case R.id.radio4:
-                        mToolbar.setTitle("消息");
-
-                        break;
-
-                }
-            }
-        });
     }
 
     @Override
@@ -301,18 +201,6 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         isForeground = false;
         super.onPause();
     }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-    public void fragmentClick() {
-        radio3.setChecked(true);
-    }
-
-
-
 
     @PermissionSuccess(requestCode = 105)
     public void doCapture() {

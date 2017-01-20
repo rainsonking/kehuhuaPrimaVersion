@@ -6,7 +6,7 @@
         <attr name="rightButtonIcon" format="reference" />
         <attr name="leftButtonIcon" format="reference" />
         <attr name="isShowSearchView" format="boolean" />
-
+        <attr name="isShowClassType" format="boolean" />
     </declare-styleable>
 
 

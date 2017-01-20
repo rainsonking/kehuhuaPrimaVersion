@@ -15,9 +15,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.TypeReference;
 import com.kwsoft.kehuhua.adcustom.CourseActivity;
 import com.kwsoft.kehuhua.adcustom.ListActivity4;
 import com.kwsoft.kehuhua.adcustom.R;
@@ -28,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static com.kwsoft.version.StuPra.loginMenuList;
+
 /**
  * Created by Administrator on 2016/9/10 0010.
  *
@@ -35,11 +36,10 @@ import java.util.Map;
 public class MenuFragment extends Fragment {
     private ListView regionListView, nextMenu;
     //    private TextView rightView;
-    private ArrayList<String> groups = new ArrayList<String>();
+    private ArrayList<String> groups = new ArrayList<>();
     private TextAdapter earaListViewAdapter;
-    private Bundle menuBundle;
     private TextView lastTextView;
-    private List<Map<String, Object>> menuListMap, parentList;
+    private List<Map<String, Object>> parentList;
     private List<Map<String, Object>> childList = new ArrayList<>();
     private SimpleAdapter nextAdapter;
 
@@ -82,20 +82,17 @@ public class MenuFragment extends Fragment {
     }
 
     private void getIntentData() {
-        menuBundle = getArguments();
+//        menuBundle = getArguments();
+        Log.e(TAG, "getIntentData: loginMenuList "+loginMenuList);
+//        String menuStr = menuBundle.getString("menuDataMap");
+        if (loginMenuList != null&&loginMenuList.size()>0) {
 
-        String menuStr = menuBundle.getString("menuDataMap");
-        if (menuStr != null) {
-            menuListMap = JSON.parseObject(menuStr,
-                    new TypeReference<List<Map<String, Object>>>() {
-                    });
-            if (menuListMap.size() > 0) {
-                parentList = DataProcess.toParentList(menuListMap);
+                parentList = DataProcess.toParentList(loginMenuList);
             } else {
                 Toast.makeText(getActivity(), "无菜单数据", Toast.LENGTH_SHORT).show();
             }
-            Log.e("TAG", "获得学员端菜单数据：" + menuStr);
-        }
+
+
     }
 
     private void initView(View view) {
@@ -123,11 +120,11 @@ public class MenuFragment extends Fragment {
     public void getChildMap(int position) {
         childList.clear();
         int menuId = Integer.valueOf(String.valueOf(parentList.get(position).get("menuId")));
-        for (int i = 0; i < menuListMap.size(); i++) {
-            if (Integer.valueOf(String.valueOf(menuListMap.get(i).get("parent_menuId"))) == menuId) {
-                String newMenuName = String.valueOf(menuListMap.get(i).get("menuName"));
-                menuListMap.get(i).put("menuName", newMenuName.replace("手机端", ""));
-                childList.add(menuListMap.get(i));
+        for (int i = 0; i < loginMenuList.size(); i++) {
+            if (Integer.valueOf(String.valueOf(loginMenuList.get(i).get("parent_menuId"))) == menuId) {
+                String newMenuName = String.valueOf(loginMenuList.get(i).get("menuName"));
+                loginMenuList.get(i).put("menuName", newMenuName.replace("手机端", ""));
+                childList.add(loginMenuList.get(i));
             }
         }
     }
@@ -144,7 +141,6 @@ public class MenuFragment extends Fragment {
             String itemDataString = JSONArray.toJSONString(itemData);
             Intent intent = new Intent();
             intent.setClass(getActivity(), CourseActivity.class);
-
             intent.putExtra("itemData", itemDataString);
             startActivity(intent);
         }

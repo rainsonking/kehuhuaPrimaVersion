@@ -2,6 +2,9 @@ package com.kwsoft.version;
 
 import com.kwsoft.kehuhua.adcustom.R;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2016/9/19 0019.
  *
@@ -110,28 +113,14 @@ public class StuPra {
             R.drawable.stu_see_leave, R.drawable.stu_see_visit,
             R.mipmap.stu_see_achievement,R.mipmap.stu_my_evaluate,
             R.mipmap.stu_my_evaluate_curriculum,R.mipmap.stu_my_meeting,R.mipmap.stu_my_report
-
-
-
-
-
-
-
-
-
-
-
-
-
             };
-//    R.drawable.stu_see_order, R.mipmap.stu_my_task,
-//    R.mipmap.stu_my_journal, R.mipmap.stu_my_attendance,
-//    R.mipmap.stu_my_leave, R.mipmap.stu_my_visit,
-//    R.mipmap.stu_my_achievement,R.mipmap.stu_my_evaluate,
-//    R.mipmap.stu_my_evaluate_curriculum,
-//    R.drawable.stu_see_order, R.mipmap.stu_my_task,
-//    R.mipmap.stu_my_journal, R.mipmap.stu_my_attendance,
-//    R.mipmap.stu_my_leave, R.mipmap.stu_my_visit,
-//    R.mipmap.stu_my_achievement,R.mipmap.stu_my_evaluate,
-//    R.mipmap.stu_my_evaluate_curriculum
+
+
+   public static List<Map<String, Object>> loginRoleFollowList,loginMenuList;
+
+
+
+
+
+
 }

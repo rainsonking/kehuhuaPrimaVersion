@@ -43,6 +43,9 @@ import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 import okhttp3.Call;
 
+import static com.kwsoft.version.StuPra.loginMenuList;
+import static com.kwsoft.version.StuPra.loginRoleFollowList;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -332,13 +335,13 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
             String userid = String.valueOf(loginfo.get("USERID"));
             Constant.USERID = String.valueOf(loginfo.get("USERID"));
             sPreferences.edit().putString("userid", userid).apply();
-            List<Map<String, Object>> menuListMap1 = (List<Map<String, Object>>) menuMap.get("roleFollowList");
-            List<Map<String, Object>> menuListMap2 = (List<Map<String, Object>>) menuMap.get("menuList");
+            loginRoleFollowList = (List<Map<String, Object>>) menuMap.get("roleFollowList");
+            loginMenuList = (List<Map<String, Object>>) menuMap.get("menuList");
+            Log.e(TAG, "mainPage: 菜单数据 "+loginMenuList.toString());
+            Log.e(TAG, "mainPage: 看板数据 "+loginRoleFollowList.toString());
 
             Intent intent = new Intent();
             intent.setClass(StuLoginActivity.this, StuMainActivity.class);
-            intent.putExtra("jsonArray", JSON.toJSONString(menuListMap1));
-            intent.putExtra("menuDataMap", JSON.toJSONString(menuListMap2));
             startActivity(intent);
             finish();
             dialog.dismiss();

@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -25,6 +28,8 @@ import com.kwsoft.kehuhua.model.OnDataListener;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.view.CourseView;
+import com.kwsoft.kehuhua.widget.CalendarView;
+import com.kwsoft.version.StuMainActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.joda.time.DateTime;
@@ -47,6 +52,7 @@ import noman.weekcalendar.listener.OnDateClickListener;
 import okhttp3.Call;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static com.kwsoft.kehuhua.adcustom.R.id.custom_course;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
@@ -99,13 +105,32 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
     private Bundle menuListBundle;
     private LinearLayout layout_title;
     private TextView tv_year;
+    private RelativeLayout customCourse;
+    private LinearLayout monthCourse;
+    /**
+     * 班型课表参数
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
+
+    private TextView mTextSelectMonth;
+    private ImageButton mLastMonthView;
+    private ImageButton mNextMonthView;
+    private CalendarView mCalendarView;
+
+    private List<String> mDatas;
+    private List<String> mDatas1;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stu_course_fragment_layout, container, false);
 
-        getIntentData();
+
         initView(view);
         url = Constant.sysUrl + "dataPlAdd_interfaceShowDateCourse.do";
         //?mainId=73&tableId=19&minDate=2016-05-26&maxDate=2016-06-26
@@ -116,13 +141,10 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
 
     public void initView(View view) {
 
-//        RelativeLayout  add_item_title=(RelativeLayout) view.findViewById(R.id.add_item_title);
-//        add_item_title.setVisibility(View.GONE);
-//        layout_title= (LinearLayout) view.findViewById(R.id.layout_title);
-//        layout_title.setVisibility(View.VISIBLE);
-//        add_item_title.setBackgroundColor(getResources().getColor(R.color.red));
-//        tvTitle = (TextView) view.findViewById(R.id.textView);
-//        tvTitle.setText("课程");
+
+        customCourse = (RelativeLayout) view.findViewById(custom_course);
+        monthCourse = (LinearLayout) view.findViewById(R.id.month_course);
+        tableId = Constant.stuCourseTableId;
         Log.e("TAG", "课程表监测点paramsMap" + paramsMap.toString());
         rl_top = (RelativeLayout) view.findViewById(R.id.rl_top);
         layout_course_bg = (RelativeLayout) view.findViewById(R.id.layout_course_bg);
@@ -143,17 +165,6 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         tv_date = (TextView) view.findViewById(R.id.tv_date);
         tv_year = (TextView) view.findViewById(R.id.tv_year);
         IV_back_list_item_tadd = (ImageView) view.findViewById(R.id.IV_back_list_item_tadd);
-
-//        if (VersionSetting.versionNum==1){
-//            IV_back_list_item_tadd.setVisibility(View.GONE);
-//        }
-//
-//        IV_back_list_item_tadd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().finish();
-//            }
-//        });
         layout_date = (RelativeLayout) view.findViewById(R.id.layout_date);
         currentDateTime = new DateTime();
         Log.e("TAG", "课程表监测点2");
@@ -225,6 +236,99 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         paramsMap.put("maxDate", thisWeekLastDate);//thisWeekLastDate
 
         Log.e(TAG, Constant.USERID + "//" + tableId);
+
+
+        /**
+         *
+         * 课程表2初始化
+         */
+        mTextSelectMonth = (TextView) view.findViewById(R.id.txt_select_month);
+        mLastMonthView = (ImageButton) view.findViewById(R.id.img_select_last_month);
+        mNextMonthView = (ImageButton) view.findViewById(R.id.img_select_next_month);
+        mCalendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        mLastMonthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalendarView.setLastMonth();
+                mTextSelectMonth.setText(mCalendarView.getDate());
+            }
+        });
+        mNextMonthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalendarView.setNextMonth();
+                mTextSelectMonth.setText(mCalendarView.getDate());
+            }
+        });
+
+        // 初始化可选日期
+        initData();
+
+        // 设置可选日期
+        mCalendarView.setOptionalDate(mDatas);
+        // 设置已选日期
+//        mCalendarView.setSelectedDates(mDatas1);
+        // 设置不可以被点击
+        mCalendarView.setClickable(true);
+
+        // 设置点击事件
+        mCalendarView.setOnClickDate(new CalendarView.OnClickListener() {
+            @Override
+            public void onClickDateListener(int year, int month, int day) {
+                Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
+
+                // 获取已选择日期
+                List<String> dates = mCalendarView.getSelectedDates();
+                for (String date : dates) {
+                    Log.e("test", "date: " + date);
+                }
+            }
+        });
+
+        mTextSelectMonth.setText(mCalendarView.getDate());
+
+        try {
+            ((StuMainActivity) getActivity()).mToolbar.getRadio().setOnCheckedChangeListener(
+                    new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                            Log.e(TAG, "onCheckedChanged: 选择了第几个    "+i);
+                            switch (i) {
+                                case 2131756040:
+                                    customCourse.setVisibility(View.VISIBLE);
+                                    monthCourse.setVisibility(View.GONE);
+                                    break;
+                                case 2131756041:
+                                    monthCourse.setVisibility(View.VISIBLE);
+                                    customCourse.setVisibility(View.GONE);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    //课表2初始化数据
+    private void initData() {
+        mDatas = new ArrayList<>();
+        mDatas.add("20161101");
+        mDatas.add("20161102");
+        mDatas.add("20161103");
+        mDatas.add("20161116");
+        mDatas.add("20161117");
+        mDatas.add("20161126");
+        mDatas.add("20161110");
+        mDatas.add("20161111");
+        mDatas.add("20161112");
+
+        mDatas1 = new ArrayList<>();
+        mDatas1.addAll(mDatas);
     }
 
     //选中日期时，底部显示的高亮view
@@ -235,46 +339,8 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         float marginLeft = ((week - 1) * courseInfoWidth) + leftTextViewWidth + lineHeight * 2;
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) courseInfoWidth, dip2px(getActivity(), 2));
         layoutParams.setMargins((int) marginLeft, dip2px(getActivity(), 64), 0, 0);
-
         RelativeLayout.LayoutParams lpButtom = new RelativeLayout.LayoutParams((int) courseInfoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
         lpButtom.setMargins((int) marginLeft, 0, 0, 0);
-//        if (selectView == null) {
-//            selectView = new View(getActivity());
-//            selectView.setBackgroundResource(R.color.selectColor);
-//        } else {
-//            rl_top.removeView(selectView);
-//        }
-//        selectView.setLayoutParams(layoutParams);
-//        rl_top.addView(selectView);
-//
-//        if (selectViewButtom == null) {
-//            selectViewButtom = new View(getContext());
-//            selectViewButtom.setBackgroundResource(R.color.selectColorButtom);
-//        } else {
-//            layout_course_bg.removeView(selectViewButtom);
-//        }
-//        selectViewButtom.setLayoutParams(lpButtom);
-//        layout_course_bg.addView(selectViewButtom);
-    }
-
-    private void getIntentData() {
-        try {
-            menuListBundle = getArguments();
-            String buttonSetItemStr = menuListBundle.getString("menuList");
-//          Map<String, Object> itemData = JSON.parseObject(buttonSetItemStr);
-//            String urlHalf = String.valueOf(itemData.get("menuPageUrl"));
-//            // "dataPlAdd_toShowPage.do?tableId=19&ifAjax=1",
-//            String jieguo = urlHalf.substring(urlHalf.indexOf("?") + 1, urlHalf.length() - 1);
-//            String[] jieGuo1 = urlHalf.split("tableId=");
-//            String[] jieGuo2 = jieGuo1[1].split("&");
-//            tableId = jieGuo2[0];
-            tableId = Constant.stuCourseTableId;
-            Log.e("tableidsd", Constant.stuCourseTableId);
-            Log.e("useidsd", Constant.USERID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     /**
@@ -356,7 +422,7 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
     //请求课程表数据
     private void requestCourseData(String volleyUrl) {
         //startAnim();
-        Log.e("TAG", "请求课表数据参数： "+paramsMap.toString());
+        Log.e("TAG", "请求课表数据参数： " + paramsMap.toString());
 
         //请求
         OkHttpUtils

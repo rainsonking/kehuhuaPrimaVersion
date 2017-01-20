@@ -34,7 +34,6 @@ import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.utils.DataProcess;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
 import com.kwsoft.version.StuInfoActivity;
-import com.kwsoft.version.StuMainActivity;
 import com.kwsoft.version.androidRomType.AndtoidRomUtil;
 import com.kwsoft.version.view.StudyGridView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -49,6 +48,8 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.kwsoft.version.StuPra.loginMenuList;
+import static com.kwsoft.version.StuPra.loginRoleFollowList;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
@@ -182,7 +183,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
         Log.e("isLogin=", isLogin + "");
         super.onResume();
         if (!isLogin) {
-            isLogin = arrBundle.getBoolean("isLogin");
+            isLogin= true;
             initData();
         } else {
             getLoginData(stuUrl);
@@ -209,14 +210,14 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Log.e("simp11", simpleAdapter.getCount() + "/" + i);
                         //if ((simpleAdapter.getCount() == (i + 1))) {
-                        if (i == 7) {
-                            StuMainActivity activity = (StuMainActivity) getActivity();
-                            activity.fragmentClick();
-                        } else {
+//                        if (i == 7) {
+//                            StuMainActivity activity = (StuMainActivity) getActivity();
+//                            activity.fragmentClick();
+//                        } else {
 //                            int menuId = (int) menuListMap.get(i).get("menuId");
 //                            toItem(menuId, menuListMap.get(i));
                             DataProcess.toList(getActivity(), menuListMap.get(i));
-                        }
+//                        }
                     }
                 });
             } else {
@@ -227,13 +228,13 @@ public class StudyFragment extends Fragment implements View.OnClickListener {
 
     private void getData() {
         //设置看板数据
-        arrBundle = getArguments();
-        if (arrBundle.getString("arrStr")!=null) {
-            arrStr = arrBundle.getString("arrStr");
+
+        if (loginRoleFollowList!=null) {
+            arrStr = JSON.toJSONString(loginRoleFollowList);
         }
 
-        if (arrBundle.getString("menuDataMap")!=null) {
-            menuStr = arrBundle.getString("menuDataMap");
+        if (loginMenuList!=null) {
+            menuStr = JSON.toJSONString(loginMenuList);
         }
 
     }

@@ -6,6 +6,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.kwsoft.kehuhua.adcustom.R;
+
+
 
 
 /**
@@ -30,6 +35,8 @@ public class CnToolbar extends Toolbar {
     private EditText mSearchView;
     private ImageButton mRightImageButton,mLeftImageButton;//
     private ImageView mOften_drop,mOften_collect;
+    private RadioGroup class_type_select_rg;
+    private LinearLayout class_type_select_ll;
     public CnToolbar(Context context) {
        this(context,null);
     }
@@ -40,30 +47,24 @@ public class CnToolbar extends Toolbar {
 
     public CnToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-
-
         initView();
         setContentInsetsRelative(10,10);
-
-
-
-
         if(attrs !=null) {
             final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
                     R.styleable.CnToolbar, defStyleAttr, 0);
-
-
             boolean isShowSearchView = a.getBoolean(R.styleable.CnToolbar_isShowSearchView,false);
-
             if(isShowSearchView){
 
                 showSearchView();
                 hideTitleView();
 
             }
-
-
+            boolean isShowClassType = a.getBoolean(R.styleable.CnToolbar_isShowClassType,false);
+            if (isShowClassType) {
+                showClassTypeSelect();
+            }else{
+                hideClassTypeSelect();
+            }
             a.recycle();
         }
 
@@ -77,27 +78,23 @@ public class CnToolbar extends Toolbar {
             LayoutInflater mInflater = LayoutInflater.from(getContext());
             mView = mInflater.inflate(R.layout.toolbar, null);
 
-
+            class_type_select_ll=(LinearLayout) mView.findViewById(R.id.class_type_select_ll);
             mTextTitle = (TextView) mView.findViewById(R.id.toolbar_title);
             mSearchView = (EditText) mView.findViewById(R.id.toolbar_searchview);
             mOften_drop = (ImageView) mView.findViewById(R.id.often_drop);
             mOften_collect = (ImageView) mView.findViewById(R.id.often_collect);
-
-
+            class_type_select_rg=(RadioGroup) mView.findViewById(R.id.class_type_select_rg);
+            Log.e(TAG, "initView: 初始化完毕");
             mRightImageButton = (ImageButton) mView.findViewById(R.id.toolbar_rightButton);
             mLeftImageButton = (ImageButton) mView.findViewById(R.id.toolbar_leftButton);
             LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
             addView(mView, lp);
-//                        final Drawable rightIcon = a.getDrawable(R.styleable.CnToolbar_rightButtonIcon);
-//            final Drawable leftIcon = a.getDrawable(R.styleable.CnToolbar_leftButtonIcon);
-//            if (rightIcon != null) {
-//                //setNavigationIcon(navIcon);
-//                setRightButtonIcon(rightIcon);
-//            }
-//            if (leftIcon != null) {
-//                //setNavigationIcon(navIcon);
-//                setLeftButtonIcon(leftIcon);
-//            }
+            class_type_select_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    Log.e(TAG, "onCheckedChanged: 所选第几个 "+i);
+                }
+            });
         }
     }
 
@@ -128,8 +125,30 @@ public class CnToolbar extends Toolbar {
         }
     }
 
+    private static final String TAG = "CnToolbar";
 
+    public  void hideClassTypeSelect(){
+        Log.e(TAG, "showClassTypeSelect: 隐藏顶栏");
+        if(class_type_select_ll !=null){
+            Log.e(TAG, "showClassTypeSelect: 隐藏顶栏 class_type_select_rg !=null");
+            class_type_select_ll.setVisibility(GONE);}
+    }
 
+    public  void showClassTypeSelect(){
+        Log.e(TAG, "showClassTypeSelect: 显示顶栏");
+        if(class_type_select_ll !=null){
+            Log.e(TAG, "showClassTypeSelect: 显示顶栏 class_type_select_rg !=null");
+            class_type_select_ll.setVisibility(VISIBLE);}
+    }
+public RadioGroup getRadio(){
+
+    if(class_type_select_ll !=null){
+        Log.e(TAG, "showClassTypeSelect: 显示顶栏 class_type_select_rg !=null");
+       return class_type_select_rg;}else{
+        return null;
+    }
+
+}
     public  void showSearchView(){
 
         if(mSearchView !=null)

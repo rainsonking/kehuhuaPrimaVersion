@@ -16,8 +16,6 @@ import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.config.Constant;
@@ -35,6 +33,8 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import okhttp3.Call;
+
+import static com.kwsoft.version.StuPra.loginMenuList;
 
 /**
  * Created by Administrator on 2016/9/19 0019.
@@ -149,12 +149,9 @@ public class AssortFragment extends Fragment {
      * 获取mainActivity传递的菜单menuList数据
      */
     private void getIntentData() {
-        Bundle menuBundle = getArguments();
-        String menuStr = menuBundle.getString("menuDataMap");
-        if (menuStr != null && menuStr.length() > 0) {
-            menuListAll = JSON.parseObject(menuStr,
-                    new TypeReference<List<Map<String, Object>>>() {
-                    });
+
+        if (loginMenuList != null && loginMenuList.size() > 0) {
+            menuListAll = loginMenuList;
             menuListMap = DataProcess.toStuParentList(menuListAll);
 
             Log.e("TAG", "menuListMap初始值 " + menuListMap.toString());
