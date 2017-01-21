@@ -37,6 +37,7 @@ import com.kwsoft.version.dto.ConfigsMessageDTO;
 import com.warmtel.expandtab.ExpandPopTabView;
 import com.warmtel.expandtab.KeyValueBean;
 import com.warmtel.expandtab.PopOneListView;
+import com.warmtel.expandtab.PopThreeLinearLayout;
 import com.warmtel.expandtab.PopTwoListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -252,10 +253,12 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         setConfigsDatas();
 
         expandTabView = (ExpandPopTabView) view.findViewById(R.id.expandtab_view);
-        addItem(expandTabView, mPriceLists, "", "价格");
-        addItem(expandTabView, mFavorLists, "默认", "排序");
-        addItem(expandTabView, mSortLists, "优惠最多", "优惠");
-        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
+        addItem(expandTabView, mPriceLists, "不限", "班型");
+        addItem(expandTabView, mFavorLists, "不限", "课次");
+        addItem(expandTabView,"更多筛选");
+
+
+//        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
         /**
          *
          * 课程表2初始化
@@ -343,8 +346,28 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
                 Log.e("tag", "key :" + key + " ,value :" + value);
             }
         });
+
         expandTabView.addItemToExpandTab(defaultShowText, popOneListView);
     }
+
+
+    public void addItem(ExpandPopTabView expandTabView, String defaultShowText) {
+        PopThreeLinearLayout popThreeLinearLayout = new PopThreeLinearLayout(getActivity());
+//        popTwoListView.setDefaultSelectByValue(defaultParentSelect, defaultChildSelect);
+//        distanceView.setDefaultSelectByKey(defaultParent, defaultChild);
+//        popTwoListView.setCallBackAndData(expandTabView, parentLists, childrenListLists, new PopTwoListView.OnSelectListener() {
+//            @Override
+//            public void getValue(String showText, String parentKey, String childrenKey) {
+//                Log.e("tag", "showText :" + showText + " ,parentKey :" + parentKey + " ,childrenKey :" + childrenKey);
+//            }
+//        });
+        expandTabView.addItemToExpandTab(defaultShowText, popThreeLinearLayout);
+    }
+
+
+
+
+
 
     public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> parentLists,
                         List<ArrayList<KeyValueBean>> childrenListLists, String defaultParentSelect, String defaultChildSelect, String defaultShowText) {
