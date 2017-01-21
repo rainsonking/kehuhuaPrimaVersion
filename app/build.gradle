@@ -192,4 +192,5 @@ dependencies {
     compile project(path: ':zxingdemo')
     compile project(path: ':baiduMap')
     compile project(path: ':chatInterface')
+    compile project(path: ':android-expandpoptab-library')
 }

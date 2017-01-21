@@ -6,24 +6,22 @@
     android:background="@color/white"
     android:orientation="vertical"
    >
+    <!--月历形式课表-->
     <LinearLayout
         android:id="@+id/month_course"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         android:orientation="vertical">
-        <RelativeLayout
+        <com.warmtel.expandtab.ExpandPopTabView
+            android:id="@+id/expandtab_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/yellow">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="搜索区域"
-                android:textColor="@color/__picker_black_40"/>
+            android:layout_height="wrap_content"
+            app:tab_toggle_btn_color="@android:color/white"
+            app:tab_pop_bg_color="@android:color/white"
+            app:tab_toggle_btn_font_color="@color/prim_topBarColor"
 
-        </RelativeLayout>
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +82,8 @@
 
             <com.kwsoft.kehuhua.widget.WeekView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:id="@+id/weekView" />
 
             <com.kwsoft.kehuhua.widget.CalendarView
                 android:id="@+id/calendarView"
@@ -95,6 +94,8 @@
 
 
     </LinearLayout>
+
+    <!--普通课表-->
 <RelativeLayout
     android:id="@+id/custom_course"
     android:layout_width="match_parent"

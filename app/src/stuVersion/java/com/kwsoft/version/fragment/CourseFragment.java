@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.kwsoft.kehuhua.adcustom.CourseDetailActivity;
 import com.kwsoft.kehuhua.adcustom.R;
@@ -30,11 +31,21 @@ import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.view.CourseView;
 import com.kwsoft.kehuhua.widget.CalendarView;
 import com.kwsoft.version.StuMainActivity;
+import com.kwsoft.version.dto.ConfigAreaDTO;
+import com.kwsoft.version.dto.ConfigsDTO;
+import com.kwsoft.version.dto.ConfigsMessageDTO;
+import com.warmtel.expandtab.ExpandPopTabView;
+import com.warmtel.expandtab.KeyValueBean;
+import com.warmtel.expandtab.PopOneListView;
+import com.warmtel.expandtab.PopTwoListView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +63,6 @@ import noman.weekcalendar.listener.OnDateClickListener;
 import okhttp3.Call;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-import static com.kwsoft.kehuhua.adcustom.R.id.custom_course;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
@@ -110,19 +120,21 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
     /**
      * 班型课表参数
      *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
      */
-
     private TextView mTextSelectMonth;
     private ImageButton mLastMonthView;
     private ImageButton mNextMonthView;
     private CalendarView mCalendarView;
-
     private List<String> mDatas;
     private List<String> mDatas1;
+    //班型课表搜索条件
+    private ExpandPopTabView expandTabView;
+    private List<KeyValueBean> mParentLists = new ArrayList<>();
+    private List<ArrayList<KeyValueBean>> mChildrenListLists = new ArrayList<>();
+    private List<KeyValueBean> mPriceLists;
+    private List<KeyValueBean> mSortLists;
+    private List<KeyValueBean> mFavorLists;
+
 
 
     @Nullable
@@ -142,7 +154,7 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
     public void initView(View view) {
 
 
-        customCourse = (RelativeLayout) view.findViewById(custom_course);
+        customCourse = (RelativeLayout) view.findViewById(R.id.custom_course);
         monthCourse = (LinearLayout) view.findViewById(R.id.month_course);
         tableId = Constant.stuCourseTableId;
         Log.e("TAG", "课程表监测点paramsMap" + paramsMap.toString());
@@ -237,7 +249,13 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
 
         Log.e(TAG, Constant.USERID + "//" + tableId);
 
+        setConfigsDatas();
 
+        expandTabView = (ExpandPopTabView) view.findViewById(R.id.expandtab_view);
+        addItem(expandTabView, mPriceLists, "", "价格");
+        addItem(expandTabView, mFavorLists, "默认", "排序");
+        addItem(expandTabView, mSortLists, "优惠最多", "优惠");
+        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
         /**
          *
          * 课程表2初始化
@@ -288,23 +306,25 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         mTextSelectMonth.setText(mCalendarView.getDate());
 
         try {
+
             ((StuMainActivity) getActivity()).mToolbar.getRadio().setOnCheckedChangeListener(
                     new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                            Log.e(TAG, "onCheckedChanged: 选择了第几个    "+i);
-                            switch (i) {
-                                case 2131756040:
-                                    customCourse.setVisibility(View.VISIBLE);
-                                    monthCourse.setVisibility(View.GONE);
-                                    break;
-                                case 2131756041:
-                                    monthCourse.setVisibility(View.VISIBLE);
-                                    customCourse.setVisibility(View.GONE);
-                                    break;
-                                default:
-                                    break;
+
+                            Log.e(TAG, "onCheckedChanged: 选择了第几个    "+i+" 选择的id "+radioGroup.getChildAt(0).getId());
+                            if (i==radioGroup.getChildAt(0).getId()) {
+                                customCourse.setVisibility(View.VISIBLE);
+                                monthCourse.setVisibility(View.GONE);
+                            }else if(i==radioGroup.getChildAt(1).getId()){
+                                monthCourse.setVisibility(View.VISIBLE);
+                                customCourse.setVisibility(View.GONE);
                             }
+
+
+
+
+
                         }
                     });
         } catch (Exception e) {
@@ -313,7 +333,79 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
 
 
     }
+    public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> lists, String defaultSelect, String defaultShowText) {
+        PopOneListView popOneListView = new PopOneListView(getActivity());
+        popOneListView.setDefaultSelectByValue(defaultSelect);
+        //popViewOne.setDefaultSelectByKey(defaultSelect);
+        popOneListView.setCallBackAndData(lists, expandTabView, new PopOneListView.OnSelectListener() {
+            @Override
+            public void getValue(String key, String value) {
+                Log.e("tag", "key :" + key + " ,value :" + value);
+            }
+        });
+        expandTabView.addItemToExpandTab(defaultShowText, popOneListView);
+    }
 
+    public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> parentLists,
+                        List<ArrayList<KeyValueBean>> childrenListLists, String defaultParentSelect, String defaultChildSelect, String defaultShowText) {
+        PopTwoListView popTwoListView = new PopTwoListView(getActivity());
+        popTwoListView.setDefaultSelectByValue(defaultParentSelect, defaultChildSelect);
+//        distanceView.setDefaultSelectByKey(defaultParent, defaultChild);
+        popTwoListView.setCallBackAndData(expandTabView, parentLists, childrenListLists, new PopTwoListView.OnSelectListener() {
+            @Override
+            public void getValue(String showText, String parentKey, String childrenKey) {
+                Log.e("tag", "showText :" + showText + " ,parentKey :" + parentKey + " ,childrenKey :" + childrenKey);
+            }
+        });
+        expandTabView.addItemToExpandTab(defaultShowText, popTwoListView);
+    }
+    public String readStream(InputStream is) {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            int i = is.read();
+            while (i != -1) {
+                bo.write(i);
+                i = is.read();
+            }
+            return bo.toString();
+        } catch (IOException e) {
+            return "";
+        }
+    }
+    private void setConfigsDatas() {
+        Log.e(TAG, "setConfigsDatas: 执行了");
+        try {
+            InputStream is =  getActivity().getResources().getAssets().open("searchType");
+            Log.e(TAG, "setConfigsDatas: 监测点1");
+            String searchTypeJson = readStream(is);
+            Log.e(TAG, "setConfigsDatas: 监测点2searchTypeJson "+searchTypeJson);
+            ConfigsMessageDTO messageDTO = JSONObject.parseObject(searchTypeJson, ConfigsMessageDTO.class);
+            ConfigsDTO configsDTO = messageDTO.getInfo();
+
+            mPriceLists = configsDTO.getPriceType();
+            mSortLists = configsDTO.getSortType();
+            mFavorLists = configsDTO.getSortType();
+
+            List<ConfigAreaDTO> configAreaListDTO = configsDTO.getCantonAndCircle();
+            for (ConfigAreaDTO configAreaDTO : configAreaListDTO) {
+                KeyValueBean keyValueBean = new KeyValueBean();
+                keyValueBean.setKey(configAreaDTO.getKey());
+                keyValueBean.setValue(configAreaDTO.getValue());
+                mParentLists.add(keyValueBean);
+
+                ArrayList<KeyValueBean> childrenLists = new ArrayList<>();
+                for (KeyValueBean keyValueBean1 : configAreaDTO.getBusinessCircle()) {
+                    childrenLists.add(keyValueBean1);
+                }
+                mChildrenListLists.add(childrenLists);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG, "setConfigsDatas: 发生异常");
+        }
+
+    }
     //课表2初始化数据
     private void initData() {
         mDatas = new ArrayList<>();
@@ -599,5 +691,13 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(expandTabView != null){
+            expandTabView.onExpandPopView();
+        }
     }
 }
