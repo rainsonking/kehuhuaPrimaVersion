@@ -95,6 +95,19 @@ public class StuPra {
     public static final String messageFromMe = "我";//对自己的昵称
     public static final String messageContent = "MESSCONTENT";//消息内容
     public static final String messageFromSys = "系统消息";//对系统的称呼
+
+
+
+    public static final String classTypeGetSearchUrl = "dataPlAdd_interfaceShowClassType.do";//对系统的称呼
+    public static final String classTypeCommitSearchUrl= "interfaceShowDateClassTypeCourse.do";//对系统的称呼
+
+
+
+
+
+
+
+
     //存储学员端父类菜单的图标
     public static int[] imgs = {R.drawable.stu_see_order, R.drawable.stu_see_task,
             R.drawable.stu_see_journal, R.drawable.stu_see_attendance,

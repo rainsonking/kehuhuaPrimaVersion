@@ -64,9 +64,11 @@ import noman.weekcalendar.listener.OnDateClickListener;
 import okhttp3.Call;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+import static com.kwsoft.version.StuPra.classTypeGetSearchUrl;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
+ *
  */
 public class CourseFragment extends Fragment implements OnDataListener, WeekDateChaListener {
     private TextView tvTitle;
@@ -135,7 +137,7 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
     private List<KeyValueBean> mPriceLists;
     private List<KeyValueBean> mSortLists;
     private List<KeyValueBean> mFavorLists;
-
+    private String classTypeUrl;
 
 
     @Nullable
@@ -149,7 +151,33 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
         //?mainId=73&tableId=19&minDate=2016-05-26&maxDate=2016-06-26
         Log.e("url=", url);
         requestCourseData(url);
+        classTypeUrl=Constant.sysUrl +classTypeGetSearchUrl;
+        requestClassCourseData(classTypeUrl);
         return view;
+    }
+
+    private void requestClassCourseData(String classTypeUrl) {
+            Map<String, String> paramsMapClass = new HashMap<>();
+            paramsMapClass.put("mainId",Constant.USERID);
+            OkHttpUtils
+                    .post()
+                    .params(paramsMapClass)
+                    .url(classTypeUrl)
+                    .build()
+                .execute(new EdusStringCallback(getActivity()) {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ErrorToast.errorToast(mContext, e);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e(TAG, "返回的班型课表搜索条件数据  "+response);
+//                        setStore(response);
+                    }
+                });
+
+
     }
 
     public void initView(View view) {
@@ -323,11 +351,6 @@ public class CourseFragment extends Fragment implements OnDataListener, WeekDate
                                 monthCourse.setVisibility(View.VISIBLE);
                                 customCourse.setVisibility(View.GONE);
                             }
-
-
-
-
-
                         }
                     });
         } catch (Exception e) {
