@@ -33,8 +33,8 @@ import com.kwsoft.kehuhua.utils.MyPreferenceManager;
 import com.kwsoft.kehuhua.widget.CnToolbar;
 import com.kwsoft.kehuhua.widget.FragmentTabHost;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
+import com.kwsoft.version.fragment.AllCourseFragment;
 import com.kwsoft.version.fragment.AssortFragment;
-import com.kwsoft.version.fragment.CourseFragment;
 import com.kwsoft.version.fragment.MeFragment;
 import com.kwsoft.version.fragment.StuFragmentTabAdapter;
 import com.kwsoft.version.fragment.StudyFragment;
@@ -99,7 +99,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     private void initTab() {
         MainFragmentsTab tab_home = new MainFragmentsTab(StudyFragment.class,R.string.home,R.drawable.stu_foot_first_selector);
         MainFragmentsTab tab_assort = new MainFragmentsTab(AssortFragment.class,R.string.assort,R.drawable.stu_foot_forth_selector);
-        MainFragmentsTab tab_course = new MainFragmentsTab(CourseFragment.class,R.string.course,R.drawable.stu_foot_second_selector);
+        MainFragmentsTab tab_course = new MainFragmentsTab(AllCourseFragment.class,R.string.course,R.drawable.stu_foot_second_selector);
         MainFragmentsTab tab_session = new MainFragmentsTab(SessionFragment.class,R.string.session,R.drawable.teach_foot_fifth_selector);
         MainFragmentsTab tab_mine = new MainFragmentsTab(MeFragment.class,R.string.mine,R.drawable.stu_foot_third_selector);
 

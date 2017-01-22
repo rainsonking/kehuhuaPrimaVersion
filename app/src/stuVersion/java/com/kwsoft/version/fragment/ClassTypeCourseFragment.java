@@ -157,29 +157,6 @@ public class ClassTypeCourseFragment extends Fragment {
         });
 
         mTextSelectMonth.setText(mCalendarView.getDate());
-
-//        try {
-//
-//            ((StuMainActivity) getActivity()).mToolbar.getRadio().setOnCheckedChangeListener(
-//                    new RadioGroup.OnCheckedChangeListener() {
-//                        @Override
-//                        public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//
-//                            Log.e(TAG, "onCheckedChanged: 选择了第几个    "+i+" 选择的id "+radioGroup.getChildAt(0).getId());
-//                            if (i==radioGroup.getChildAt(0).getId()) {
-//                                customCourse.setVisibility(View.VISIBLE);
-//                                monthCourse.setVisibility(View.GONE);
-//                            }else if(i==radioGroup.getChildAt(1).getId()){
-//                                monthCourse.setVisibility(View.VISIBLE);
-//                                customCourse.setVisibility(View.GONE);
-//                            }
-//                        }
-//                    });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
     }
     public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> lists, String defaultSelect, String defaultShowText) {
         PopOneListView popOneListView = new PopOneListView(getActivity());
@@ -198,22 +175,8 @@ public class ClassTypeCourseFragment extends Fragment {
 
     public void addItem(ExpandPopTabView expandTabView, String defaultShowText) {
         PopThreeLinearLayout popThreeLinearLayout = new PopThreeLinearLayout(getActivity());
-//        popTwoListView.setDefaultSelectByValue(defaultParentSelect, defaultChildSelect);
-//        distanceView.setDefaultSelectByKey(defaultParent, defaultChild);
-//        popTwoListView.setCallBackAndData(expandTabView, parentLists, childrenListLists, new PopTwoListView.OnSelectListener() {
-//            @Override
-//            public void getValue(String showText, String parentKey, String childrenKey) {
-//                Log.e("tag", "showText :" + showText + " ,parentKey :" + parentKey + " ,childrenKey :" + childrenKey);
-//            }
-//        });
         expandTabView.addItemToExpandTab(defaultShowText, popThreeLinearLayout);
     }
-
-
-
-
-
-
     public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> parentLists,
                         List<ArrayList<KeyValueBean>> childrenListLists, String defaultParentSelect, String defaultChildSelect, String defaultShowText) {
         PopTwoListView popTwoListView = new PopTwoListView(getActivity());
@@ -241,15 +204,12 @@ public class ClassTypeCourseFragment extends Fragment {
         }
     }
     private void setConfigsDatas() {
-        Log.e(TAG, "setConfigsDatas: 执行了");
+
         try {
             InputStream is =  getActivity().getResources().getAssets().open("searchType");
-            Log.e(TAG, "setConfigsDatas: 监测点1");
             String searchTypeJson = readStream(is);
-            Log.e(TAG, "setConfigsDatas: 监测点2searchTypeJson "+searchTypeJson);
             ConfigsMessageDTO messageDTO = JSONObject.parseObject(searchTypeJson, ConfigsMessageDTO.class);
             ConfigsDTO configsDTO = messageDTO.getInfo();
-
             mPriceLists = configsDTO.getPriceType();
             mSortLists = configsDTO.getSortType();
             mFavorLists = configsDTO.getSortType();
@@ -270,7 +230,6 @@ public class ClassTypeCourseFragment extends Fragment {
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG, "setConfigsDatas: 发生异常");
         }
 
     }
