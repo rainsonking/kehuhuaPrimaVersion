@@ -216,6 +216,7 @@
                 android:gravity="center_horizontal"
                 android:text="©版权所有:可为时代"
                 android:textColor="#858585"
+                android:visibility="gone"
                 android:textSize="@dimen/text_size_9"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/textView3" />
