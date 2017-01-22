@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
         }else{
             popContainerView.setBackgroundColor(Color.parseColor("#b0000000"));
         }
-        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) (mDisplayHeight * 0.4));
+        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) (mDisplayHeight * 0.5));
         popContainerView.addView(tabItemView, rl);
         popContainerView.setOnClickListener(new OnClickListener() {
             @Override
@@ -118,9 +119,13 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
         toggleButton.setText(tabTitle);
     }
 
+    private static final String TAG = "ExpandPopTabView";
     private void expandPopView() {
         if (mPopupWindow == null) {
-            mPopupWindow = new PopupWindow(mViewLists.get(mSelectPosition), mDisplayWidth, mDisplayHeight);
+            mPopupWindow = new PopupWindow(mViewLists.get(mSelectPosition), mDisplayWidth,  (int) (mDisplayHeight * 0.5));
+            Log.e(TAG, "mDisplayWidth: "+mDisplayWidth);
+
+            Log.e(TAG, "expandPopView: "+mDisplayHeight);
             mPopupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
             mPopupWindow.setFocusable(false);
             mPopupWindow.setOutsideTouchable(true);
