@@ -50,8 +50,6 @@ public class QuestionWebActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url)
             {
-//                view.loadUrl(url);
-//                return true;
                 view.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
                 view.loadUrl(url);
                 return super.shouldOverrideUrlLoading(view, url);

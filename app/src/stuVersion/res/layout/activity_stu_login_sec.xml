@@ -202,6 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
+                android:visibility="gone"
                 android:gravity="center_horizontal"
                 android:text="©版权所有:可为时代"
                 android:textColor="#858585"
