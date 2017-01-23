@@ -3,8 +3,10 @@ package com.kwsoft.kehuhua.utils;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,12 +17,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.kwsoft.kehuhua.sessionService.SessionService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -31,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.content.Context.BIND_AUTO_CREATE;
 
 public class Utils {
     public static int getAppVersion(Context context) {
@@ -67,6 +73,7 @@ public class Utils {
 
         return pi;
     }
+
     public static String hashKeyForDisk(String key) {
         String cacheKey;
         try {
@@ -172,61 +179,62 @@ public class Utils {
 //    }
 
 
-    public static boolean isChineseChar(String str){
+    public static boolean isChineseChar(String str) {
         boolean temp = false;
-        Pattern p=Pattern.compile("[\u4e00-\u9fa5]");
-        Matcher m=p.matcher(str);
-        if(m.find()){
-            temp =  true;
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            temp = true;
         }
         return temp;
     }
 
     /**
      * 获取控件的高度或者宽度  isHeight=true则为测量该控件的高度，isHeight=false则为测量该控件的宽度
+     *
      * @param view
      * @param isHeight
      * @return
      */
-    public static int getViewHeight(View view, boolean isHeight){
+    public static int getViewHeight(View view, boolean isHeight) {
         int result;
-        if(view==null)return 0;
-        if(isHeight){
-            int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-            view.measure(h,0);
-            result =view.getMeasuredHeight();
-        }else{
-            int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-            view.measure(0,w);
-            result =view.getMeasuredWidth();
+        if (view == null) return 0;
+        if (isHeight) {
+            int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            view.measure(h, 0);
+            result = view.getMeasuredHeight();
+        } else {
+            int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            view.measure(0, w);
+            result = view.getMeasuredWidth();
         }
         return result;
     }
 
-    public static long ObjectTOLong(Object longObj)
-    {
+    public static long ObjectTOLong(Object longObj) {
         return Long.valueOf(String.valueOf(longObj));
     }
 
-    public static long getAlterTime(String diskString){
+    public static long getAlterTime(String diskString) {
 
-        Map map= JSON.parseObject(diskString, Map.class);//获取配置数据
+        Map map = JSON.parseObject(diskString, Map.class);//获取配置数据
 
         return Utils.ObjectTOLong(map.get("alterTime"));
     }
 
-    public static Map<String,Object> str2map(String jsonData){
-        Log.e(TAG, "str2map: 个人资料信息"+jsonData);
-        Map<String, Object> stuInfoMap=new HashMap<>();
+    public static Map<String, Object> str2map(String jsonData) {
+        Log.e(TAG, "str2map: 个人资料信息" + jsonData);
+        Map<String, Object> stuInfoMap = new HashMap<>();
 
         return JSON.parseObject(jsonData,
-                    new TypeReference<Map<String, Object>>() {
-                    });
+                new TypeReference<Map<String, Object>>() {
+                });
 
     }
 
     /**
      * 将传过来的字符串转换为md5
+     *
      * @param string
      * @return
      */
@@ -251,20 +259,21 @@ public class Utils {
     }
 
     //判断字符串是否能转换为int
-    public static boolean isNum(String str){
+    public static boolean isNum(String str) {
         int temp = 0;
-        try{
+        try {
             temp = Integer.parseInt(str);
-        }catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
     private static final String TAG = "Utils";
+
     // 使用Log来显示调试信息,因为log在实现上每个message有4k字符长度限制
     // 所以这里使用自己分节的方式来输出足够长度的message
-    public static void printLog(String tags,String str) {
+    public static void printLog(String tags, String str) {
 //        str = str.trim();
         int index = 0;
         int maxLength = 4000;
@@ -274,12 +283,12 @@ public class Utils {
             if (str.length() <= index + maxLength) {
                 sub = str.substring(index);
             } else {
-                sub = str.substring(index, index +maxLength);
+                sub = str.substring(index, index + maxLength);
             }
 
-            Log.e(TAG, "printLog: index "+index);
-            Log.e(TAG, "printLog: index +maxLength "+(index +maxLength));
-            Log.e(TAG, "printLog: str.length() "+str.length());
+            Log.e(TAG, "printLog: index " + index);
+            Log.e(TAG, "printLog: index +maxLength " + (index + maxLength));
+            Log.e(TAG, "printLog: str.length() " + str.length());
             Log.e(tags, sub);
             index += maxLength;
         }
@@ -287,7 +296,7 @@ public class Utils {
 
 
     //开启轮询服务
-    public static void startPollingService(Context context, int seconds, Class<?> cls,String action) {
+    public static void startPollingService(Context context, int seconds, Class<?> cls, String action, ServiceConnection connection) {
         //获取AlarmManager系统服务
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
@@ -295,6 +304,8 @@ public class Utils {
         //包装需要执行Service的Intent
         Intent intent = new Intent(context, cls);
         intent.setAction(action);
+        //context.bindService(intent, connection, BIND_AUTO_CREATE);
+
         PendingIntent pendingIntent = PendingIntent.getService(context, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -307,7 +318,7 @@ public class Utils {
     }
 
     //停止轮询服务
-    public static void stopPollingService(Context context, Class<?> cls,String action) {
+    public static void stopPollingService(Context context, Class<?> cls, String action) {
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, cls);
@@ -349,11 +360,12 @@ public class Utils {
 
     /**
      * 判断字符串是否为数字
+     *
      * @return
      */
-    public static boolean stringIsInteger(String str){
+    public static boolean stringIsInteger(String str) {
         try {
-            int num=Integer.valueOf(str);//把字符串强制转换为数字
+            int num = Integer.valueOf(str);//把字符串强制转换为数字
             return true;//如果是数字，返回True
         } catch (Exception e) {
             return false;//如果抛出异常，返回False
