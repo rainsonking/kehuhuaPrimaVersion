@@ -141,6 +141,13 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@android:color/holo_blue_light"
+        android:layout_alignParentBottom="true"
+        android:text="下边拖动栏"
+        android:textColor="@color/black"/>
 
 </merge>

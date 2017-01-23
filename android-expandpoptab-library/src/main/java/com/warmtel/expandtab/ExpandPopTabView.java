@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,38 +113,32 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
 
         mViewLists.add(popContainerView);
     }
-//public RelativeLayout getItemView(int index){
-//
-//    if (index>=0&&index<=mViewLists.size()) {
-//        return mViewLists.get(index);
-//    }else{
-//        return null;
-//    }
 
-
-//}
     public void setToggleButtonText(String tabTitle){
-        Log.e(TAG, "setToggleButtonText: mSelectPosition "+mSelectPosition);
         ToggleButton toggleButton = (ToggleButton) getChildAt(mSelectPosition);
-        Log.e(TAG, "setToggleButtonText: tabTitle "+tabTitle);
         toggleButton.setText(tabTitle);
     }
     public void setToggleButtonTextByPosition(String tabTitle,int position){
-        Log.e(TAG, "setToggleButtonText: mSelectPosition "+position);
         ToggleButton toggleButton = (ToggleButton) getChildAt(position);
-        Log.e(TAG, "setToggleButtonText: tabTitle "+tabTitle);
         toggleButton.setText(tabTitle);
     }
     private static final String TAG = "ExpandPopTabView";
     private void expandPopView() {
         if (mPopupWindow == null) {
             mPopupWindow = new PopupWindow(mViewLists.get(mSelectPosition), mDisplayWidth,  (int) (mDisplayHeight * 0.5));
-            Log.e(TAG, "mDisplayWidth: "+mDisplayWidth);
-
-            Log.e(TAG, "expandPopView: "+mDisplayHeight);
-            mPopupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
-            mPopupWindow.setFocusable(false);
+            mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener(){
+                @Override
+                public void onDismiss() {
+                    if (mSelectedToggleBtn != null) {
+                        mSelectedToggleBtn.setChecked(false);//点击外部按钮恢复原状，窗口也消失
+                    }
+                }
+            });
+            mPopupWindow.setFocusable(true);//
             mPopupWindow.setOutsideTouchable(true);
+            ColorDrawable dw = new ColorDrawable(getResources().getColor(R.color.red));
+            mPopupWindow.setBackgroundDrawable(dw);
+            mPopupWindow.update();
         }
 
         if (mSelectedToggleBtn.isChecked()) {
@@ -153,10 +147,12 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
             } else {
                 mPopupWindow.setOnDismissListener(this);
                 mPopupWindow.dismiss();
+
             }
         } else {
             if (mPopupWindow.isShowing()) {
                 mPopupWindow.dismiss();
+
             }
         }
     }

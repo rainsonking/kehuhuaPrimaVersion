@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -49,7 +50,9 @@ public void refresh(){
     public void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.expand_tab_popview1_layout, this, true);
         setBackgroundResource(R.drawable.expand_tab_popview1_bg);
-        mListView = (ListView) findViewById(R.id.expand_tab_popview1_listView);
+        mListView = (ListView) findViewById(android.R.id.list);
+        View emptyView = findViewById(android.R.id.empty);
+        mListView.setEmptyView(emptyView);
         mAdapter = new PopViewAdapter(context);
         mAdapter.setTextSize(16);
         mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
@@ -117,7 +120,12 @@ public void refresh(){
 //                    }
 //                }
 //            }else{
+        if (itemValues.size()>0) {
             mAdapter.setSelectorText(itemValues.get(mDefaultIndex).getValue());
+        }else{
+            mAdapter.setSelectorText("班型选择");
+        }
+
 
 //        }
 

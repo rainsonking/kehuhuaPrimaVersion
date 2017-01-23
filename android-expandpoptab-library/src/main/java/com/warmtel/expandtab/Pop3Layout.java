@@ -66,7 +66,16 @@ public class Pop3Layout extends RelativeLayout {
                 DatePickerDialog dpd=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        date_start.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                        String month=String.valueOf(monthOfYear+1);
+                        if ((monthOfYear+1)<10) {
+                            month="0"+String.valueOf(monthOfYear+1);
+                        }
+                        String day=String.valueOf(dayOfMonth);
+                        if (dayOfMonth<10) {
+                            day="0"+String.valueOf(dayOfMonth);
+                        }
+
+                        date_start.setText(year+"-"+month+"-"+day);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
                 dpd.show();
@@ -80,7 +89,15 @@ public class Pop3Layout extends RelativeLayout {
                 DatePickerDialog dpd=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        date_end.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                       String month=String.valueOf(monthOfYear+1);
+                        if ((monthOfYear+1)<10) {
+                            month="0"+String.valueOf(monthOfYear+1);
+                        }
+                        String day=String.valueOf(dayOfMonth);
+                        if (dayOfMonth<10) {
+                            day="0"+String.valueOf(dayOfMonth);
+                        }
+                        date_end.setText(year+"-"+month+"-"+day);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
                 dpd.show();
