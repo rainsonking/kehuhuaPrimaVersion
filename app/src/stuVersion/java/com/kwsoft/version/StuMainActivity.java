@@ -28,8 +28,10 @@ import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.bailiChat.SessionFragment;
 import com.kwsoft.kehuhua.bean.MainFragmentsTab;
 import com.kwsoft.kehuhua.config.Constant;
+import com.kwsoft.kehuhua.sessionService.SessionService;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
 import com.kwsoft.kehuhua.utils.MyPreferenceManager;
+import com.kwsoft.kehuhua.utils.Utils;
 import com.kwsoft.kehuhua.widget.CnToolbar;
 import com.kwsoft.kehuhua.widget.FragmentTabHost;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
@@ -92,7 +94,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
 //        }
         PgyUpdateManager.register(this);
-//        Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
+        Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
 
     }
@@ -261,7 +263,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     public void onDestroy() {
         unregisterReceiver(mMessageReceiver);
         super.onDestroy();
-//        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
+        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
     }
 
 
