@@ -5,98 +5,142 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:background="@drawable/expand_tab_popview2_bg"
-    android:orientation="horizontal" >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
-    android:orientation="vertical"
-    >
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/class_time"
-            android:textColor="@android:color/black"
-            />
+            android:textColor="@android:color/black" />
+
+
+        <RadioGroup
+            android:id="@+id/class_type_day_area_select_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/day_area_limitless"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/class_type_day_area_sel"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:text="不限"
+                android:textColor="@color/class_type_day_area_word_color_sel"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/day_area_day"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/class_type_day_area_sel"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:text="白班"
+                android:textColor="@color/class_type_day_area_word_color_sel"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/day_area_night"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/class_type_day_area_sel"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:text="晚班"
+                android:textColor="@color/class_type_day_area_word_color_sel"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/day_area_weekend"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/class_type_day_area_sel"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:text="周末班"
+                android:textColor="@color/class_type_day_area_word_color_sel"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间区间"
+            android:textColor="@android:color/black" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/date_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不限"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="白班"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="晚班"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="周末班"/>
+                android:layout_weight="1"
+                android:text="2017-01-21"
+                android:textColor="@android:color/black" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="到"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/date_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2017-01-21"
+                android:textColor="@android:color/black" />
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="时间区间"
-            android:textColor="@android:color/black"
-            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-           >
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2017-01-21"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="到"
-                    android:textColor="@android:color/black"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2017-01-21"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/course_third_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重置"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/course_third_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:textColor="@android:color/black" />
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重置"
-            android:textColor="@android:color/black"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确定"
-            android:textColor="@android:color/black"
-            />
+
     </LinearLayout>
-
-</LinearLayout>
-
-
 
 
 </merge>

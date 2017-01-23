@@ -113,12 +113,28 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
 
         mViewLists.add(popContainerView);
     }
+//public RelativeLayout getItemView(int index){
+//
+//    if (index>=0&&index<=mViewLists.size()) {
+//        return mViewLists.get(index);
+//    }else{
+//        return null;
+//    }
 
+
+//}
     public void setToggleButtonText(String tabTitle){
+        Log.e(TAG, "setToggleButtonText: mSelectPosition "+mSelectPosition);
         ToggleButton toggleButton = (ToggleButton) getChildAt(mSelectPosition);
+        Log.e(TAG, "setToggleButtonText: tabTitle "+tabTitle);
         toggleButton.setText(tabTitle);
     }
-
+    public void setToggleButtonTextByPosition(String tabTitle,int position){
+        Log.e(TAG, "setToggleButtonText: mSelectPosition "+position);
+        ToggleButton toggleButton = (ToggleButton) getChildAt(position);
+        Log.e(TAG, "setToggleButtonText: tabTitle "+tabTitle);
+        toggleButton.setText(tabTitle);
+    }
     private static final String TAG = "ExpandPopTabView";
     private void expandPopView() {
         if (mPopupWindow == null) {

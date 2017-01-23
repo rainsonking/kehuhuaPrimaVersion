@@ -8,33 +8,37 @@ import android.widget.RelativeLayout;
 
 import java.util.List;
 
-public class PopOneListView extends RelativeLayout {
+public class Pop2ListView extends RelativeLayout {
     private ListView mListView;
     private PopViewAdapter mAdapter;
     private OnSelectListener mOnSelectListener;
     private ExpandPopTabView mExpandPopTabView;
     private String mDefaultParentText = null;
     private String mDefaultParentkey = null;
+    private int mDefaultIndex = 0;
     public interface OnSelectListener {
-         void getValue(String key, String value);
+         void getValue(String key, String value, String id, String num);
     }
 
     public void setOnSelectListener(ExpandPopTabView expandPopTabView,OnSelectListener onSelectListener) {
         mOnSelectListener = onSelectListener;
         mExpandPopTabView = expandPopTabView;
     }
+public void refresh(){
+    mAdapter.notifyDataSetChanged();
 
-    public PopOneListView(Context context) {
+}
+    public Pop2ListView(Context context) {
         super(context);
         init(context);
     }
 
-    public PopOneListView(Context context, AttributeSet attrs, int defStyle) {
+    public Pop2ListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
 
-    public PopOneListView(Context context, AttributeSet attrs) {
+    public Pop2ListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -50,6 +54,7 @@ public class PopOneListView extends RelativeLayout {
         /**
          * mListView.setOnItemClickListener() 无响应，重新定义列表选项单击接口
          */
+
         mAdapter.setOnItemClickListener(new PopViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PopViewAdapter adapter, int position) {
@@ -57,7 +62,7 @@ public class PopOneListView extends RelativeLayout {
                     KeyValueBean KeyValueBean = (KeyValueBean) adapter.getItem(position);
                     String showValue = KeyValueBean.getValue();
                     onSelectItemExandPopView(showValue);
-                    mOnSelectListener.getValue(KeyValueBean.getKey(), showValue);
+                    mOnSelectListener.getValue(KeyValueBean.getKey(), showValue,KeyValueBean.getId(),KeyValueBean.getNum());
                 }
             }
         });
@@ -69,7 +74,7 @@ public class PopOneListView extends RelativeLayout {
      */
     public void onSelectItemExandPopView(String showValue){
         mExpandPopTabView.onExpandPopView();
-        mExpandPopTabView.setToggleButtonText(showValue);
+        mExpandPopTabView.setToggleButtonTextByPosition(showValue,position2);
     }
 
     /**
@@ -81,6 +86,25 @@ public class PopOneListView extends RelativeLayout {
         mDefaultParentText = text1;
     }
 
+    /**
+     * 当班型选择的时候，更新第几次课为不限的选项
+     */
+    int position2=1;
+    public void setReSelectByIndex(int index,int position) {
+        if (mOnSelectListener != null) {
+            position2=position;
+            mAdapter.setSelectedPositionNotify(index);
+            KeyValueBean KeyValueBean = (KeyValueBean) mAdapter.getItem(index);
+            String showValue = KeyValueBean.getValue();
+            onSelectItemExandPopView(showValue);
+
+        }
+    }
+
+
+    public void setDefaultSelectByIndex(int index){
+        mDefaultIndex = index;
+    }
     /**
      * 设置默认选中项通过关键字Key
      * 注:在 setCallBackAndData()方法前执行有效
@@ -94,18 +118,20 @@ public class PopOneListView extends RelativeLayout {
     }
 
     public void setCallBackAndData(List<KeyValueBean> itemValues, ExpandPopTabView expandPopTabView, OnSelectListener selectListener) {
-        if(mDefaultParentText != null && !mDefaultParentText.equals("")){
-            mAdapter.setSelectorText(mDefaultParentText);
-        }else{
-            if(mDefaultParentkey != null && !mDefaultParentkey.equals("")) {
-                for (KeyValueBean keyValueBean : itemValues) {
-                    if (keyValueBean.getKey().equals(mDefaultParentkey)) {
-                        mAdapter.setSelectorText(keyValueBean.getValue());
-                        break;
-                    }
-                }
-            }
-        }
+//        if(mDefaultParentText != null && !mDefaultParentText.equals("")){
+//            mAdapter.setSelectorText(mDefaultParentText);
+//        }else if(mDefaultParentkey != null && !mDefaultParentkey.equals("")) {
+//                for (KeyValueBean keyValueBean : itemValues) {
+//                    if (keyValueBean.getKey().equals(mDefaultParentkey)) {
+//                        mAdapter.setSelectorText(keyValueBean.getValue());
+//                        break;
+//                    }
+//                }
+//            }else{
+            mAdapter.setSelectorText(itemValues.get(mDefaultIndex).getValue());
+
+//        }
+
         mAdapter.setList(itemValues);
         mOnSelectListener = selectListener;
         mExpandPopTabView = expandPopTabView;
