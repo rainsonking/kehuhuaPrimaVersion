@@ -1,2 +1,3 @@
 include ':app', ':datetimepicker-library', ':weekcalendar', ':mp3Recorder', ':zxingdemo', ':baiduMap', ':chatInterface'
 include ':library'
+include ':android-expandpoptab-library'
