@@ -58,7 +58,7 @@ public class ClassTypeCourseFragment extends Fragment {
     private List<KeyValueBean> mWhichTime = new ArrayList<>();
     private String classTypeUrl;
     View view;
-    private String defaultClassTypeName = "";
+    private String defaultClassTypeName = "班型选择";
 
     @Nullable
     @Override
@@ -82,6 +82,7 @@ public class ClassTypeCourseFragment extends Fragment {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ErrorToast.errorToast(mContext, e);
+                        initView("");
                     }
 
                     @Override
@@ -222,36 +223,42 @@ public class ClassTypeCourseFragment extends Fragment {
 
 
     private void setConfigsDatas(String responseSearchData) {
-
+        List<Map<String, Object>> searchDataListMap=new ArrayList<>();
+        if (responseSearchData!=null) {
         try {
             Map<String, Object> searchDataMap = JSON.parseObject(responseSearchData,
                     new TypeReference<Map<String, Object>>() {
                     });
-            List<Map<String, Object>> searchDataListMap = (List<Map<String, Object>>) searchDataMap.get("dataInfo");
-
-            for (int i = 0; i < searchDataListMap.size(); i++) {
-                KeyValueBean keyValueBean = new KeyValueBean("CT_NAME",
-                        String.valueOf(searchDataListMap.get(i).get("CT_NAME")),
-                        String.valueOf(searchDataListMap.get(i).get("CLASS_TYPE_ID")),
-                        String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
-                Log.e(TAG, "setConfigsDatas: ALL_BOUT " + String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
-                mClassTypeSearchList.add(keyValueBean);
-                if (i == 0) {
-                    defaultClassTypeName = String.valueOf(searchDataListMap.get(i).get("CT_NAME"));
-                    String num2 = String.valueOf(searchDataListMap.get(i).get("ALL_BOUT"));
-                    KeyValueBean keyValueBean2 = new KeyValueBean("course_time", "不限", "", num2);
-                    mWhichTime.add(keyValueBean2);
-                    for (int j = 1; j <= Integer.valueOf(keyValueBean.getNum()); j++) {
-                        KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + j + "次课", j + "", num2);
-                        mWhichTime.add(keyValueBeanItem);
+            if (searchDataMap!=null) {
+                searchDataListMap = (List<Map<String, Object>>) searchDataMap.get("dataInfo");
+                if (searchDataListMap!=null&&searchDataListMap.size()>0) {
+                    for (int i = 0; i < searchDataListMap.size(); i++) {
+                        KeyValueBean keyValueBean = new KeyValueBean("CT_NAME",
+                                String.valueOf(searchDataListMap.get(i).get("CT_NAME")),
+                                String.valueOf(searchDataListMap.get(i).get("CLASS_TYPE_ID")),
+                                String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
+                        Log.e(TAG, "setConfigsDatas: ALL_BOUT " + String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
+                        mClassTypeSearchList.add(keyValueBean);
+                        if (i == 0) {
+                            defaultClassTypeName = String.valueOf(searchDataListMap.get(i).get("CT_NAME"));
+                            String num2 = String.valueOf(searchDataListMap.get(i).get("ALL_BOUT"));
+                            KeyValueBean keyValueBean2 = new KeyValueBean("course_time", "不限", "", num2);
+                            mWhichTime.add(keyValueBean2);
+                            for (int j = 1; j <= Integer.valueOf(keyValueBean.getNum()); j++) {
+                                KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + j + "次课", j + "", num2);
+                                mWhichTime.add(keyValueBeanItem);
+                            }
+                        }
                     }
                 }
+
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        }
     }
 
     //课表2初始化数据
