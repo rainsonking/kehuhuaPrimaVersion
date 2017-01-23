@@ -132,6 +132,7 @@ public class StuPra {
    public static List<Map<String, Object>> loginRoleFollowList,loginMenuList;
 
 
+    public static Map<String, String> commitCourseSearch;
 
 
 

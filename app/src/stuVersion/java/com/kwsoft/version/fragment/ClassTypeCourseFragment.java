@@ -11,25 +11,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.widget.CalendarView;
-import com.kwsoft.version.dto.ConfigAreaDTO;
-import com.kwsoft.version.dto.ConfigsDTO;
-import com.kwsoft.version.dto.ConfigsMessageDTO;
 import com.warmtel.expandtab.ExpandPopTabView;
 import com.warmtel.expandtab.KeyValueBean;
-import com.warmtel.expandtab.PopOneListView;
-import com.warmtel.expandtab.PopThreeLinearLayout;
-import com.warmtel.expandtab.PopTwoListView;
+import com.warmtel.expandtab.Pop2ListView;
+import com.warmtel.expandtab.Pop1ListView;
+import com.warmtel.expandtab.Pop3Layout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,16 +34,15 @@ import okhttp3.Call;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.kwsoft.version.StuPra.classTypeGetSearchUrl;
+import static com.kwsoft.version.StuPra.commitCourseSearch;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
- *
  */
 public class ClassTypeCourseFragment extends Fragment {
 
     /**
      * 班型课表参数
-     *
      */
     private TextView mTextSelectMonth;
     private ImageButton mLastMonthView;
@@ -60,30 +54,30 @@ public class ClassTypeCourseFragment extends Fragment {
     private ExpandPopTabView expandTabView;
     private List<KeyValueBean> mParentLists = new ArrayList<>();
     private List<ArrayList<KeyValueBean>> mChildrenListLists = new ArrayList<>();
-    private List<KeyValueBean> mPriceLists;
-    private List<KeyValueBean> mSortLists;
-    private List<KeyValueBean> mFavorLists;
+    private List<KeyValueBean> mClassTypeSearchList = new ArrayList<>();
+    private List<KeyValueBean> mWhichTime = new ArrayList<>();
     private String classTypeUrl;
-
+    View view;
+    private String defaultClassTypeName = "";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.stu_class_type_course_fragment_layout, container, false);
-        initView(view);
-        classTypeUrl=Constant.sysUrl +classTypeGetSearchUrl;
+        view = inflater.inflate(R.layout.stu_class_type_course_fragment_layout, container, false);
+
+        classTypeUrl = Constant.sysUrl + classTypeGetSearchUrl;
         requestClassCourseData(classTypeUrl);
         return view;
     }
 
     private void requestClassCourseData(String classTypeUrl) {
-            Map<String, String> paramsMapClass = new HashMap<>();
-            paramsMapClass.put("mainId",Constant.USERID);
-            OkHttpUtils
-                    .post()
-                    .params(paramsMapClass)
-                    .url(classTypeUrl)
-                    .build()
+        Map<String, String> paramsMapClass = new HashMap<>();
+        paramsMapClass.put("mainId", Constant.USERID);
+        OkHttpUtils
+                .post()
+                .params(paramsMapClass)
+                .url(classTypeUrl)
+                .build()
                 .execute(new EdusStringCallback(getActivity()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
@@ -92,20 +86,21 @@ public class ClassTypeCourseFragment extends Fragment {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(TAG, "返回的班型课表搜索条件数据  "+response);
-//                        setStore(response);
+                        Log.e(TAG, "返回的班型课表搜索条件数据  " + response);
+                        initView(response);
                     }
                 });
 
 
     }
 
-    public void initView(View view) {
-        setConfigsDatas();
+    public void initView(String responseSearchData) {
+        commitCourseSearch=new HashMap<>();
+        setConfigsDatas(responseSearchData);
         expandTabView = (ExpandPopTabView) view.findViewById(R.id.expandtab_view);
-        addItem(expandTabView, mPriceLists, "不限", "班型");
-        addItem(expandTabView, mFavorLists, "不限", "课次");
-        addItem(expandTabView,"更多筛选");
+        addItem1(expandTabView, mClassTypeSearchList, 0, defaultClassTypeName);
+        addItem2(expandTabView, mWhichTime, 0, "第几次课");
+        addItem3(expandTabView, "更多筛选");
 
 
 //        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
@@ -158,81 +153,107 @@ public class ClassTypeCourseFragment extends Fragment {
 
         mTextSelectMonth.setText(mCalendarView.getDate());
     }
-    public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> lists, String defaultSelect, String defaultShowText) {
-        PopOneListView popOneListView = new PopOneListView(getActivity());
-        popOneListView.setDefaultSelectByValue(defaultSelect);
+
+    Pop1ListView pop1ListView;
+    Pop2ListView pop2ListView;
+    Pop3Layout pop3Layout;
+    public void addItem1(final ExpandPopTabView expandTabView, List<KeyValueBean> lists, int defaultSelect, String defaultShowText) {
+        pop1ListView = new Pop1ListView(getActivity());
+        pop1ListView.setDefaultSelectByIndex(defaultSelect);
         //popViewOne.setDefaultSelectByKey(defaultSelect);
-        popOneListView.setCallBackAndData(lists, expandTabView, new PopOneListView.OnSelectListener() {
+        pop1ListView.setCallBackAndData(lists, expandTabView, new Pop1ListView.OnSelectListener() {
             @Override
-            public void getValue(String key, String value) {
-                Log.e("tag", "key :" + key + " ,value :" + value);
-            }
-        });
-
-        expandTabView.addItemToExpandTab(defaultShowText, popOneListView);
-    }
-
-
-    public void addItem(ExpandPopTabView expandTabView, String defaultShowText) {
-        PopThreeLinearLayout popThreeLinearLayout = new PopThreeLinearLayout(getActivity());
-        expandTabView.addItemToExpandTab(defaultShowText, popThreeLinearLayout);
-    }
-    public void addItem(ExpandPopTabView expandTabView, List<KeyValueBean> parentLists,
-                        List<ArrayList<KeyValueBean>> childrenListLists, String defaultParentSelect, String defaultChildSelect, String defaultShowText) {
-        PopTwoListView popTwoListView = new PopTwoListView(getActivity());
-        popTwoListView.setDefaultSelectByValue(defaultParentSelect, defaultChildSelect);
-//        distanceView.setDefaultSelectByKey(defaultParent, defaultChild);
-        popTwoListView.setCallBackAndData(expandTabView, parentLists, childrenListLists, new PopTwoListView.OnSelectListener() {
-            @Override
-            public void getValue(String showText, String parentKey, String childrenKey) {
-                Log.e("tag", "showText :" + showText + " ,parentKey :" + parentKey + " ,childrenKey :" + childrenKey);
-            }
-        });
-        expandTabView.addItemToExpandTab(defaultShowText, popTwoListView);
-    }
-    public String readStream(InputStream is) {
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while (i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            return bo.toString();
-        } catch (IOException e) {
-            return "";
-        }
-    }
-    private void setConfigsDatas() {
-
-        try {
-            InputStream is =  getActivity().getResources().getAssets().open("searchType");
-            String searchTypeJson = readStream(is);
-            ConfigsMessageDTO messageDTO = JSONObject.parseObject(searchTypeJson, ConfigsMessageDTO.class);
-            ConfigsDTO configsDTO = messageDTO.getInfo();
-            mPriceLists = configsDTO.getPriceType();
-            mSortLists = configsDTO.getSortType();
-            mFavorLists = configsDTO.getSortType();
-
-            List<ConfigAreaDTO> configAreaListDTO = configsDTO.getCantonAndCircle();
-            for (ConfigAreaDTO configAreaDTO : configAreaListDTO) {
-                KeyValueBean keyValueBean = new KeyValueBean();
-                keyValueBean.setKey(configAreaDTO.getKey());
-                keyValueBean.setValue(configAreaDTO.getValue());
-                mParentLists.add(keyValueBean);
-
-                ArrayList<KeyValueBean> childrenLists = new ArrayList<>();
-                for (KeyValueBean keyValueBean1 : configAreaDTO.getBusinessCircle()) {
-                    childrenLists.add(keyValueBean1);
+            public void getValue(String key, String value, String id, String num) {
+                Log.e(TAG, "key :" + key + " ,value :" + value + " ,id :" + id + " ,num :" + num);
+                commitCourseSearch.put("CT_ID",id);
+                int courseNum = Integer.valueOf(num);
+                mWhichTime.clear();
+                KeyValueBean keyValueBean = new KeyValueBean("course_time", "不限", "", num);
+                mWhichTime.add(keyValueBean);
+                for (int i = 1; i <= courseNum; i++) {
+                    KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + i + "次课", i + "", num);
+                    mWhichTime.add(keyValueBeanItem);
                 }
-                mChildrenListLists.add(childrenLists);
+                if (pop2ListView!=null) {
+                    Log.e(TAG, "getValue: pop2ListView!=null ");
+                    pop2ListView.setReSelectByIndex(0,1);
+                }
+            }
+        });
+
+        expandTabView.addItemToExpandTab(defaultShowText, pop1ListView);
+
+    }
+
+    public void addItem2(ExpandPopTabView expandTabView, List<KeyValueBean> lists, int defaultSelect, String defaultShowText) {
+        pop2ListView = new Pop2ListView(getActivity());
+        pop2ListView.setDefaultSelectByIndex(defaultSelect);
+        //popViewOne.setDefaultSelectByKey(defaultSelect);
+        pop2ListView.setCallBackAndData(lists, expandTabView, new Pop2ListView.OnSelectListener() {
+            @Override
+            public void getValue(String key, String value, String id, String num) {
+                Log.e(TAG, "key :" + key + " ,value :" + value + " ,id :" + id + " ,num :" + num);
+                commitCourseSearch.put("NOW_BOUT",id);
+            }
+        });
+
+        expandTabView.addItemToExpandTab(defaultShowText, pop2ListView);
+
+    }
+
+    public void addItem3(ExpandPopTabView expandTabView, String defaultShowText) {
+        pop3Layout = new Pop3Layout(getActivity());
+        pop3Layout.course_third_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //提交网络请求，获取数据
+                commitCourseSearch();
+            }
+        });
+
+
+        expandTabView.addItemToExpandTab(defaultShowText, pop3Layout);
+    }
+
+    private void commitCourseSearch() {
+      String whichType =  pop3Layout.getWhich();
+
+    }
+
+
+    private void setConfigsDatas(String responseSearchData) {
+
+        try {
+            Map<String, Object> searchDataMap = JSON.parseObject(responseSearchData,
+                    new TypeReference<Map<String, Object>>() {
+                    });
+            List<Map<String, Object>> searchDataListMap = (List<Map<String, Object>>) searchDataMap.get("dataInfo");
+
+            for (int i = 0; i < searchDataListMap.size(); i++) {
+                KeyValueBean keyValueBean = new KeyValueBean("CT_NAME",
+                        String.valueOf(searchDataListMap.get(i).get("CT_NAME")),
+                        String.valueOf(searchDataListMap.get(i).get("CLASS_TYPE_ID")),
+                        String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
+                Log.e(TAG, "setConfigsDatas: ALL_BOUT " + String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
+                mClassTypeSearchList.add(keyValueBean);
+                if (i == 0) {
+                    defaultClassTypeName = String.valueOf(searchDataListMap.get(i).get("CT_NAME"));
+                    String num2 = String.valueOf(searchDataListMap.get(i).get("ALL_BOUT"));
+                    KeyValueBean keyValueBean2 = new KeyValueBean("course_time", "不限", "", num2);
+                    mWhichTime.add(keyValueBean2);
+                    for (int j = 1; j <= Integer.valueOf(keyValueBean.getNum()); j++) {
+                        KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + j + "次课", j + "", num2);
+                        mWhichTime.add(keyValueBeanItem);
+                    }
+                }
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
     //课表2初始化数据
     private void initData() {
         mDatas = new ArrayList<>();
@@ -253,7 +274,7 @@ public class ClassTypeCourseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(expandTabView != null){
+        if (expandTabView != null) {
             expandTabView.onExpandPopView();
         }
     }
