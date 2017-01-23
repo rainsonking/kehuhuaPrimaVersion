@@ -28,13 +28,15 @@ import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.bailiChat.SessionFragment;
 import com.kwsoft.kehuhua.bean.MainFragmentsTab;
 import com.kwsoft.kehuhua.config.Constant;
+import com.kwsoft.kehuhua.sessionService.SessionService;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
 import com.kwsoft.kehuhua.utils.MyPreferenceManager;
+import com.kwsoft.kehuhua.utils.Utils;
 import com.kwsoft.kehuhua.widget.CnToolbar;
 import com.kwsoft.kehuhua.widget.FragmentTabHost;
 import com.kwsoft.kehuhua.zxing.TestScanActivity;
+import com.kwsoft.version.fragment.AllCourseFragment;
 import com.kwsoft.version.fragment.AssortFragment;
-import com.kwsoft.version.fragment.CourseFragment;
 import com.kwsoft.version.fragment.MeFragment;
 import com.kwsoft.version.fragment.StuFragmentTabAdapter;
 import com.kwsoft.version.fragment.StudyFragment;
@@ -92,14 +94,14 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
 //        }
         PgyUpdateManager.register(this);
-//        Utils.startPollingService(mContext, 30, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
+        Utils.startPollingService(mContext, 2, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
 
     }
     private void initTab() {
         MainFragmentsTab tab_home = new MainFragmentsTab(StudyFragment.class,R.string.home,R.drawable.stu_foot_first_selector);
         MainFragmentsTab tab_assort = new MainFragmentsTab(AssortFragment.class,R.string.assort,R.drawable.stu_foot_forth_selector);
-        MainFragmentsTab tab_course = new MainFragmentsTab(CourseFragment.class,R.string.course,R.drawable.stu_foot_second_selector);
+        MainFragmentsTab tab_course = new MainFragmentsTab(AllCourseFragment.class,R.string.course,R.drawable.stu_foot_second_selector);
         MainFragmentsTab tab_session = new MainFragmentsTab(SessionFragment.class,R.string.session,R.drawable.teach_foot_fifth_selector);
         MainFragmentsTab tab_mine = new MainFragmentsTab(MeFragment.class,R.string.mine,R.drawable.stu_foot_third_selector);
 
@@ -261,7 +263,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     public void onDestroy() {
         unregisterReceiver(mMessageReceiver);
         super.onDestroy();
-//        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
+        Utils.stopPollingService(this, SessionService.class, SessionService.ACTION);
     }
 
 
