@@ -73,7 +73,7 @@
         <activity android:name=".HomeChildActivity" />
         <activity android:name=".InfoActivity" />
         <activity android:name=".MainActivity" android:label="@string/app_name"/>
-        <!--<service android:name="com.kwsoft.kehuhua.sessionService.SessionService" />-->
+        <service android:name="com.kwsoft.kehuhua.sessionService.SessionService" />
         <activity android:name="com.kwsoft.kehuhua.login.ProjectSelectActivity" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".FeedbackActivity" android:windowSoftInputMode="adjustResize" />
