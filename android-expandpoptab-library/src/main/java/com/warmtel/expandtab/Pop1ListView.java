@@ -49,13 +49,15 @@ public void refresh(){
 
     public void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.expand_tab_popview1_layout, this, true);
-        setBackgroundResource(R.drawable.expand_tab_popview1_bg);
+       // setBackgroundResource(R.drawable.expand_tab_popview1_bg);
+        setBackgroundResource(R.color.white);
         mListView = (ListView) findViewById(android.R.id.list);
         View emptyView = findViewById(android.R.id.empty);
         mListView.setEmptyView(emptyView);
         mAdapter = new PopViewAdapter(context);
-        mAdapter.setTextSize(16);
-        mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
+        mAdapter.setTextSize(14);
+        mAdapter.setSelectorResId(R.color.white, R.color.white);
+//        mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
         mListView.setAdapter(mAdapter);
         /**
          * mListView.setOnItemClickListener() 无响应，重新定义列表选项单击接口

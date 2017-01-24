@@ -107,6 +107,7 @@ public class PopViewAdapter extends BaseAdapter {
                     TextView txtView = (TextView) view;
                     int position = (int) txtView.getTag();
                     setSelectorText(txtView.getText().toString());
+                    //txtView.setTextColor(context.getResources().getColor(R.color.tv_ef5152));
                     setSelectedPositionNotify(position);
                     mOnItemClickListener.onItemClick(PopViewAdapter.this, position);
                 }
