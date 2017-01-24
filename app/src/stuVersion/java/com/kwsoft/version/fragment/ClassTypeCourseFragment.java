@@ -20,8 +20,8 @@ import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.widget.CalendarView;
 import com.warmtel.expandtab.ExpandPopTabView;
 import com.warmtel.expandtab.KeyValueBean;
-import com.warmtel.expandtab.Pop2ListView;
 import com.warmtel.expandtab.Pop1ListView;
+import com.warmtel.expandtab.Pop2ListView;
 import com.warmtel.expandtab.Pop3Layout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -204,23 +204,16 @@ public class ClassTypeCourseFragment extends Fragment {
 
     public void addItem3(ExpandPopTabView expandTabView, String defaultShowText) {
         pop3Layout = new Pop3Layout(getActivity());
-        pop3Layout.course_third_commit.setOnClickListener(new View.OnClickListener() {
+        pop3Layout.setCallBackAndData(new Pop3Layout.OnDateSelectListener() {
             @Override
-            public void onClick(View view) {
-                //提交网络请求，获取数据
-                commitCourseSearch();
+            public void getValue(String typeId, String startTime, String endTime) {
+                Log.e(TAG, "typeId :" + typeId + " ,startTime :" + startTime + " ,endTime :" + endTime);
             }
         });
 
 
         expandTabView.addItemToExpandTab(defaultShowText, pop3Layout);
     }
-
-    private void commitCourseSearch() {
-      String whichType =  pop3Layout.getWhich();
-
-    }
-
 
     private void setConfigsDatas(String responseSearchData) {
         List<Map<String, Object>> searchDataListMap=new ArrayList<>();
