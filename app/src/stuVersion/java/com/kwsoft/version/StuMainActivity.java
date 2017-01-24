@@ -109,7 +109,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
 //            sPreferences.edit().putString("useridOld", Constant.USERID).apply();
 //        }
         PgyUpdateManager.register(this);
-        Utils.startPollingService(mContext, 2, SessionService.class, SessionService.ACTION,connection);//启动20分钟一次的轮询获取session服务
+        Utils.startPollingService(mContext, 2*60, SessionService.class, SessionService.ACTION,connection);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
 
     }

@@ -7,9 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -18,6 +17,7 @@ import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
 import com.kwsoft.kehuhua.widget.CalendarView;
+import com.kwsoft.version.StuPra;
 import com.warmtel.expandtab.ExpandPopTabView;
 import com.warmtel.expandtab.KeyValueBean;
 import com.warmtel.expandtab.Pop1ListView;
@@ -25,7 +25,10 @@ import com.warmtel.expandtab.Pop2ListView;
 import com.warmtel.expandtab.Pop3Layout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,15 +41,16 @@ import static com.kwsoft.version.StuPra.commitCourseSearch;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
+ *
  */
 public class ClassTypeCourseFragment extends Fragment {
 
     /**
      * 班型课表参数
      */
-    private TextView mTextSelectMonth;
-    private ImageButton mLastMonthView;
-    private ImageButton mNextMonthView;
+//    private TextView mTextSelectMonth;
+//    private ImageButton mLastMonthView;
+//    private ImageButton mNextMonthView;
     private CalendarView mCalendarView;
     private List<String> mDatas;
     private List<String> mDatas1;
@@ -59,6 +63,14 @@ public class ClassTypeCourseFragment extends Fragment {
     private String classTypeUrl;
     View view;
     private String defaultClassTypeName = "班型选择";
+    private ListView mListView;
+
+    private String diJiCiKe="1";
+
+
+    private CourseSearchResultAdapter mAdapter;
+    private List<Map<String, Object>> searchDataListMap;
+    private List<Map<String, Object>> searchDataListMapfirstDay;
 
     @Nullable
     @Override
@@ -72,7 +84,7 @@ public class ClassTypeCourseFragment extends Fragment {
 
     private void requestClassCourseData(String classTypeUrl) {
         Map<String, String> paramsMapClass = new HashMap<>();
-        paramsMapClass.put("mainId", Constant.USERID);
+        paramsMapClass.put(Constant.mainId, Constant.USERID);
         OkHttpUtils
                 .post()
                 .params(paramsMapClass)
@@ -95,64 +107,76 @@ public class ClassTypeCourseFragment extends Fragment {
 
     }
 
+    /**
+     * mainId=106     app登陆学员id
+     tableId=19     内容表id  固定为19
+     CT_ID=xxx      班型id  默认为接口返回第一个班型的id
+     NOW_BOUT=xxx   第几次课  默认为不限
+     CM_TYPE=xxx    班级类型 默认为不限
+     minDate=2017-01-01    起始时间 控件选择  默认值为本月第一天
+     maxDate=2017-01-31    结束时间 控件选择  默认值为本月最后一天
+
+     */
     public void initView(String responseSearchData) {
         commitCourseSearch=new HashMap<>();
+
+
+
+
+
         setConfigsDatas(responseSearchData);
         expandTabView = (ExpandPopTabView) view.findViewById(R.id.expandtab_view);
         addItem1(expandTabView, mClassTypeSearchList, 0, defaultClassTypeName);
         addItem2(expandTabView, mWhichTime, 0, "第几次课");
         addItem3(expandTabView, "更多筛选");
 
-
+        commitCourseSearch.put(Constant.mainId,Constant.USERID);
+        commitCourseSearch.put(Constant.tableId,19+"");
+        commitCourseSearch.put("CT_ID",firstClassTypeId!=null?firstClassTypeId:"");//第一个班型
+        commitCourseSearch.put("NOW_BOUT","");
+        commitCourseSearch.put("CM_TYPE","");
+        Calendar cal;
+        SimpleDateFormat dateFormater = new SimpleDateFormat(
+                "yyyy-MM-dd");
+        cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.getTime();
+        commitCourseSearch.put("minDate",dateFormater.format(cal.getTime()) + "");
+        cal.set(Calendar.DAY_OF_MONTH,
+                cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        commitCourseSearch.put("maxDate",dateFormater.format(cal.getTime()));
 //        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
         /**
          *
          * 课程表2初始化
          */
-        mTextSelectMonth = (TextView) view.findViewById(R.id.txt_select_month);
-        mLastMonthView = (ImageButton) view.findViewById(R.id.img_select_last_month);
-        mNextMonthView = (ImageButton) view.findViewById(R.id.img_select_next_month);
+//        mTextSelectMonth = (TextView) view.findViewById(R.id.txt_select_month);
+//        mLastMonthView = (ImageButton) view.findViewById(R.id.img_select_last_month);
+//        mNextMonthView = (ImageButton) view.findViewById(R.id.img_select_next_month);
         mCalendarView = (CalendarView) view.findViewById(R.id.calendarView);
-        mLastMonthView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCalendarView.setLastMonth();
-                mTextSelectMonth.setText(mCalendarView.getDate());
-            }
-        });
-        mNextMonthView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCalendarView.setNextMonth();
-                mTextSelectMonth.setText(mCalendarView.getDate());
-            }
-        });
+        mListView = (ListView) view.findViewById(android.R.id.list);
+        View emptyView = view.findViewById(android.R.id.empty);
+        mListView.setEmptyView(emptyView);
+        searchDataListMapfirstDay=new ArrayList<>();
+        mAdapter = new CourseSearchResultAdapter(diJiCiKe,searchDataListMapfirstDay,getActivity());
+        mListView.setAdapter(mAdapter);
+        setListViewHeightBasedOnChildren(mListView);
 
-        // 初始化可选日期
-        initData();
-
-        // 设置可选日期
-        mCalendarView.setOptionalDate(mDatas);
-        // 设置已选日期
-//        mCalendarView.setSelectedDates(mDatas1);
-        // 设置不可以被点击
-        mCalendarView.setClickable(true);
-
-        // 设置点击事件
-        mCalendarView.setOnClickDate(new CalendarView.OnClickListener() {
-            @Override
-            public void onClickDateListener(int year, int month, int day) {
-                Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
-
-                // 获取已选择日期
-                List<String> dates = mCalendarView.getSelectedDates();
-                for (String date : dates) {
-                    Log.e("test", "date: " + date);
-                }
-            }
-        });
-
-        mTextSelectMonth.setText(mCalendarView.getDate());
+        requestSearchResult();
+//        mLastMonthView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mCalendarView.setLastMonth();
+//                mTextSelectMonth.setText(mCalendarView.getDate());
+//            }
+//        });
+//        mNextMonthView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mCalendarView.setNextMonth();
+//                mTextSelectMonth.setText(mCalendarView.getDate());
+//            }
+//        });
     }
 
     Pop1ListView pop1ListView;
@@ -169,8 +193,8 @@ public class ClassTypeCourseFragment extends Fragment {
                 commitCourseSearch.put("CT_ID",id);
                 int courseNum = Integer.valueOf(num);
                 mWhichTime.clear();
-                KeyValueBean keyValueBean = new KeyValueBean("course_time", "不限", "", num);
-                mWhichTime.add(keyValueBean);
+//                KeyValueBean keyValueBean = new KeyValueBean("course_time", "不限", "", num);
+//                mWhichTime.add(keyValueBean);
                 for (int i = 1; i <= courseNum; i++) {
                     KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + i + "次课", i + "", num);
                     mWhichTime.add(keyValueBeanItem);
@@ -179,6 +203,7 @@ public class ClassTypeCourseFragment extends Fragment {
                     Log.e(TAG, "getValue: pop2ListView!=null ");
                     pop2ListView.setReSelectByIndex(0,1);
                 }
+                requestSearchResult();
             }
         });
 
@@ -195,6 +220,8 @@ public class ClassTypeCourseFragment extends Fragment {
             public void getValue(String key, String value, String id, String num) {
                 Log.e(TAG, "key :" + key + " ,value :" + value + " ,id :" + id + " ,num :" + num);
                 commitCourseSearch.put("NOW_BOUT",id);
+                diJiCiKe=id;
+                requestSearchResult();
             }
         });
 
@@ -208,13 +235,77 @@ public class ClassTypeCourseFragment extends Fragment {
             @Override
             public void getValue(String typeId, String startTime, String endTime) {
                 Log.e(TAG, "typeId :" + typeId + " ,startTime :" + startTime + " ,endTime :" + endTime);
+                commitCourseSearch.put("CM_TYPE",typeId);
+                commitCourseSearch.put("minDate",startTime);
+                commitCourseSearch.put("maxDate",endTime);
+                requestSearchResult();
             }
         });
 
 
         expandTabView.addItemToExpandTab(defaultShowText, pop3Layout);
     }
+//请求搜索结果
+public void requestSearchResult() {
 
+    final String volleyUrl = Constant.sysUrl + StuPra.classTypeCommitSearchUrl;
+    Log.e(TAG, "学员端请求班型搜索结果地址： " + volleyUrl);
+    Log.e(TAG, "学员端请求班型搜索结果参数:  "+commitCourseSearch.toString());
+    //请求
+    OkHttpUtils
+            .post()
+            .params(commitCourseSearch)
+            .url(volleyUrl)
+            .build()
+            .execute(new EdusStringCallback(getActivity()) {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    ErrorToast.errorToast(mContext, e);
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    Log.e(TAG, "onResponse: " + "  id  " + response);
+                    setStore(response);
+                }
+            });
+}
+    //        {
+//            "CM_TYPE": 366,
+//                "CONFLICT_CONTENT": "课程_会计基础,班号_syzdq_20170110_0001,教师_周雪原,",
+//                "DATA_ID": 158,
+//                "END_TIME": 1484019000000,
+//                "IFSEE": 1,
+//                "MAIN_DATA_ID": 38,
+//                "OS_NAME": "苏州本部校",
+//                "SHOW_CONTENT": "课程_会计基础,班号_syzdq_20170110_0001,教师_周雪原,",
+//                "START_TIME": 1484010000000,
+//                "TABLE_ID": 81,
+//                "courseInfo": {
+//            "classNum": "syzdq_20170110_0001",
+//                    "courseName": "会计基础",
+//                    "teacherName": "周雪原"
+//        }
+//        }
+
+    private void setStore(String responseSearchResultData) {
+
+        if (responseSearchResultData!=null) {
+            try {
+                Map<String, Object> searchDataMap = JSON.parseObject(responseSearchResultData,
+                        new TypeReference<Map<String, Object>>() {
+                        });
+                    searchDataListMap = (List<Map<String, Object>>) searchDataMap.get("dataInfo");
+                initData();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "setStore: 无搜索结果数据");
+            }
+        }
+
+    }
+
+    private  String firstClassTypeId;
     private void setConfigsDatas(String responseSearchData) {
         List<Map<String, Object>> searchDataListMap=new ArrayList<>();
         if (responseSearchData!=null) {
@@ -231,12 +322,15 @@ public class ClassTypeCourseFragment extends Fragment {
                                 String.valueOf(searchDataListMap.get(i).get("CLASS_TYPE_ID")),
                                 String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
                         Log.e(TAG, "setConfigsDatas: ALL_BOUT " + String.valueOf(searchDataListMap.get(i).get("ALL_BOUT")));
+
+
                         mClassTypeSearchList.add(keyValueBean);
                         if (i == 0) {
+                            firstClassTypeId= String.valueOf(searchDataListMap.get(i).get("CLASS_TYPE_ID"));
                             defaultClassTypeName = String.valueOf(searchDataListMap.get(i).get("CT_NAME"));
                             String num2 = String.valueOf(searchDataListMap.get(i).get("ALL_BOUT"));
-                            KeyValueBean keyValueBean2 = new KeyValueBean("course_time", "不限", "", num2);
-                            mWhichTime.add(keyValueBean2);
+//                            KeyValueBean keyValueBean2 = new KeyValueBean("course_time", "不限", "", num2);
+//                            mWhichTime.add(keyValueBean2);
                             for (int j = 1; j <= Integer.valueOf(keyValueBean.getNum()); j++) {
                                 KeyValueBean keyValueBeanItem = new KeyValueBean("course_time", "第" + j + "次课", j + "", num2);
                                 mWhichTime.add(keyValueBeanItem);
@@ -257,20 +351,119 @@ public class ClassTypeCourseFragment extends Fragment {
     //课表2初始化数据
     private void initData() {
         mDatas = new ArrayList<>();
-        mDatas.add("20161101");
-        mDatas.add("20161102");
-        mDatas.add("20161103");
-        mDatas.add("20161116");
-        mDatas.add("20161117");
-        mDatas.add("20161126");
-        mDatas.add("20161110");
-        mDatas.add("20161111");
-        mDatas.add("20161112");
-
+        for (int i = 0; i < searchDataListMap.size(); i++) {
+            long thisDate =Long.valueOf(String.valueOf(searchDataListMap.get(i).get("START_TIME")));
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+            Date dt = new Date(thisDate);
+            mDatas.add(sdf.format(dt));
+        }
         mDatas1 = new ArrayList<>();
-        mDatas1.addAll(mDatas);
+        if (mDatas.size()>0) {
+            mDatas1.add(mDatas.get(0));
+        }
+
+        // 设置可选日期
+        mCalendarView.setOptionalDate(mDatas);
+        // 设置已选日期
+        mCalendarView.setSelectedDates(mDatas1);
+        // 设置不可以被点击
+        mCalendarView.setClickable(true);
+
+        // 设置点击事件
+        mCalendarView.setOnClickDate(new CalendarView.OnClickListener() {
+            @Override
+            public void onClickDateListener(int year, int month, int day) {
+//                Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
+
+                // 获取已选择日期  过滤其他日期显示本日期内容
+                String month1;
+                if (month<10) {
+                    month1="0"+month;
+                }else{
+                    month1=""+month;
+                }
+                 String thisDay=year+""+month1+""+day;
+                Log.e(TAG, "onClickDateListener: thisDay "+thisDay);
+                if (isHasString(thisDay,mDatas)) {
+                    searchDataListMapfirstDay.clear();
+                    for (int i = 0; i < searchDataListMap.size(); i++) {
+                        long thisDate =Long.valueOf(String.valueOf(searchDataListMap.get(i).get("START_TIME")));
+                        SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+                        Date dt = new Date(thisDate);
+                        Log.e(TAG, "onClickDateListener: sdf.format(dt)  "+sdf.format(dt));
+                        if (thisDay.equals(sdf.format(dt))) {
+                            Log.e(TAG, "onClickDateListener: 确实相等");
+                            searchDataListMapfirstDay.add(searchDataListMap.get(i));
+                        }
+                    }
+                    mAdapter.notifyDataSetChanged();
+
+                }
+
+
+
+
+
+                List<String> dates = mCalendarView.getSelectedDates();
+                for (String date : dates) {
+                    Log.e("test", "date: " + date);
+                }
+            }
+        });
+
+//        mTextSelectMonth.setText(mCalendarView.getDate());
+        //在此默认选择第一天有数据的课程列表
+        if (mDatas.size()>0) {
+            searchDataListMapfirstDay.clear();
+            Log.e(TAG, "initData: 监测点2");
+            for (int i = 0; i < searchDataListMap.size(); i++) {
+                long thisDate =Long.valueOf(String.valueOf(searchDataListMap.get(i).get("START_TIME")));
+                SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+                Date dt = new Date(thisDate);
+
+                if (mDatas.get(0).equals(sdf.format(dt))) {
+                    searchDataListMapfirstDay.add(searchDataListMap.get(i));
+                }
+            }
+            Log.e(TAG, "initData: 监测点1"+searchDataListMapfirstDay.toString());
+            mAdapter.notifyDataSetChanged();
+        }
+
+
     }
 
+    public boolean isHasString(String xxStr,List<String> list) {
+
+        for (int i = 0; i < list.size(); i++) {
+            if (xxStr.equals(list.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
