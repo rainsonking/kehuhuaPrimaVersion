@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/expand_tab_eara_height"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:background="@drawable/expand_tab_popview2_bg"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="horizontal">
-
+    <!--android:paddingEnd="10dp"-->
+    <!--android:paddingStart="10dp"-->
+    <!--android:layout_height="@dimen/expand_tab_eara_height"-->
+    <!--android:background="@drawable/expand_tab_popview2_bg"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="18dp"
             android:text="@string/class_time"
-            android:textColor="@android:color/black" />
+            android:textColor="#4c4c4c"
+            android:textSize="16sp" />
 
 
         <RadioGroup
@@ -26,104 +29,183 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp">
 
             <RadioButton
                 android:id="@+id/day_area_limitless"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:paddingBottom="2dip"
-                android:paddingTop="2dip"
                 android:text="不限"
                 android:textColor="@color/class_type_day_area_word_color_sel"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/day_area_day"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="2dip"
-                android:paddingTop="2dip"
                 android:text="白班"
                 android:textColor="@color/class_type_day_area_word_color_sel"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
 
             <RadioButton
                 android:id="@+id/day_area_night"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="2dip"
-                android:paddingTop="2dip"
                 android:text="晚班"
                 android:textColor="@color/class_type_day_area_word_color_sel"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/day_area_weekend"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="2dip"
-                android:paddingTop="2dip"
                 android:text="周末班"
                 android:textColor="@color/class_type_day_area_word_color_sel"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
         </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="19dp"
+            android:background="#dfdfdf" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:paddingLeft="18dp"
             android:text="时间区间"
-            android:textColor="@android:color/black" />
+            android:textColor="#4c4c4c"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp">
 
-            <Button
-                android:id="@+id/date_start"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2017-01-21"
-                android:textColor="@android:color/black" />
+                android:background="@drawable/expand_tab_btn_popwindow3_bg"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/date_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="2017-02-23"
+                    android:textColor="#4c4c4c"
+                    android:textSize="14sp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="11dp"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/up"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/down"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--<Button-->
+                <!--android:id="@+id/date_start"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/expand_tab_btn_popwindow3_bg"-->
+                <!--android:text="2017-01-21"-->
+                <!--android:textColor="#4c4c4c"-->
+                <!--android:textSize="14sp" />-->
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="到"
                 android:textColor="@android:color/black" />
-
-            <Button
-                android:id="@+id/date_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="2017-01-21"
-                android:textColor="@android:color/black" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/expand_tab_btn_popwindow3_bg"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/date_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="2017-02-23"
+                    android:textColor="#4c4c4c"
+                    android:textSize="14sp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="11dp"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/up"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/down"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--<Button-->
+                <!--android:id="@+id/date_end"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/expand_tab_btn_popwindow3_bg"-->
+                <!--android:text="2017-01-21"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textColor="#4c4c4c" />-->
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/course_third_reset"
@@ -139,15 +221,31 @@
                 android:text="确定"
                 android:textColor="@android:color/black" />
         </LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="#dfdfdf"
+    android:layout_marginTop="19dp"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:src="@drawable/nn" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/n" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_alignParentBottom="true"
-        android:text="下边拖动栏"
-        android:textColor="@color/black"/>
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@android:color/holo_blue_light"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="下边拖动栏"-->
+    <!--android:textColor="@color/black"/>-->
 
 </merge>

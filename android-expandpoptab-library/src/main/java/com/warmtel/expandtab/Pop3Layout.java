@@ -11,12 +11,14 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Pop3Layout extends RelativeLayout {
-   public Button date_start,date_end,course_third_reset,course_third_commit;
+    public TextView date_start,date_end;
+   public Button course_third_reset,course_third_commit;
     Context context;
    public String whichType="";
 
@@ -39,9 +41,10 @@ public class Pop3Layout extends RelativeLayout {
     private String typeId="";
     private void init() {
         LayoutInflater.from(context).inflate(R.layout.expand_tab_popview3_layout, this, true);
-        setBackgroundResource(R.drawable.expand_tab_popview1_bg);
-        date_start= (Button) findViewById(R.id.date_start);
-        date_end= (Button) findViewById(R.id.date_end);
+       // setBackgroundResource(R.drawable.expand_tab_popview1_bg);
+        setBackgroundResource(R.color.white);
+        date_start= (TextView) findViewById(R.id.date_start);
+        date_end= (TextView) findViewById(R.id.date_end);
         course_third_reset= (Button) findViewById(R.id.course_third_reset);
         course_third_commit= (Button) findViewById(R.id.course_third_commit);
         class_type_day_area_select_rg=(RadioGroup) findViewById(R.id.class_type_day_area_select_rg);

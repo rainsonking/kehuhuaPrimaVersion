@@ -2,29 +2,66 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ListView
-        android:id="@id/android:list"
+
+
+    <!--<ImageView-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="9dp"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:background="@color/white"-->
+    <!--android:src="@drawable/nn" />-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1px"
-        android:fadingEdgeLength="0dip" />
-    <TextView android:id="@id/android:empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:text="没有相关数据"
-        android:textColor="@color/black"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_alignParentBottom="true"
-        android:text="下边拖动栏"
-        android:textColor="@color/black"/>
+        <TextView
+            android:id="@id/android:empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="没有相关数据"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@id/android:list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:divider="#dfdfdf"
+                android:dividerHeight="1px"
+                android:fadingEdgeLength="0dip" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:src="@drawable/nn" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/n" />
+    </LinearLayout>
+
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@android:color/holo_blue_light"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="下边拖动栏"-->
+    <!--android:textColor="@color/black"/>-->
 </merge>
