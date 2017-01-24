@@ -22,7 +22,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/android:list"
         android:gravity="center"
         android:background="@android:color/holo_blue_light"
         android:layout_alignParentBottom="true"

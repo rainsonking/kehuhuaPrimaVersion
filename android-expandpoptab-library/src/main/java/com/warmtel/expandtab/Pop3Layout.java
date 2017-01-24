@@ -22,12 +22,7 @@ public class Pop3Layout extends RelativeLayout {
 
     RadioGroup class_type_day_area_select_rg;
     private static final String TAG = "Pop3Layout";
-    
-    
-    
-    public interface OnSelectListener {
-        void getValue(String showText, String parentKey, String childrenKey);
-    }
+
 
     public Pop3Layout(Context context) {
         super(context);
@@ -41,6 +36,7 @@ public class Pop3Layout extends RelativeLayout {
         init();
     }
     Calendar cal;
+    private String typeId="";
     private void init() {
         LayoutInflater.from(context).inflate(R.layout.expand_tab_popview3_layout, this, true);
         setBackgroundResource(R.drawable.expand_tab_popview1_bg);
@@ -54,7 +50,15 @@ public class Pop3Layout extends RelativeLayout {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Log.e(TAG, "onCheckedChanged: 所选第几个 "+i);
-//                whichType;
+                if(i==radioGroup.getChildAt(1).getId()){
+                    typeId="366";
+                }else if(i==radioGroup.getChildAt(2).getId()){
+                    typeId="576";
+                }else if(i==radioGroup.getChildAt(3).getId()){
+                    typeId="365";
+                }else{
+                    typeId="";
+                }
             }
         });
 
@@ -114,7 +118,10 @@ public class Pop3Layout extends RelativeLayout {
         course_third_commit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCommit();
+                if (onDateSelectListener != null) {
+
+                    onDateSelectListener.getValue(typeId,date_start.getText().toString(),date_end.getText().toString());
+                }
             }
         });
     }
@@ -137,13 +144,18 @@ public class Pop3Layout extends RelativeLayout {
         date_end.setText(dateFormater.format(cal.getTime()));
     }
 
-    public void setCommit(){
-//获取班级类别
-
-
-    }
 
     public String getWhich(){
         return whichType;
+    }
+
+
+    private Pop3Layout.OnDateSelectListener onDateSelectListener;
+    public interface OnDateSelectListener {
+        void getValue(String typeId, String startTime, String endTime);
+    }
+
+    public void setCallBackAndData(Pop3Layout.OnDateSelectListener onDateSelectListener1) {
+        onDateSelectListener = onDateSelectListener1;
     }
 }
