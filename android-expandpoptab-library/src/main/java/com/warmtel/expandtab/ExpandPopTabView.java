@@ -35,11 +35,13 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
     public ExpandPopTabView(Context context) {
         super(context);
         init(context,null);
+        if (isInEditMode()) { return; }
     }
 
     public ExpandPopTabView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
+        if (isInEditMode()) { return; }
     }
 
     private void init(Context context, AttributeSet attrs) {

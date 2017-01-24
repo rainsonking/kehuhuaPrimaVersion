@@ -160,5 +160,6 @@ public class Pop3Layout extends RelativeLayout {
 
     public void setCallBackAndData(Pop3Layout.OnDateSelectListener onDateSelectListener1) {
         onDateSelectListener = onDateSelectListener1;
+
     }
 }
