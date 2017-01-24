@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -48,9 +51,9 @@ public class ClassTypeCourseFragment extends Fragment {
     /**
      * 班型课表参数
      */
-//    private TextView mTextSelectMonth;
-//    private ImageButton mLastMonthView;
-//    private ImageButton mNextMonthView;
+    private TextView mTextSelectMonth,mTodayDateValue;
+    private RelativeLayout mLastMonthView;
+    private RelativeLayout mNextMonthView;
     private CalendarView mCalendarView;
     private List<String> mDatas;
     private List<String> mDatas1;
@@ -136,8 +139,7 @@ public class ClassTypeCourseFragment extends Fragment {
         commitCourseSearch.put("NOW_BOUT","");
         commitCourseSearch.put("CM_TYPE","");
         Calendar cal;
-        SimpleDateFormat dateFormater = new SimpleDateFormat(
-                "yyyy-MM-dd");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
         cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.getTime();
@@ -150,9 +152,10 @@ public class ClassTypeCourseFragment extends Fragment {
          *
          * 课程表2初始化
          */
-//        mTextSelectMonth = (TextView) view.findViewById(R.id.txt_select_month);
-//        mLastMonthView = (ImageButton) view.findViewById(R.id.img_select_last_month);
-//        mNextMonthView = (ImageButton) view.findViewById(R.id.img_select_next_month);
+        mTextSelectMonth = (TextView) view.findViewById(R.id.txt_show_month);
+        mTodayDateValue= (TextView) view.findViewById(R.id.today_date_value);
+        mLastMonthView = (RelativeLayout) view.findViewById(R.id.month_switch_left);
+        mNextMonthView = (RelativeLayout) view.findViewById(R.id.month_switch_right);
         mCalendarView = (CalendarView) view.findViewById(R.id.calendarView);
         mListView = (ListView) view.findViewById(android.R.id.list);
         View emptyView = view.findViewById(android.R.id.empty);
@@ -163,20 +166,21 @@ public class ClassTypeCourseFragment extends Fragment {
         setListViewHeightBasedOnChildren(mListView);
 
         requestSearchResult();
-//        mLastMonthView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mCalendarView.setLastMonth();
-//                mTextSelectMonth.setText(mCalendarView.getDate());
-//            }
-//        });
-//        mNextMonthView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mCalendarView.setNextMonth();
-//                mTextSelectMonth.setText(mCalendarView.getDate());
-//            }
-//        });
+        mLastMonthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalendarView.setLastMonth();
+                mTextSelectMonth.setText(mCalendarView.getDateTitle());
+
+            }
+        });
+        mNextMonthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCalendarView.setNextMonth();
+                mTextSelectMonth.setText(mCalendarView.getDateTitle());
+            }
+        });
     }
 
     Pop1ListView pop1ListView;
@@ -360,6 +364,7 @@ public void requestSearchResult() {
         mDatas1 = new ArrayList<>();
         if (mDatas.size()>0) {
             mDatas1.add(mDatas.get(0));
+            mTodayDateValue.setText(mDatas.get(0));
         }
 
         // 设置可选日期
@@ -373,7 +378,7 @@ public void requestSearchResult() {
         mCalendarView.setOnClickDate(new CalendarView.OnClickListener() {
             @Override
             public void onClickDateListener(int year, int month, int day) {
-//                Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
 
                 // 获取已选择日期  过滤其他日期显示本日期内容
                 String month1;
@@ -384,6 +389,7 @@ public void requestSearchResult() {
                 }
                  String thisDay=year+""+month1+""+day;
                 Log.e(TAG, "onClickDateListener: thisDay "+thisDay);
+                mTodayDateValue.setText(thisDay);
                 if (isHasString(thisDay,mDatas)) {
                     searchDataListMapfirstDay.clear();
                     for (int i = 0; i < searchDataListMap.size(); i++) {
@@ -411,7 +417,7 @@ public void requestSearchResult() {
             }
         });
 
-//        mTextSelectMonth.setText(mCalendarView.getDate());
+        mTextSelectMonth.setText(mCalendarView.getDate());
         //在此默认选择第一天有数据的课程列表
         if (mDatas.size()>0) {
             searchDataListMapfirstDay.clear();

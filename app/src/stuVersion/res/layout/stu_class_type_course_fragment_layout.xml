@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#f7f7f7"
 
     android:orientation="vertical">
 
@@ -12,7 +12,8 @@
         android:id="@+id/expandtab_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tab_pop_bg_color="@android:color/white"
+
+        app:tab_pop_bg_color="#f7f7f7"
         app:tab_toggle_btn_color="@android:color/white"
         app:tab_toggle_btn_font_color="@color/prim_topBarColor" />
 
@@ -21,37 +22,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+        android:layout_marginTop="7dp"
     app:ptrHeaderSubTextColor="@color/black"
     app:ptrHeaderTextColor="@color/black"
-    app:ptrMode="pullFromStart">
+    app:ptrMode="both">
     <!--月历形式课表-->
 
     <LinearLayout
         android:id="@+id/month_course"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="7dp"
+
         android:orientation="vertical"
-        android:paddingEnd="7dp"
-        android:paddingStart="7dp">
+        android:background="#f7f7f7"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="23dp"
-
             android:background="#ff8200"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp">
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            >
 
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/month_switch_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:scaleType="center"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:src="@drawable/month_switch_left" />
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:paddingEnd="1dp"
+                android:paddingStart="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="center"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/month_switch_left" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/txt_show_month"
@@ -62,98 +72,63 @@
                 android:text="2017  1月"
                 android:textSize="15sp" />
 
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/month_switch_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center_vertical"
-                android:scaleType="center"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:src="@drawable/month_switch_right" />
+                android:paddingEnd="10dp"
+                android:paddingStart="1dp">
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="center"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/month_switch_right" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0.2dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
             android:background="@android:color/white"
             android:orientation="vertical">
-
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="15dp"-->
-            <!--android:gravity="center_vertical">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:drawableLeft="@mipmap/ic_record_smiling_face"-->
-            <!--android:drawablePadding="5dp"-->
-            <!--android:text="选择上课时间"-->
-            <!--android:textColor="#333"-->
-            <!--android:textSize="14sp"/>-->
-
-            <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="#EDEDED">-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/txt_select_month"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:padding="10dp"-->
-            <!--android:textSize="14sp"/>-->
-
-            <!--<ImageButton-->
-            <!--android:id="@+id/img_select_last_month"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toLeftOf="@+id/img_select_next_month"-->
-            <!--android:background="?android:actionBarItemBackground"-->
-            <!--android:padding="10dp"-->
-            <!--android:src="@mipmap/ic_arrow_left_gray"/>-->
-
-            <!--<ImageButton-->
-            <!--android:id="@+id/img_select_next_month"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:background="?android:actionBarItemBackground"-->
-            <!--android:padding="10dp"-->
-            <!--android:src="@mipmap/ic_arrow_rigth_gray"/>-->
-            <!--</RelativeLayout>-->
-            <!--</LinearLayout>-->
 
             <com.kwsoft.kehuhua.widget.WeekView
                 android:id="@+id/weekView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="34dp" />
 
             <com.kwsoft.kehuhua.widget.CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="230dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:paddingStart="9dp">
+            android:background="@android:color/white"
+            android:paddingStart="17dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/course_type_today_icon" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/course_type_today_icon"
+                />
 
             <TextView
                 android:id="@+id/today_date_value"
@@ -177,10 +152,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
             android:paddingEnd="7dp"
+            android:background="#f7f7f7"
             android:paddingStart="7dp">
 
             <ListView
@@ -196,9 +174,8 @@
                 android:id="@id/android:empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="30dp"
                 android:gravity="center"
-                android:text="没有相关数据"
+                android:text="没有当天课表数据"
                 android:textColor="@color/black" />
 
 

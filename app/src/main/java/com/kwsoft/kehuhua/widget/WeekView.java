@@ -23,7 +23,7 @@ public class WeekView extends View {
     // 字体颜色
     private int mWeekTextColor = Color.WHITE;
     // 背景颜色
-    private int mWeekBgColor = Color.parseColor("#7EBDFC");
+    private int mWeekBgColor = Color.parseColor("#ff8200");
 
     private DisplayMetrics mMetrics;
     private final Paint mPaint;

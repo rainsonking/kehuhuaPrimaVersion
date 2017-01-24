@@ -41,15 +41,15 @@ public class CalendarView extends View {
     private List<String> mSelectedDates = new ArrayList<>();
 
     // 背景颜色
-    private int mBgColor = Color.parseColor("#F7F7F7");
+    private int mBgColor = Color.parseColor("#ffffff");
     // 天数默认颜色
-    private int mDayNormalColor = Color.parseColor("#0070F8");
+    private int mDayNormalColor = Color.parseColor("#9c9c9c");
     // 天数不可选颜色
-    private int mDayNotOptColor = Color.parseColor("#CBCBCB");
+    private int mDayNotOptColor = Color.parseColor("#9c9c9c");
     // 天数选择后颜色
-    private int mDayPressedColor = Color.WHITE;
+    private int mDayPressedColor = Color.parseColor("#9c9c9c");
     // 天数字体大小
-    private int mDayTextSize = 14;
+    private int mDayTextSize = 16;
     // 是否可以被点击状态
     private boolean mClickable = true;
 
@@ -318,7 +318,11 @@ public class CalendarView extends View {
         }
         return data;
     }
-
+    public String getDateTitle(){
+        String data;
+            data = mSelYear + "  " + (mSelMonth + 1)+"月";
+        return data;
+    }
     /**
      * 获取当前展示的日期
      * @return 格式：20160606
