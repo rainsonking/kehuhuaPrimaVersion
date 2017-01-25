@@ -21,7 +21,7 @@ public class Pop3Layout extends RelativeLayout {
    public Button course_third_reset,course_third_commit;
     Context context;
    public String whichType="";
-
+    private ExpandPopTabView mExpandPopTabView;
     RadioGroup class_type_day_area_select_rg;
     private static final String TAG = "Pop3Layout";
 
@@ -122,7 +122,7 @@ public class Pop3Layout extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 if (onDateSelectListener != null) {
-
+                    onSelectItemExandPopView("更多筛选");
                     onDateSelectListener.getValue(typeId,date_start.getText().toString(),date_end.getText().toString());
                 }
             }
@@ -152,13 +152,26 @@ public class Pop3Layout extends RelativeLayout {
         return whichType;
     }
 
-
+    /**
+     * 关闭弹窗，显示选中项
+     * @param showValue
+     */
+    public void onSelectItemExandPopView(String showValue){
+        mExpandPopTabView.onExpandPopView();
+        Log.e(TAG, "onSelectItemExandPopView: showValue ");
+        mExpandPopTabView.setToggleButtonText(showValue);
+    }
     private Pop3Layout.OnDateSelectListener onDateSelectListener;
     public interface OnDateSelectListener {
         void getValue(String typeId, String startTime, String endTime);
     }
 
-    public void setCallBackAndData(Pop3Layout.OnDateSelectListener onDateSelectListener1) {
+    public void setCallBackAndData(ExpandPopTabView expandTabView,Pop3Layout.OnDateSelectListener onDateSelectListener1) {
+
+
+
+
+        mExpandPopTabView = expandTabView;
         onDateSelectListener = onDateSelectListener1;
 
     }
