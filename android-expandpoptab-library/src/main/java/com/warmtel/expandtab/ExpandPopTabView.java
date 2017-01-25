@@ -89,8 +89,10 @@ public class ExpandPopTabView extends LinearLayout implements OnDismissListener 
                 ToggleButton tButton = (ToggleButton) view;
                 if (mSelectedToggleBtn != null && mSelectedToggleBtn != tButton) {
                     mSelectedToggleBtn.setChecked(false);
+                    mSelectedToggleBtn.setTextColor(getResources().getColor(R.color.tv_858585));
                 }
                 mSelectedToggleBtn = tButton;
+                mSelectedToggleBtn.setTextColor(getResources().getColor(R.color.tv_ef5152));
                 mSelectPosition = (Integer) mSelectedToggleBtn.getTag();
                 expandPopView();
             }
