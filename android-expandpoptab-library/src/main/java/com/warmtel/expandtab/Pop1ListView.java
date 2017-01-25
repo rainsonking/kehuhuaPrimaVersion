@@ -56,8 +56,9 @@ public void refresh(){
         mListView.setEmptyView(emptyView);
         mAdapter = new PopViewAdapter(context);
         mAdapter.setTextSize(14);
-        mAdapter.setSelectorResId(R.color.white, R.color.white);
-//        mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
+        mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select_d, R.drawable.expand_tab_popview1_select_b);
+
+      //  mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
         mListView.setAdapter(mAdapter);
         /**
          * mListView.setOnItemClickListener() 无响应，重新定义列表选项单击接口

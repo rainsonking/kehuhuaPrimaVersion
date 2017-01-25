@@ -15,7 +15,11 @@
 
         app:tab_pop_bg_color="#f7f7f7"
         app:tab_toggle_btn_color="@android:color/white"
-        app:tab_toggle_btn_font_color="@color/prim_topBarColor" />
+        app:tab_toggle_btn_font_color="@color/tv_4c4c4c"
+    />
+        <!--app:tab_toggle_btn_font_color="@drawable/course_popwindow_toggle_text_bg" />-->
+
+
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
     android:id="@+id/pull_refresh_scrollview"
