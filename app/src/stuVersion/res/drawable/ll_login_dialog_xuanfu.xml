@@ -8,7 +8,6 @@
         android:left="0.5dp"
         android:right="0.5dp"
         android:top="0dp" /> -->
-    圆角
     <corners
         android:bottomLeftRadius="9dp"
         android:bottomRightRadius="9dp"
