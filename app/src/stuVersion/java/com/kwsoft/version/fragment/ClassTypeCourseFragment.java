@@ -403,11 +403,11 @@ public void requestSearchResult() {
                         }
                     }
                     Log.e(TAG, "onClickDateListener: searchDataListMapfirstDay "+searchDataListMapfirstDay.toString());
-                    mAdapter.notifyDataSetChanged();
+
 
                 }
 
-
+                mAdapter.notifyDataSetChanged();
 
 
 
@@ -419,9 +419,11 @@ public void requestSearchResult() {
         });
 
         mTextSelectMonth.setText(mCalendarView.getDate());
+        searchDataListMapfirstDay.clear();
+        Log.e(TAG, "initData: searchDataListMapfirstDay初始化清空");
         //在此默认选择第一天有数据的课程列表
         if (mDatas.size()>0) {
-            searchDataListMapfirstDay.clear();
+
             Log.e(TAG, "initData: 监测点2");
             for (int i = 0; i < searchDataListMap.size(); i++) {
                 long thisDate =Long.valueOf(String.valueOf(searchDataListMap.get(i).get("START_TIME")));
@@ -433,8 +435,9 @@ public void requestSearchResult() {
                 }
             }
             Log.e(TAG, "initData: 监测点1"+searchDataListMapfirstDay.toString());
-            mAdapter.notifyDataSetChanged();
+
         }
+        mAdapter.notifyDataSetChanged();
 
 
     }
