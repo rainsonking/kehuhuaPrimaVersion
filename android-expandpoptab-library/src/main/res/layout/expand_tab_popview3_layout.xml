@@ -204,22 +204,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:visibility="gone">
+            >
 
             <Button
                 android:id="@+id/course_third_reset"
                 android:layout_width="wrap_content"
+                android:background="@color/tv_e7e7e7"
                 android:layout_height="wrap_content"
                 android:text="重置"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/tv_858585" />
 
             <Button
                 android:id="@+id/course_third_commit"
                 android:layout_width="wrap_content"
+                android:background="@color/tv_e7e7e7"
+                android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
                 android:text="确定"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/tv_858585" />
         </LinearLayout>
 <View
     android:layout_width="match_parent"
