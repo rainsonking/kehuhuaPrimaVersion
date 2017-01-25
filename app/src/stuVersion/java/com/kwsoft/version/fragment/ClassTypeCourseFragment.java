@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.kwsoft.kehuhua.adcustom.R;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.config.Constant;
@@ -28,6 +31,7 @@ import com.warmtel.expandtab.Pop2ListView;
 import com.warmtel.expandtab.Pop3Layout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,7 +78,7 @@ public class ClassTypeCourseFragment extends Fragment {
     private CourseSearchResultAdapter mAdapter;
     private List<Map<String, Object>> searchDataListMap;
     private List<Map<String, Object>> searchDataListMapfirstDay;
-
+    private PullToRefreshScrollView pull_refresh_scrollview;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,7 +126,7 @@ public class ClassTypeCourseFragment extends Fragment {
      maxDate=2017-01-31    结束时间 控件选择  默认值为本月最后一天
 
      */
-    public void initView(String responseSearchData) {
+    public void initView(final String responseSearchData) {
         commitCourseSearch=new HashMap<>();
         diJiCiKe="1";
         setConfigsDatas(responseSearchData);
@@ -148,6 +152,17 @@ public class ClassTypeCourseFragment extends Fragment {
 //        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
         mTextSelectMonth = (TextView) view.findViewById(R.id.txt_show_month);
         mTextSelectMonth.setText(cal.get(Calendar.YEAR)+"  "+cal.get(Calendar.MONTH)+"月");
+        pull_refresh_scrollview = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
+        //上拉监听函数
+        pull_refresh_scrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pull_refresh_scrollview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                //执行刷新函数
+               requestSearchResult();
+            }
+        });
         /**
          *
          * 课程表2初始化
@@ -171,14 +186,19 @@ public class ClassTypeCourseFragment extends Fragment {
             public void onClick(View view) {
                 mCalendarView.setLastMonth();
                 mTextSelectMonth.setText(mCalendarView.getDateTitle());
-
+                commitCourseSearch.put("minDate",mCalendarView.getDate()+ "-01");
+                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ mCalendarView.getmaxDay());
+                requestSearchResult();
             }
         });
         mNextMonthView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCalendarView.setNextMonth();
+                commitCourseSearch.put("minDate",mCalendarView.getDate()+ "-01");
+                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ mCalendarView.getmaxDay());
                 mTextSelectMonth.setText(mCalendarView.getDateTitle());
+                requestSearchResult();
             }
         });
     }
@@ -254,34 +274,45 @@ public class ClassTypeCourseFragment extends Fragment {
     }
 //请求搜索结果
 public void requestSearchResult() {
-    ((BaseActivity)getActivity()).dialog.show();
-    final String volleyUrl = Constant.sysUrl + StuPra.classTypeCommitSearchUrl;
-    Log.e(TAG, "学员端请求班型搜索结果地址： " + volleyUrl);
-    Log.e(TAG, "学员端请求班型搜索结果参数:  "+commitCourseSearch.toString());
-    //请求
-    OkHttpUtils
-            .post()
-            .params(commitCourseSearch)
-            .url(volleyUrl)
-            .build()
-            .execute(new EdusStringCallback(getActivity()) {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    ErrorToast.errorToast(mContext, e);
-                    ((BaseActivity)getActivity()).dialog.dismiss();
-                }
+    if (((BaseActivity) getActivity()).hasInternetConnected()) {
+        if(!pull_refresh_scrollview.isRefreshing()){
+            ((BaseActivity) getActivity()).dialog.show();
+        }
 
-                @Override
-                public void onResponse(String response, int id) {
-                    Log.e(TAG, "onResponse: " + "  id  " + response);
-                    setStore(response);
-                    ((BaseActivity)getActivity()).dialog.dismiss();
-                }
-            });
+        final String volleyUrl = Constant.sysUrl + StuPra.classTypeCommitSearchUrl;
+        Log.e(TAG, "学员端请求班型搜索结果地址： " + volleyUrl);
+        Log.e(TAG, "学员端请求班型搜索结果参数:  " + commitCourseSearch.toString());
+        //请求
+        OkHttpUtils
+                .post()
+                .params(commitCourseSearch)
+                .url(volleyUrl)
+                .build()
+                .execute(new EdusStringCallback(getActivity()) {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ErrorToast.errorToast(mContext, e);
+                            pull_refresh_scrollview.onRefreshComplete();
+                            ((BaseActivity) getActivity()).dialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e(TAG, "onResponse: " + "  id  " + response);
+                        setStore(response);
+                            pull_refresh_scrollview.onRefreshComplete();
+                            ((BaseActivity) getActivity()).dialog.dismiss();
+
+                    }
+                });
+    }else{
+            pull_refresh_scrollview.onRefreshComplete();
+            ((BaseActivity) getActivity()).dialog.dismiss();
+    }
 }
 
     private void setStore(String responseSearchResultData) {
-
         if (responseSearchResultData!=null) {
             try {
                 Map<String, Object> searchDataMap = JSON.parseObject(responseSearchResultData,
@@ -352,7 +383,19 @@ public void requestSearchResult() {
         mDatas1 = new ArrayList<>();
         if (mDatas.size()>0) {
             mDatas1.add(mDatas.get(0));
-            mTodayDateValue.setText(mDatas.get(0));
+            SimpleDateFormat ft = new SimpleDateFormat("yyyyMM");
+            Date date = null;
+            try {
+                date = ft.parse(mDatas.get(0));
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+
+                mTodayDateValue.setText(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+" ");
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                mTodayDateValue.setText("无日期数据");
+            }
         }
 
         // 设置可选日期
@@ -406,7 +449,7 @@ public void requestSearchResult() {
             }
         });
 
-        mTextSelectMonth.setText(mCalendarView.getDate());
+        mTextSelectMonth.setText(mCalendarView.getDateTitle());
         searchDataListMapfirstDay.clear();
         Log.e(TAG, "initData: searchDataListMapfirstDay初始化清空");
         //在此默认选择第一天有数据的课程列表

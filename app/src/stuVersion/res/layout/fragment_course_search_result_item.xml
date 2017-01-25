@@ -2,50 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="94dp"
-    android:background="@drawable/class_type_day_area_selceted"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/first_area"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="126"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:background="@drawable/course_list_item_left"
+>
+<LinearLayout
+    android:layout_width="84dp"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/start_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="08:00"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="08:00"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="~"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="~"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/end_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="10:00"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="10:00"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+
+</LinearLayout>
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/course_list_item_middle"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="94dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="10dp"
-
+        android:paddingEnd="6dp"
+        android:paddingStart="10dp"
+android:background="@drawable/course_list_item_right"
         android:layout_weight="596"
         android:orientation="vertical">
 

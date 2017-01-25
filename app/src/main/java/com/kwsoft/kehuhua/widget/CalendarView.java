@@ -89,6 +89,11 @@ public class CalendarView extends View {
         super(context, attrs, defStyleAttr);
         init();
     }
+public int getmaxDay(){
+
+
+    return mMonthDays;
+}
 
     private void init() {
         // 获取手机屏幕参数
