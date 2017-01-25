@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.kwsoft.version.StuPra.diJiCiKe;
+
 /**
  * Created by Administrator on 2016/10/19 0019.
  *
@@ -25,12 +27,11 @@ public class CourseSearchResultAdapter extends BaseAdapter {
     public List<Map<String, Object>> SearchResultList = new ArrayList<>();
     public Context mcontext;
     public LayoutInflater mInflater;
-    String whichClass;
-    public CourseSearchResultAdapter(String whichClass,List<Map<String, Object>> SearchResultList, Context mcontext) {
+    public CourseSearchResultAdapter(List<Map<String, Object>> SearchResultList, Context mcontext) {
         this.SearchResultList = SearchResultList;
         this.mcontext = mcontext;
         this.mInflater = LayoutInflater.from(mcontext);
-        this.whichClass=whichClass;
+
     }
 
     @Override
@@ -98,7 +99,7 @@ public class CourseSearchResultAdapter extends BaseAdapter {
         }
         viewHolder.type_value.setText(classTimeType);
         viewHolder.course_name.setText(courseInfo.get("courseName"));
-        viewHolder.which_class.setText("第"+whichClass+"次课");
+        viewHolder.which_class.setText("第"+diJiCiKe+"次课");
         viewHolder.teacher_name.setText(courseInfo.get("teacherName"));
         viewHolder.school_area.setText(String.valueOf(map.get("OS_NAME")));
         viewHolder.class_room.setText(String.valueOf(map.get("CLASSROOM_NAME")).equals("null")?"未排教室":String.valueOf(map.get("CLASSROOM_NAME")));

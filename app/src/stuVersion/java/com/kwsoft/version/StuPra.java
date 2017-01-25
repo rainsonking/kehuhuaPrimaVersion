@@ -102,7 +102,7 @@ public class StuPra {
     public static final String classTypeCommitSearchUrl= "dataPlAdd_interfaceShowDateClassTypeCourse.do";//对系统的称呼
 
 
-
+    public static String diJiCiKe="1";
 
 
 
