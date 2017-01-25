@@ -379,7 +379,7 @@ public void requestSearchResult() {
             @Override
             public void onClickDateListener(int year, int month, int day) {
                 Toast.makeText(getActivity(), year + "年" + month + "月" + day + "天", Toast.LENGTH_SHORT).show();
-
+                searchDataListMapfirstDay.clear();
                 // 获取已选择日期  过滤其他日期显示本日期内容
                 String month1;
                 if (month<10) {
@@ -391,7 +391,7 @@ public void requestSearchResult() {
                 Log.e(TAG, "onClickDateListener: thisDay "+thisDay);
                 mTodayDateValue.setText(thisDay);
                 if (isHasString(thisDay,mDatas)) {
-                    searchDataListMapfirstDay.clear();
+
                     for (int i = 0; i < searchDataListMap.size(); i++) {
                         long thisDate =Long.valueOf(String.valueOf(searchDataListMap.get(i).get("START_TIME")));
                         SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
@@ -402,6 +402,7 @@ public void requestSearchResult() {
                             searchDataListMapfirstDay.add(searchDataListMap.get(i));
                         }
                     }
+                    Log.e(TAG, "onClickDateListener: searchDataListMapfirstDay "+searchDataListMapfirstDay.toString());
                     mAdapter.notifyDataSetChanged();
 
                 }
