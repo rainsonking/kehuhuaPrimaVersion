@@ -1,10 +1,12 @@
 package com.warmtel.expandtab;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -20,18 +22,21 @@ public class Pop1ListView extends RelativeLayout {
     private String mDefaultParentText = null;
     private String mDefaultParentkey = null;
     private int mDefaultIndex = 0;
+
     public interface OnSelectListener {
-         void getValue(String key, String value,String id,String num);
+        void getValue(String key, String value, String id, String num);
     }
 
-    public void setOnSelectListener(ExpandPopTabView expandPopTabView,OnSelectListener onSelectListener) {
+    public void setOnSelectListener(ExpandPopTabView expandPopTabView, OnSelectListener onSelectListener) {
         mOnSelectListener = onSelectListener;
         mExpandPopTabView = expandPopTabView;
     }
-public void refresh(){
-    mAdapter.notifyDataSetChanged();
 
-}
+    public void refresh() {
+        mAdapter.notifyDataSetChanged();
+
+    }
+
     public Pop1ListView(Context context) {
         super(context);
         init(context);
@@ -48,17 +53,24 @@ public void refresh(){
     }
 
     public void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.expand_tab_popview1_layout, this, true);
-       // setBackgroundResource(R.drawable.expand_tab_popview1_bg);
+        View view = LayoutInflater.from(context).inflate(R.layout.expand_tab_popview1_layout, this, true);
+        // setBackgroundResource(R.drawable.expand_tab_popview1_bg);
         setBackgroundResource(R.color.white);
+        int mDisplayHeight = ((Activity) context).getWindowManager().getDefaultDisplay().getHeight();
+        Log.e(TAG, "init: height_"+mDisplayHeight );
         mListView = (ListView) findViewById(android.R.id.list);
+       // mListView.setMinimumHeight((int)(mDisplayHeight * 0.5) - 80);
         View emptyView = findViewById(android.R.id.empty);
+        ViewGroup.LayoutParams params = mListView.getLayoutParams();
+        params.height = (int)(mDisplayHeight * 0.5) - 80;
+        mListView.setLayoutParams(params);
+
         mListView.setEmptyView(emptyView);
         mAdapter = new PopViewAdapter(context);
         mAdapter.setTextSize(14);
         mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select_d, R.drawable.expand_tab_popview1_select_b);
 
-      //  mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
+        //  mAdapter.setSelectorResId(R.drawable.expand_tab_popview1_select, R.drawable.expand_tab_popview2_chilred_item_selector);
         mListView.setAdapter(mAdapter);
         /**
          * mListView.setOnItemClickListener() 无响应，重新定义列表选项单击接口
@@ -69,11 +81,11 @@ public void refresh(){
             public void onItemClick(PopViewAdapter adapter, int position) {
                 if (mOnSelectListener != null) {
                     KeyValueBean KeyValueBean = (KeyValueBean) adapter.getItem(position);
-                    Log.e(TAG, "onItemClick: position "+position);
+                    Log.e(TAG, "onItemClick: position " + position);
                     String showValue = KeyValueBean.getValue();
-                    Log.e(TAG, "onItemClick: showValue"+showValue);
+                    Log.e(TAG, "onItemClick: showValue" + showValue);
                     onSelectItemExandPopView(showValue);
-                    mOnSelectListener.getValue(KeyValueBean.getKey(), showValue,KeyValueBean.getId(),KeyValueBean.getNum());
+                    mOnSelectListener.getValue(KeyValueBean.getKey(), showValue, KeyValueBean.getId(), KeyValueBean.getNum());
                 }
             }
         });
@@ -81,9 +93,10 @@ public void refresh(){
 
     /**
      * 关闭弹窗，显示选中项
+     *
      * @param showValue
      */
-    public void onSelectItemExandPopView(String showValue){
+    public void onSelectItemExandPopView(String showValue) {
         mExpandPopTabView.onExpandPopView();
         Log.e(TAG, "onSelectItemExandPopView: showValue ");
         mExpandPopTabView.setToggleButtonText(showValue);
@@ -92,22 +105,27 @@ public void refresh(){
     /**
      * 设置默认选中项通过内容
      * 注:在 setCallBackAndData()方法前执行有效
+     *
      * @param text1
      */
-    public void setDefaultSelectByValue(String text1){
+    public void setDefaultSelectByValue(String text1) {
         mDefaultParentText = text1;
     }
-    public void setDefaultSelectByIndex(int index){
+
+    public void setDefaultSelectByIndex(int index) {
         mDefaultIndex = index;
     }
+
     /**
      * 设置默认选中项通过关键字Key
      * 注:在 setCallBackAndData()方法前执行有效
+     *
      * @param key1
      */
-    public void setDefaultSelectByKey(String key1){
+    public void setDefaultSelectByKey(String key1) {
         mDefaultParentkey = key1;
     }
+
     public void setAdapterData(List<KeyValueBean> itemValues) {
         mAdapter.setList(itemValues);
     }
@@ -123,9 +141,9 @@ public void refresh(){
 //                    }
 //                }
 //            }else{
-        if (itemValues.size()>0) {
+        if (itemValues.size() > 0) {
             mAdapter.setSelectorText(itemValues.get(mDefaultIndex).getValue());
-        }else{
+        } else {
             mAdapter.setSelectorText("班型选择");
         }
 
