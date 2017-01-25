@@ -87,8 +87,10 @@ public class PopViewAdapter extends BaseAdapter {
         KeyValueBean keyValueBean = (KeyValueBean) getItem(position);
         if (keyValueBean.getValue().equals(selectorText)) {
             view.setBackgroundResource(selectorResId);
+            view.setTextColor(context.getResources().getColor(R.color.tv_ef5152));
         } else {
             view.setBackgroundResource(normalResId);
+            view.setTextColor(context.getResources().getColor(R.color.tv_4c4c4c));
         }
         int pading = context.getResources().getDimensionPixelSize(R.dimen.expand_tab_popview_padingtop);
         int padingleft = context.getResources().getDimensionPixelSize(R.dimen.expand_tab_popview_padingleft);
@@ -108,7 +110,7 @@ public class PopViewAdapter extends BaseAdapter {
                     TextView txtView = (TextView) view;
                     int position = (int) txtView.getTag();
                     setSelectorText(txtView.getText().toString());
-                    //txtView.setTextColor(context.getResources().getColor(R.color.tv_ef5152));
+                   // txtView.setTextColor(context.getResources().getColor(R.color.tv_ef5152));
                     setSelectedPositionNotify(position);
                     mOnItemClickListener.onItemClick(PopViewAdapter.this, position);
                 }
