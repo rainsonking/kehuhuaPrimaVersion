@@ -15,7 +15,7 @@
 
         app:tab_pop_bg_color="#f7f7f7"
         app:tab_toggle_btn_color="@android:color/white"
-        app:tab_toggle_btn_font_color="@color/tv_4c4c4c"
+        app:tab_toggle_btn_font_color="@color/list_item_left"
     />
         <!--app:tab_toggle_btn_font_color="@drawable/course_popwindow_toggle_text_bg" />-->
 
