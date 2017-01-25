@@ -225,6 +225,7 @@
     android:layout_width="match_parent"
     android:layout_height="0.5dp"
     android:background="#dfdfdf"
+    android:layout_alignParentBottom="true"
     android:layout_marginTop="19dp"/>
         <ImageView
             android:layout_width="40dp"
