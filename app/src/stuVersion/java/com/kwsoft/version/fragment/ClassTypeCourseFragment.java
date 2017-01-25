@@ -238,7 +238,7 @@ public class ClassTypeCourseFragment extends Fragment {
 
     public void addItem3(ExpandPopTabView expandTabView, String defaultShowText) {
         pop3Layout = new Pop3Layout(getActivity());
-        pop3Layout.setCallBackAndData(new Pop3Layout.OnDateSelectListener() {
+        pop3Layout.setCallBackAndData(expandTabView,new Pop3Layout.OnDateSelectListener() {
             @Override
             public void getValue(String typeId, String startTime, String endTime) {
                 Log.e(TAG, "typeId :" + typeId + " ,startTime :" + startTime + " ,endTime :" + endTime);
