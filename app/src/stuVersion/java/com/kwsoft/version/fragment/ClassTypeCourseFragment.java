@@ -31,7 +31,6 @@ import com.warmtel.expandtab.Pop2ListView;
 import com.warmtel.expandtab.Pop3Layout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -383,19 +382,10 @@ public void requestSearchResult() {
         mDatas1 = new ArrayList<>();
         if (mDatas.size()>0) {
             mDatas1.add(mDatas.get(0));
-            SimpleDateFormat ft = new SimpleDateFormat("yyyyMM");
-            Date date = null;
-            try {
-                date = ft.parse(mDatas.get(0));
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);
-
-                mTodayDateValue.setText(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+" ");
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-                mTodayDateValue.setText("无日期数据");
-            }
+            Log.e(TAG, "initData:  mDatas.get(0) "+mDatas.get(0));
+            mTodayDateValue.setText(mDatas.get(0));
+        }else{
+            mTodayDateValue.setText("本月无");
         }
 
         // 设置可选日期
@@ -418,7 +408,13 @@ public void requestSearchResult() {
                 }else{
                     month1=""+month;
                 }
-                 String thisDay=year+""+month1+""+day;
+                String day1;
+                if (day<10) {
+                    day1="0"+day;
+                }else{
+                    day1=""+day;
+                }
+                 String thisDay=year+""+month1+""+day1;
                 Log.e(TAG, "onClickDateListener: thisDay "+thisDay);
                 mTodayDateValue.setText(thisDay);
                 if (isHasString(thisDay,mDatas)) {
