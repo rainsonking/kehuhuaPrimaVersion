@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/pull_refresh_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:scrollbars="none"
+        app:ptrHeaderSubTextColor="@color/black"
+        app:ptrHeaderTextColor="@color/black"
+        app:ptrMode="both">
+        <!--月历形式课表-->
+
+        <LinearLayout
+            android:id="@+id/month_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="#f7f7f7"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="7dp"
+                android:background="#ff8200">
+
+                <RelativeLayout
+                    android:id="@+id/month_switch_left"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="1dp"
+                    android:paddingStart="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="center"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        android:src="@drawable/month_switch_left" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_show_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="2017  1月"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/month_switch_right"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="1dp">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="center"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        android:src="@drawable/month_switch_right" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="0.2dp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <com.kwsoft.kehuhua.widget.WeekView
+                    android:id="@+id/weekView"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp" />
+
+                <com.kwsoft.kehuhua.widget.CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:paddingStart="17dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/course_type_today_icon" />
+
+                <TextView
+                    android:id="@+id/today_date_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:text="2017-01-24"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="课表"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="10dp"
+                android:background="#f7f7f7"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@id/android:list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1px"
+                    android:fadingEdgeLength="0dip"
+                    tools:listitem="@layout/fragment_course_search_result_item" />
+
+                <TextView
+                    android:id="@id/android:empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="没有当天课表数据"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+</LinearLayout>
+

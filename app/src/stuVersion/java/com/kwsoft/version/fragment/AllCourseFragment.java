@@ -53,9 +53,9 @@ public class AllCourseFragment extends BaseFragment implements View.OnClickListe
     public void initCourseFragment() {
 
         Fragment classTypeCourseFragment = new ClassTypeCourseFragment();
-        Fragment courseFragment = new CourseFragment();
+        Fragment courseFragmentmonth = new CourseFragmentMonth();
 
-        newsList.add(courseFragment);
+        newsList.add(courseFragmentmonth);
         newsList.add(classTypeCourseFragment);
 
         //设置viewpager适配器

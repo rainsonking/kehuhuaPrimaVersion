@@ -98,9 +98,9 @@ public class StuPra {
 
 
 
-    public static final String classTypeGetSearchUrl = "dataPlAdd_interfaceShowClassType.do";//对系统的称呼
-    public static final String classTypeCommitSearchUrl= "dataPlAdd_interfaceShowDateClassTypeCourse.do";//对系统的称呼
-
+    public static final String classTypeGetSearchUrl = "dataPlAdd_interfaceShowClassType.do";//课表页面中栏的请求搜索条件接口
+    public static final String classTypeCommitSearchUrl= "dataPlAdd_interfaceShowDateClassTypeCourse.do";//中栏搜索结果的结果
+    public static final String monthCourseCommitSearchUrl= "dataPlAdd_interfaceShowDateCourse.do";//我的课表接口
 
     public static String diJiCiKe="1";
 

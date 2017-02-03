@@ -136,6 +136,7 @@ public class ClassTypeCourseFragment extends Fragment {
 
         commitCourseSearch.put(Constant.mainId,Constant.USERID);
         commitCourseSearch.put(Constant.tableId,19+"");
+        Log.e(TAG, "initView: firstClassTypeId "+String.valueOf(firstClassTypeId));
         commitCourseSearch.put("CT_ID",firstClassTypeId!=null?firstClassTypeId:"");//第一个班型
         commitCourseSearch.put("NOW_BOUT","");
         commitCourseSearch.put("CM_TYPE","");
@@ -150,7 +151,7 @@ public class ClassTypeCourseFragment extends Fragment {
         commitCourseSearch.put("maxDate",dateFormater.format(cal.getTime()));
 //        addItem(expandTabView, mParentLists, mChildrenListLists, "锦江区", "合江亭", "区域");
         mTextSelectMonth = (TextView) view.findViewById(R.id.txt_show_month);
-        mTextSelectMonth.setText(cal.get(Calendar.YEAR)+"  "+cal.get(Calendar.MONTH)+"月");
+        mTextSelectMonth.setText(cal.get(Calendar.YEAR)+"  "+(cal.get(Calendar.MONTH)+1)+"月");
         pull_refresh_scrollview = (PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview);
         //上拉监听函数
         pull_refresh_scrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -186,7 +187,7 @@ public class ClassTypeCourseFragment extends Fragment {
                 mCalendarView.setLastMonth();
                 mTextSelectMonth.setText(mCalendarView.getDateTitle());
                 commitCourseSearch.put("minDate",mCalendarView.getDate()+ "-01");
-                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ mCalendarView.getmaxDay());
+                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ "-"+mCalendarView.getmaxDay());
                 requestSearchResult();
             }
         });
@@ -195,7 +196,7 @@ public class ClassTypeCourseFragment extends Fragment {
             public void onClick(View view) {
                 mCalendarView.setNextMonth();
                 commitCourseSearch.put("minDate",mCalendarView.getDate()+ "-01");
-                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ mCalendarView.getmaxDay());
+                commitCourseSearch.put("maxDate",mCalendarView.getDate()+ "-"+mCalendarView.getmaxDay());
                 mTextSelectMonth.setText(mCalendarView.getDateTitle());
                 requestSearchResult();
             }
