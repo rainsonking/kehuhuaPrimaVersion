@@ -2,6 +2,7 @@ package com.warmtel.expandtab;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +76,10 @@ public class PopViewAdapter extends BaseAdapter {
         return position;
     }
 
+    private static final String TAG = "PopViewAdapter";
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.e(TAG, "getView: 检测点1  "+getItem(position).toString());
         TextView view;
         if (convertView == null) {
             view = (TextView) layoutInflater.inflate(R.layout.expand_tab_popview_item1_layout, null);

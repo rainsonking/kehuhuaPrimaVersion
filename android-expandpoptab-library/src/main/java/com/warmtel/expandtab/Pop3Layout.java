@@ -16,13 +16,15 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.warmtel.expandtab.R.id.day_area_limitless;
+
 public class Pop3Layout extends RelativeLayout {
     public TextView date_start,date_end;
    public Button course_third_reset,course_third_commit;
     Context context;
    public String whichType="";
     private ExpandPopTabView mExpandPopTabView;
-    RadioGroup class_type_day_area_select_rg;
+    RadioGroup class_type_day_area_select_rg,class_type_day_area_select_rg2;
     private static final String TAG = "Pop3Layout";
 
 
@@ -48,22 +50,81 @@ public class Pop3Layout extends RelativeLayout {
         course_third_reset= (Button) findViewById(R.id.course_third_reset);
         course_third_commit= (Button) findViewById(R.id.course_third_commit);
         class_type_day_area_select_rg=(RadioGroup) findViewById(R.id.class_type_day_area_select_rg);
+        final RadioButton day_area_limitless=(RadioButton) findViewById(R.id.day_area_limitless);//第一个group中的第一个radio
+        final RadioButton day_area_day=(RadioButton) findViewById(R.id.day_area_day);//第一个group中的第二个radio
+        final RadioButton  day_area_1_5=(RadioButton) findViewById(R.id.day_area_1_5);//第二个group中的第一个radio
+        final RadioButton  day_area_6=(RadioButton) findViewById(R.id.day_area_6);//第二个group中的第二个radio
+
+
+
+        class_type_day_area_select_rg2=(RadioGroup) findViewById(R.id.class_type_day_area_select_rg2);
+        final RadioButton day_area_7=(RadioButton) findViewById(R.id.day_area_7);//第一个group中的第一个radio
+        final RadioButton day_area_night=(RadioButton) findViewById(R.id.day_area_night);//第一个group中的第二个radio
+        final RadioButton  day_area_nightA=(RadioButton) findViewById(R.id.day_area_nightA);//第二个group中的第一个radio
+        final RadioButton  day_area_nightB=(RadioButton) findViewById(R.id.day_area_nightB);//第二个group中的第二个radio
+
 
         class_type_day_area_select_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Log.e(TAG, "onCheckedChanged: 所选第几个 "+i);
-                if(i==radioGroup.getChildAt(1).getId()){
+
+
+                if(i==radioGroup.getChildAt(0).getId()){
+                    typeId="";
+                }else if(i==radioGroup.getChildAt(1).getId()){
                     typeId="366";
                 }else if(i==radioGroup.getChildAt(2).getId()){
-                    typeId="576";
-                }else if(i==radioGroup.getChildAt(3).getId()){
                     typeId="365";
-                }else{
-                    typeId="";
+                }else if(i==radioGroup.getChildAt(3).getId()){
+                    typeId="797";
+
+                }
+
+                if (day_area_limitless.isChecked()) {
+                    class_type_day_area_select_rg2.clearCheck();
+                }
+                if (day_area_day.isChecked()) {
+                    class_type_day_area_select_rg2.clearCheck();
+                }
+                if (day_area_1_5.isChecked()) {
+                    class_type_day_area_select_rg2.clearCheck();
+                }
+                if (day_area_6.isChecked()) {
+                    class_type_day_area_select_rg2.clearCheck();
+                }
+
+            }
+        });
+        class_type_day_area_select_rg2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i==radioGroup.getChildAt(0).getId()){
+                    typeId="795";
+                }else if(i==radioGroup.getChildAt(1).getId()){
+                    typeId="576";
+                }else if(i==radioGroup.getChildAt(2).getId()){
+                    typeId="794";
+                }else if(i==radioGroup.getChildAt(3).getId()){
+                    typeId="796";
+                }
+
+                if (day_area_7.isChecked()) {
+                    class_type_day_area_select_rg.clearCheck();
+                }
+                if (day_area_night.isChecked()) {
+                    class_type_day_area_select_rg.clearCheck();
+                }
+                if (day_area_nightA.isChecked()) {
+                    class_type_day_area_select_rg.clearCheck();
+                }
+                if (day_area_nightB.isChecked()) {
+                    class_type_day_area_select_rg.clearCheck();
                 }
             }
         });
+
+
 
         setDefault();//设定默认
 
@@ -132,7 +193,7 @@ public class Pop3Layout extends RelativeLayout {
     public void setDefault(){
 
         //设置按钮默认选择不限
-        ((RadioButton) class_type_day_area_select_rg.findViewById(R.id.day_area_limitless)).setChecked(true);
+        ((RadioButton) class_type_day_area_select_rg.findViewById(day_area_limitless)).setChecked(true);
 
         //设定date_start为本月第一天
         SimpleDateFormat dateFormater = new SimpleDateFormat(
