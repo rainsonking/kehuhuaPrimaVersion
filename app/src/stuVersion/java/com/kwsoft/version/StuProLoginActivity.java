@@ -3,7 +3,6 @@ package com.kwsoft.version;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,7 +14,6 @@ import com.kwsoft.kehuhua.bean.LoginError;
 import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.urlCnn.EdusStringCallback;
 import com.kwsoft.kehuhua.urlCnn.ErrorToast;
-import com.kwsoft.kehuhua.utils.BadgeUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.HashMap;
@@ -198,14 +196,14 @@ public class StuProLoginActivity extends BaseActivity {
         Map<String, Object> menuMap = JSON.parseObject(menuData,
                 new TypeReference<Map<String, Object>>() {
                 });
-        String countStr = String.valueOf(menuMap.get("notMsgCount"));
-        if (!TextUtils.isEmpty(countStr) && !countStr.equals("null")) {
-            int count = Integer.parseInt(countStr);
-            sPreferences.edit().putInt("count", count).apply();
-            BadgeUtil.sendBadgeNumber(StuProLoginActivity.this, count);
-        } else {
-            BadgeUtil.sendBadgeNumber(StuProLoginActivity.this, 0);
-        }
+//        String countStr = String.valueOf(menuMap.get("notMsgCount"));
+//        if (!TextUtils.isEmpty(countStr) && !countStr.equals("null")) {
+//            int count = Integer.parseInt(countStr);
+//            sPreferences.edit().putInt("count", count).apply();
+//            BadgeUtil.sendBadgeNumber(StuProLoginActivity.this, count);
+//        } else {
+//            BadgeUtil.sendBadgeNumber(StuProLoginActivity.this, 0);
+//        }
         if (menuMap.get("loginInfo") != null) {
             try {
                 Map<String, Object> loginInfo = (Map<String, Object>) menuMap.get("loginInfo");

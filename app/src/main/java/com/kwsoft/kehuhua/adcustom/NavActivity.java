@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +29,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.jauker.widget.BadgeView;
 import com.kwsoft.kehuhua.adcustom.base.BaseActivity;
 import com.kwsoft.kehuhua.config.Constant;
 import com.kwsoft.kehuhua.utils.CloseActivityClass;
@@ -65,7 +63,7 @@ public class NavActivity extends BaseActivity
 
 
 
-    BadgeView badgeView;//提示消息条数的view
+//    BadgeView badgeView;//提示消息条数的view
 
     MyReceiverMsg receiverMsg;//接收通知的接收器
 
@@ -120,8 +118,8 @@ public class NavActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        int count=getLoginUserSharedPre().getInt("count",0);
-        badgeView.setBadgeCount(count);
+//        int count=getLoginUserSharedPre().getInt("count",0);
+//        badgeView.setBadgeCount(count);
     }
 
     @Override
@@ -138,12 +136,12 @@ public class NavActivity extends BaseActivity
         ImageView messageCenter = (ImageView) findViewById(R.id.messageCenter);
         messageCenter.setOnClickListener(this);
         //xiebubiao修改
-        badgeView=new BadgeView(this);
-        badgeView.setTargetView(messageCenter);
-        badgeView.setHideOnNull(true);
-        badgeView.setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
-        badgeView.setBackgroundResource(R.drawable.badge_bg);
-        badgeView.setBadgeMargin(0,0,15,0);
+//        badgeView=new BadgeView(this);
+//        badgeView.setTargetView(messageCenter);
+//        badgeView.setHideOnNull(true);
+//        badgeView.setBadgeGravity(Gravity.TOP | Gravity.RIGHT);
+//        badgeView.setBackgroundResource(R.drawable.badge_bg);
+//        badgeView.setBadgeMargin(0,0,15,0);
 
         ImageView personalCenter = (ImageView) findViewById(R.id.personalCenter);
         personalCenter.setOnClickListener(this);
@@ -488,8 +486,8 @@ public class NavActivity extends BaseActivity
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            int count=intent.getIntExtra("count",0);
-            badgeView.setBadgeCount(count);
+//            int count=intent.getIntExtra("count",0);
+//            badgeView.setBadgeCount(count);
         }
     }
 

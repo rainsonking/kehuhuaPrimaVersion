@@ -36,8 +36,6 @@ import java.util.Map;
 
 import okhttp3.Call;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-
 /**
  * Created by Administrator on 2016/9/6 0006.
  */
@@ -56,7 +54,7 @@ public class CourseFragmentMonth extends Fragment {
     private View view;
     private ListView mListView;
 
-
+    private static final String TAG = "CourseFragmentMonth";
     private CourseSearchResultAdapter mAdapter;
     private List<Map<String, Object>> searchDataListMap;
     private List<Map<String, Object>> searchDataListMapfirstDay;
@@ -111,7 +109,6 @@ public class CourseFragmentMonth extends Fragment {
          *
          * 课程表2初始化
          */
-
         mTodayDateValue = (TextView) view.findViewById(R.id.today_date_value);
         mLastMonthView = (RelativeLayout) view.findViewById(R.id.month_switch_left);
         mNextMonthView = (RelativeLayout) view.findViewById(R.id.month_switch_right);

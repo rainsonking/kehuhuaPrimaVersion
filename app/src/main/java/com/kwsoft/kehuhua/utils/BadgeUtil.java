@@ -9,8 +9,6 @@ import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
-
 
 import com.kwsoft.kehuhua.adcustom.R;
 
@@ -28,6 +26,7 @@ import java.lang.reflect.Field;
 public class BadgeUtil {
 
     public static void sendBadgeNumber(Context context,int count) {
+        count=0;
 //        if (count!=0) {
 //            count = Math.max(0, Math.min(count, 99));
 //        }
@@ -40,9 +39,10 @@ public class BadgeUtil {
             sendToSamsumg(count,context);
         } else if (Build.MANUFACTURER.toLowerCase().contains("sony")) {
             sendToSony(count,context);
-        } else {
-            Toast.makeText(context, "Not Support", Toast.LENGTH_LONG).show();
         }
+//        else {
+//            Toast.makeText(context, "Not Support", Toast.LENGTH_LONG).show();
+//        }
     }
 
     private static void sendToXiaoMi(int count,Context context) {
@@ -73,7 +73,7 @@ public class BadgeUtil {
             field.setAccessible(true);
 
             field.set(notification, miuiNotification);
-            Toast.makeText(context, "Xiaomi=>isSendOk=>1", Toast.LENGTH_LONG).show();
+//            Toast.makeText(context, "Xiaomi=>isSendOk=>1", Toast.LENGTH_LONG).show();
         }catch (Exception e) {
             e.printStackTrace();
             //miui 6之前的版本
@@ -111,7 +111,7 @@ public class BadgeUtil {
                 ());//包名
         context.sendBroadcast(localIntent);
 
-        Toast.makeText(context, "Sony," + "isSendOk", Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, "Sony," + "isSendOk", Toast.LENGTH_LONG).show();
     }
 
     private static void sendToSamsumg(int count,Context context)
@@ -121,7 +121,7 @@ public class BadgeUtil {
         localIntent.putExtra("badge_count_package_name", context.getPackageName());//包名
         localIntent.putExtra("badge_count_class_name",getLauncherClassName(context)); //启动页
         context.sendBroadcast(localIntent);
-        Toast.makeText(context, "Samsumg," + "isSendOk", Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, "Samsumg," + "isSendOk", Toast.LENGTH_LONG).show();
     }
 
     /**

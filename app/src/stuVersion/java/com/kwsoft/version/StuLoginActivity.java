@@ -358,15 +358,15 @@ public class StuLoginActivity extends BaseActivity implements View.OnClickListen
         Map<String, Object> menuMap = JSON.parseObject(menuData,
                 new TypeReference<Map<String, Object>>() {
                 });
-        String countStr = String.valueOf(menuMap.get("notMsgCount"));
-        if (!TextUtils.isEmpty(countStr) && !countStr.equals("null")) {
-            int count = Integer.parseInt(countStr);
+//        String countStr = String.valueOf(menuMap.get("notMsgCount"));
+//        if (!TextUtils.isEmpty(countStr) && !countStr.equals("null")) {
+//            int count = Integer.parseInt(countStr);
 
-            sPreferences.edit().putInt("count", count).apply();
-            BadgeUtil.sendBadgeNumber(StuLoginActivity.this, count);
-        } else {
+//            sPreferences.edit().putInt("count", count).apply();
+//            BadgeUtil.sendBadgeNumber(StuLoginActivity.this, count);
+//        } else {
             BadgeUtil.sendBadgeNumber(StuLoginActivity.this, 0);
-        }
+//        }
         if (menuMap.get("loginInfo") != null) {
             try {
                 Map<String, Object> loginInfo = (Map<String, Object>) menuMap.get("loginInfo");

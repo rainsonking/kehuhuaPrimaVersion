@@ -115,14 +115,14 @@
             <com.kwsoft.kehuhua.widget.CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="230dp" />
+                android:layout_height="180dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:background="@android:color/white"
             android:paddingStart="17dp">
@@ -157,7 +157,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:layout_marginStart="7dp"
             android:layout_marginEnd="7dp"
