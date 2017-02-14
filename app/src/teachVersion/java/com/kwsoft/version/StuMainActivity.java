@@ -1,11 +1,14 @@
 package com.kwsoft.version;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -54,6 +57,19 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
     private String feedbackInfoList;//反馈信息
     public static boolean isForeground = false;
 
+    private SessionService.MyBinder myBinder;
+    public ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            myBinder = (SessionService.MyBinder) service;
+            myBinder.startDownload();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +81,7 @@ public class StuMainActivity extends BaseActivity implements View.OnClickListene
         // initDialog();
         MyPreferenceManager.init(mContext);
         PgyUpdateManager.register(this);
-        Utils.startPollingService(mContext, 5 * 60, SessionService.class, SessionService.ACTION);//启动20分钟一次的轮询获取session服务
+        Utils.startPollingService(mContext, 5 * 60, SessionService.class, SessionService.ACTION,connection);//启动20分钟一次的轮询获取session服务
         registerMessageReceiver();  // used for receive msg
     }
 
