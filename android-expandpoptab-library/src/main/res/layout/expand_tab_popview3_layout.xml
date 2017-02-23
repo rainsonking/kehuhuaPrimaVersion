@@ -32,32 +32,82 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:paddingLeft="18dp"
+            android:gravity="center_horizontal"
             android:paddingRight="18dp">
 
+
+    <RadioButton
+        android:id="@+id/day_area_limitless"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/class_type_day_area_sel"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:text="不限"
+        android:textColor="@color/class_type_day_area_word_color_sel"
+        android:textSize="14sp" />
+    <RadioButton
+        android:id="@+id/day_area_day"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="6dp"
+        android:background="@drawable/class_type_day_area_sel"
+        android:button="@null"
+        android:gravity="center"
+        android:text="全日制"
+        android:textColor="@color/class_type_day_area_word_color_sel"
+        android:textSize="14sp" />
+
+
+    <RadioButton
+        android:id="@+id/day_area_1_5"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="6dp"
+        android:background="@drawable/class_type_day_area_sel"
+        android:button="@null"
+        android:gravity="center"
+        android:text="双休班"
+        android:textColor="@color/class_type_day_area_word_color_sel"
+        android:textSize="14sp" />
+
+    <RadioButton
+        android:id="@+id/day_area_6"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="6dp"
+        android:background="@drawable/class_type_day_area_sel"
+        android:button="@null"
+        android:gravity="center"
+        android:text="周六班"
+        android:textColor="@color/class_type_day_area_word_color_sel"
+        android:textSize="14sp" />
+
+
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/class_type_day_area_select_rg2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="18dp"
+            android:gravity="center_horizontal"
+            android:paddingRight="18dp">
             <RadioButton
-                android:id="@+id/day_area_limitless"
+                android:id="@+id/day_area_7"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
-                android:checked="true"
                 android:gravity="center"
-                android:text="不限"
+                android:text="周日班"
                 android:textColor="@color/class_type_day_area_word_color_sel"
                 android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/day_area_day"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="6dp"
-                android:background="@drawable/class_type_day_area_sel"
-                android:button="@null"
-                android:gravity="center"
-                android:text="白班"
-                android:textColor="@color/class_type_day_area_word_color_sel"
-                android:textSize="14sp" />
-
 
             <RadioButton
                 android:id="@+id/day_area_night"
@@ -71,19 +121,36 @@
                 android:textColor="@color/class_type_day_area_word_color_sel"
                 android:textSize="14sp" />
 
+
             <RadioButton
-                android:id="@+id/day_area_weekend"
+                android:id="@+id/day_area_nightA"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/class_type_day_area_sel"
                 android:button="@null"
                 android:gravity="center"
-                android:text="周末班"
+                android:text="晚A班"
+                android:textColor="@color/class_type_day_area_word_color_sel"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/day_area_nightB"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/class_type_day_area_sel"
+                android:button="@null"
+                android:gravity="center"
+                android:text="晚B班"
                 android:textColor="@color/class_type_day_area_word_color_sel"
                 android:textSize="14sp" />
         </RadioGroup>
+        <!--sss-->
 
+
+
+        <!--ss-->
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
